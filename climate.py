@@ -48,11 +48,14 @@ selection = ['DecJanFeb', 'MarAprMay', 'JunJulAug', 'SepOctNov']
 
 season_df = temp_df.loc[temp_df["Months"].isin(selection)]
 
+#filter by months
 month_df = temp_df.loc[(~temp_df["Months"].isin(selection)) & (temp_df["Months"] != 'Meteorological year') ]
 
-
-
-print(temp_df.head())
+# filter Meteorological year
+meteor_df = temp_df.loc[temp_df["Months"] == 'Meteorological year' ]
+# Calculate avg temp per Meteorological year
+meteor_df['avg_temp']= meteor_df.mean(axis =1)
+meteor_id_df = meteor_df.set_index('Area')
 
 session.close() 
 
@@ -63,7 +66,7 @@ session.close()
 def launchPage() :   
 
     # Average Temperature
-    avg_temp = meteor_df['avg_temp']
+    avg_temp = meteor_id_df['avg_temp']
 
     #calculate avg co2 emission per country
     avg_co2 =  emission_df.groupby("Entity").agg({'AnnualCO2emissions':'mean'})
