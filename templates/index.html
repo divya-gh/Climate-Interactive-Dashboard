@@ -1,11 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Climate Change Dashboard</title>
+
+  <!--Boot Strap-->
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+   <!-- Leaflet CSS -->
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin="" />
+
+    <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="static/css/style.css">
+
 </head>
-<body>
-    
+
+<body style='background-color:black;'>
+
+  <div class="container" style='background-color:white;'>
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center" style='background-color:rgb(179, 178, 178);'>
+        <h1>Belly Button Biodiversity Dashboard</h1>
+        <p style='font-family:Times New Roman;'>Use the interactive charts below to explore the dataset</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 shadow-lg p-4 mb-5 bg-white rounded">
+        <div class="well" style="font-weight:bold;">
+          <h5 style="font-weight:bold;">Test Subject ID No.:</h5>
+          <select id="selDataset" style="font-weight:bold;"></select>
+        </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Demographic Info</h3>
+          </div>
+          <div id="sample-metadata" class="panel-body font-weight-bolder"></div>
+        </div>
+      </div>
+      <div class="col-md-5 shadow-lg p-4 mb-5 bg-white rounded">
+        <div id="bar"></div>
+      </div>
+      <div class="col-md-5 shadow-lg p-4 mb-5 bg-white rounded">
+        <div id="gauge"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 shadow-lg p-4 mb-5 bg-white rounded">
+        <div id="bubble"></div>
+      </div>
+    </div>
+  </div>
+
+   <!-- D3 JavaScript -->
+   <script src="https://d3js.org/d3.v5.min.js"></script>
+   <!--Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- Data file-->
+  <script src="static/data/samples.json"></script>  
+  <!-- API key -->
+  <script type="text/javascript" src="static/js/config.js"></script>
+  <!--Our javaScript file-->
+  <script src="static/js/launch.js"></script>
+  <!--<script src="./static/js/bonus.js"></script>-->
+  
+  
 </body>
+
 </html>
