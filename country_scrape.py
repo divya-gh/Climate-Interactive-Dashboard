@@ -33,6 +33,9 @@ for div in divs:
 #--------PUT LIST INTO DATAFRAME TO USE LATER----------------
 flag_df = pd.DataFrame(country_flags)
 
+#--------UPDATE COUNTRY NAMES TO MATCH DEMO DATAFRAMES-------
+flag_df['name'] = flag_df['name'].replace(['U.A.E.','U.S.', 'U.K.', 'DRC', 'CAR', 'Czechia', 'St. Vincent Grenadines'],['United Arab Emirates','United States','United Kingdom', 'DR Congo', 'Central Aftican Republic', 'Czech Republic (Czechia)', 'St. Vincent & Grenadines'])
+
 #----WEBSCRAPE DIFF WEBSITE FOR DEMO--------
 #OPEN BROWSER AND NAVIGATE TO WEBSITE FOR DEMO-----
 demo_url = "https://www.worldometers.info/world-population/population-by-country/"
@@ -80,7 +83,35 @@ for row in table_rows:
 demo_df = pd.DataFrame(country_demo)
 
 #---------MERGE BOTH DATAFRAMES--------------
-country_demo_df = pd.merge(demo_df, flag_df, on='name')
+country_demo_df = pd.merge(demo_df, flag_df, on='name', how='left')
+
+#---------SCRAPE FOR LATITUDE AND LONGITUDE----------
+#--OPEN BROWSER AND  NAVIAGATE TO PAGE---------------
+coord_url = "https://developers.google.com/public-data/docs/canonical/countries_csv"
+browser.visit(coord_url) 
+myhtml = browser.html  
+soup = BeautifulSoup(myhtml, 'html.parser')
+
+#--------CREATE NEW LIST FOR LAT/LONG-----------------------
+country_coord = []
+
+#---------USING BEAUTIFUL SOUP TO GET INTO HTML-------------------
+table_rows = table.find_all('tr')
+
+#---------LOOPING THROUGH ROWS---------------------------------
+for row in table_rows[1:]:
+    table_data = row.find_all('td')
+    country = table_data[3].text
+    lat = table_data[1].text
+    long = table_data[2].text
+    # APPEND TO COORDINATE LIST
+    country_coord.append({'name': country, 'latitude': lat, 'longitude':long})
+
+#------------PUT LIST INTO DATAFRAME--------------------------------
+country_coord_df = pd.DataFrame(country_coord)
+
+#------------MERGE WITH MERGED DATAFRAME---------------------------
+country_df = pd.merge(country_demo_df, country_coord_df, on='name', how='left')
 
 #---------PUSH MERGED DATAFRAME TO SQLITE DATABASE TO USE LATER----------
 from sqlalchemy import create_engine
@@ -88,6 +119,6 @@ engine = create_engine('sqlite:///static/data/climateDB.db', echo=True)
 sqlite_connection = engine.connect()
 
 sqlite_table = 'country_demo'
-country_demo_df.to_sql(sqlite_table, sqlite_connection)
+country_df.to_sql(sqlite_table, sqlite_connection, if_exists='replace')
 
 sqlite_connection.close()
