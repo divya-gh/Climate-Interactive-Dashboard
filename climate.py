@@ -1,4 +1,9 @@
 # dependencies
+import os
+#clear Screen
+os.system("cls")
+
+
 import pandas as pd
 import numpy as np
 import sqlalchemy
@@ -63,6 +68,8 @@ session.close()
 ##Functions
 ##====================================================================##
 
+## Return launchPage
+
 def launchPage() :   
 
     # Average Temperature
@@ -109,7 +116,87 @@ def launchPage() :
 
     return print(meta)
 
-launchPage()
+##############################################################################################
+
+## Return avg_temp by season
+def get_season() :
+
+    #Calculate Mean temp by country and by seasons from season_df
+    season_country_group_df = season_df.groupby(['Area','Months']).mean()
+
+    #Drop field1
+    season_country_mean= season_country_group_df.drop('field1', 1)
+
+    #Get Years 
+    year = season_country_mean.columns
+
+    #Get unique Countries 
+    country_list = season_country_mean.index
+    countries = [item[0] for item in country_list]
+    unique_countries = []
+    for item in countries:
+        if(item not in unique_countries):
+            unique_countries.append(item)
+
+    #Create an object with keys [countries, year, winter,Spring,Summer and Fall]
+    # Set 'Data Found ' to 'Yes' or 'No' for each country 
+    #Initialize the arrays
+    season_list = []
+    avg_temp_list =[]
+
+    #Get seasons for each country
+    for country in unique_countries:
+        #clear the counter for the next country
+        avg_temp_list.clear()
+
+        #Append each country with its data to a list
+        country_df = season_country_mean.loc[country,:]
+        avg_temp_list.append(country_df.values)
+
+        #Find the length for no. of seasons
+        print('No. of seasons: ', format(len(avg_temp_list[0])))
+
+        #Create an object if length is equal to 4
+        if len(avg_temp_list[0]) == 4:
+            season_obj ={
+                'Country': country,
+                'Year': year,
+                'Winter':avg_temp_list[0][0],
+                'Spring':avg_temp_list[0][1],
+                'Summer':avg_temp_list[0][2],
+                'Fall':avg_temp_list[0][3],
+                'Data Found':'yes'
+                }
+        #If length is 3, check to see if Countries have long summer and dry winter . If so, exclude 'fall'
+        elif len(avg_temp_list[0]) == 3 :
+            print(f'...............\n Country: {country}')
+            print(season_country_mean.loc[country,:])
+            print(avg_temp_list[0])
+            season_obj ={
+                'Country': country,
+                'Year': year,
+                'Winter':avg_temp_list[0][0],
+                'Spring':avg_temp_list[0][1],
+                'Summer':avg_temp_list[0][2],
+                'Data Found':'yes'
+                }
+        #Set No data found if length is < 3
+        else:
+            print(f'..........\nCountry: {country}')
+            print(season_country_mean.loc[country,:])
+            print(avg_temp_list[0])
+            season_obj ={ 'Data Found' :'No' }
+
+        #Append the object to a list
+        season_list.append(season_obj)
+    return season_list
+
+
+###############################################################################
+#Call the functions to check
+#launchPage()
+avg_temp_by_season = get_season()
+print(avg_temp_by_season)
 
     
 
