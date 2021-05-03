@@ -10,7 +10,7 @@
   <!--Boot Strap-->
   <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
   
    <!-- Leaflet CSS -->
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
@@ -18,51 +18,47 @@
    crossorigin="" />
 
     <!-- Our CSS -->
-  <link rel="stylesheet" type="text/css" href="static/css/style.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/style.css?version=1">
 
 </head>
 
 <body style='background-color:black;'>
 
-  <div class="container" style='background-color:white;'>
-    <div class="row">
-      <div class="col-md-10 text-left" style='background-color:rgb(179, 178, 178);font-family:Times;font-size:10px;'>
-        <h1 class="pt-3 mb-0">Interactive climate Change Dashboard</h1>
-        <p style='font-family:Times New Roman;'>.......</p>        
+  <div class="container-fluid " style='background-color:white;'>
+    <!--row 1-->
+    <div class="row ml-5 mr-5 ">
+      <div class="col-xs-10 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 text-left" style='background-color:rgb(179, 178, 178);font-family:Times;'>
+        <p class="pt-3 mb-0 font-italic set_font_size">Interactive climate Change Dashboard</p> 
       </div>
-      <div class="col-md-2 text-left pr-0" style='background-color:rgb(179, 178, 178);'>
-        <div class="pb-0 pt-4 ">
-          <a href="#!" class="btn btn-primary active p-1 d-flex" style="line-height:1px;height:70px;" ><input class="w-100"  Responsive image" type="image" src="static\Image\worldMap_button.png" /></a>
+      <div class="col-xs-2 col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-left pr-0" style='background-color:rgb(179, 178, 178);'>
+        <div class="pt-4">
+          <a href="#!" class="btn btn-primary active p-1 w-75  d-flex float-right float-bottom" style="line-height:1px;height:70px;" ><input class="w-100"  alt="Responsive image" type="image" src="static\Image\worldMap_button.png" /></a>
         </div>       
       </div>
-
     </div>
-    <div class="row">
-      <div class="col-md-2 shadow-lg p-4 mb-5 bg-white rounded">
-        
-        <div class="well" style="font-weight:bold;">
-          <h5 style="font-weight:bold;">Select A Country</h5>
+    <!--row 2-->
+    <div class="row row ml-5 mr-5">
+      <div class="col-2  border border-dark rounded-lg">        
+        <div class="mt-4" style="font-weight:bold;">
+          <h5 style="font-weight:bold;font-size:16px;">Select A Country</h5>
           <select id="selDataset" style="font-weight:bold;"></select>
         </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Demographic Info</h3>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 mt-5 p-0">
+              <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <h3 class="panel-title" style="font-weight:bold;font-size:16px;">Demographic Info</h3>
+                </div>
+                <div id="sample-metadata" class="panel-body font-weight-bolder"></div>
+              </div>
+            </div>
           </div>
-          <div id="sample-metadata" class="panel-body font-weight-bolder"></div>
-        </div>
+        </div>        
       </div>
-      <div class="col-md-5 shadow-lg p-4 mb-5 bg-white rounded">
-        <div id="bar"></div>
-      </div>
-      <div class="col-md-5 shadow-lg p-4 mb-5 bg-white rounded">
-        <div id="gauge"></div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 shadow-lg p-4 mb-5 bg-white rounded">
-        <div id="bubble"></div>
-      </div>
-    </div>
+      <div class="col-12">
+        <div id="map"></div>
+      </div>      
   </div>
 
    <!-- D3 JavaScript -->
