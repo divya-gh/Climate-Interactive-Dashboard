@@ -24,21 +24,21 @@
 
 <body style='background-color:black;'>
 
-  <div class="container" style='background-color:white;'>
-    <div class="row">
-      <div class="col-md-10 text-left" style='background-color:rgb(179, 178, 178);font-family:Times;font-size:10px;'>
-        <h1 class="pt-3 mb-0">Interactive climate Change Dashboard</h1>
-        <p style='font-family:Times New Roman;'>.......</p>        
+  <div class="container-fluid " style='background-color:white;'>
+    <!--row 1-->
+    <div class="row ml-5 mr-5 ">
+      <div class="col-xs-10 col-xs-10 col-sm-10 col-md-10 col-lg-9 col-xl-9 text-left" style='background-color:rgb(179, 178, 178);font-family:Times;'>
+        <h1 id ="logo" class="pt-3 mb-0 font-italic">Interactive climate Change Dashboard</h1> 
       </div>
-      <div class="col-md-2 text-left pr-0" style='background-color:rgb(179, 178, 178);'>
-        <div class="pb-0 pt-4 ">
-          <a href="#!" class="btn btn-primary active p-1 w-75  d-flex float-right" style="line-height:1px;height:70px;" ><input class="w-100"  Responsive image" type="image" src="static\Image\worldMap_button.png" /></a>
+      <div class="col-xs-2 col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-left pr-0" style='background-color:rgb(179, 178, 178);'>
+        <div class="pt-4">
+          <a href="#!" class="btn btn-primary active p-1 w-75  d-flex float-right float-bottom" style="line-height:1px;height:70px;" ><input class="w-100"  Responsive image" type="image" src="static\Image\worldMap_button.png" /></a>
         </div>       
       </div>
-
     </div>
-    <div class="row">
-      <div class="col-md-2 shadow-lg p-4 mb-5 bg-white rounded">
+    <!--row 2-->
+    <div class="row row ml-5 mr-5">
+      <div class="col-2  bg-white rounded">
         
         <div class="well" style="font-weight:bold;">
           <h5 style="font-weight:bold;">Select A Country</h5>
@@ -51,7 +51,7 @@
           <div id="sample-metadata" class="panel-body font-weight-bolder"></div>
         </div>
       </div>
-      <div class="col-md-5 shadow-lg p-4 mb-5 bg-white rounded">
+      <div class="col-5 shadow-lg p-4 mb-5 bg-white rounded">
         <div id="bar"></div>
       </div>
       <div class="col-md-5 shadow-lg p-4 mb-5 bg-white rounded">
