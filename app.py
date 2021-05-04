@@ -16,6 +16,7 @@ def welcome():
     # print(launch_data)
     return render_template("index.html", meta_data_launch=launch_data)
 
+
 @app.route("/map_data")
 def initMap():
     launch_data = launchPage()
@@ -29,6 +30,9 @@ def getPlots(country):
         #annualData: function_name()
     }
     return jsonify(plot_data)
+
+ 
+
 
  
 if __name__ == '__main__':
