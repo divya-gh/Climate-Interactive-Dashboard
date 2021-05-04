@@ -39,17 +39,15 @@ def initMap():
 @app.route("/season_data/<country>")
 def get_season_data(country):
 
-    #Call climate.py get_season 
+    #Call climate.py get data by season per country 
     season_data = climate_data.get_season(country)
     return jsonify(season_data)
 
-@app.route("/months_data")
-def getMonthsPlots():
-    #season_data = {
-    #    seasonalData: climate_data.get_season(), 
-    #    #annualData: function_name()
-    #}
-    months_data = climate_data.get_months()
+@app.route("/months_data/<country>")
+def get_months_data(country):
+
+    #Call climate.py get data by months per country
+    months_data = climate_data.get_months(country)
     return jsonify(months_data )
  
 

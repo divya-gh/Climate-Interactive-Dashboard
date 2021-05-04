@@ -208,39 +208,44 @@ def get_season(country='United States of America'):
 # function to return avg_temp by months for each Country
 #-----------------------------------------------------------
 
-def get_months():
-    #Call get_mean_and_year function to get avg_temp and years
-    months_country_mean, year = get_mean_and_year(month_df) 
+def get_months(country='United States of America'):
 
-    #Call the function to get unique Countries 
-    unique_countries = get_unique_countries(months_country_mean)
+    #Get avg_temp change by season for the selected country
+    months_country_mean = month_df.loc[month_df['Area'] == country] 
+    months_country_mean.set_index("Months" , inplace=True)
 
-    # create an object for each month and append it to a list
+    #Drop unwanted fields
+    months_country_mean = months_country_mean.drop(['field1','Area', 'Element', 'Unit'], 1)
+    #Get years data
+    year = months_country_mean.columns
+
+    # create a lsit of objects for each month
     months_list = []
-    for country in unique_countries:
-        country_df = months_country_mean.loc[country,:]
-        #print(country_df)
-        # Get months for each country
-        month_index = country_df.index
+    # Get months for each country
+    month_index = months_country_mean.index
 
-        months_obj ={
-        'Country': country,       
+    #Create an object to hold keys[]
+    months_obj ={
+            'Country': country,       
                 }
-        if len(month_index) > 4:
-            months_obj['Year'] =list(np.ravel(year))
-            for item in month_index:
-                months_obj[item] = list(np.ravel(country_df.loc[item].values)),
+    #Check to see if the country has data for atleast 4 months
+    if len(months_country_mean) > 4:
+        months_obj['Year'] =list(np.ravel(year))
 
-            #print(country_df.loc[item].values)
-            months_obj["Data Found"] = 'Yes'    
+        #Get data for each month
+        for item in month_index:
+            months_obj[item] = list(np.ravel(months_country_mean.loc[item].values)),
+        
+        #set data found to 'yes'
+        months_obj["Data Found"] = 'Yes'    
 
-        else:
-            months_obj["Data Found"] = 'No' 
-            #print(f'...............\n Country: {country}\n')
-            #print(country_df)
-            #print(months_obj)
+    else:
+        #if the country has less than 4 months of data,set Data Found to 'No'
+        months_obj["Data Found"] = 'No' 
+        #print(f'...............\n {months_country_mean}\n')
+        
 
-        months_list.append(months_obj)
+    months_list.append(months_obj)
 
     return months_list
 
