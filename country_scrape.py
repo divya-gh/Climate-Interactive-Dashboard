@@ -25,10 +25,13 @@ divs = soup.find_all('div', class_="col-md-4")
 
 #--------LOOPING THROUGH THE DIVS TO PULL IMAGE HREF AND COUNTRY NAME----
 for div in divs:
-    image_url = f'https://www.worldometers.info{div.a["href"]}'
-    country_name = div.text
-    #--------APPENDING INFO TO LIST------------------
-    country_flags.append({'name': country_name, 'image_url': image_url})
+    try:
+        image_url = f'https://www.worldometers.info{div.a["href"]}'
+        country_name = div.text
+        #--------APPENDING INFO TO LIST------------------
+        country_flags.append({'name': country_name, 'image_url': image_url})
+    except:
+        print('error found')
 
 #--------PUT LIST INTO DATAFRAME TO USE LATER----------------
 flag_df = pd.DataFrame(country_flags)
@@ -96,6 +99,7 @@ soup = BeautifulSoup(myhtml, 'html.parser')
 country_coord = []
 
 #---------USING BEAUTIFUL SOUP TO GET INTO HTML-------------------
+table = soup.find('tbody')
 table_rows = table.find_all('tr')
 
 #---------LOOPING THROUGH ROWS---------------------------------
