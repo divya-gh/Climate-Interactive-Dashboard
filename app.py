@@ -22,21 +22,25 @@ app.config['JSON_SORT_KEYS'] = False
 def welcome():
     launch_data = climate_data.launchPage()
     # print(launch_data)
-    return render_template("index.html", meta_data_launch=list(launch_data))
+    return render_template("index.html")
 
 
-@app.route("/map_data")
+#------------------------------------------------------------------------------------------#
+#Functions to get data by country
+#------------------------------------------------------------------------------------------#
+
+# Flask Api to to get country, overall avg_temp change/ averall avg_co2 emission per country
+@app.route("/launch_data")
 def initMap():
     launch_data = climate_data.launchPage()
     return jsonify(launch_data)
 
-@app.route("/season_data")
-def getPlots():
-    #season_data = {
-    #    seasonalData: climate_data.get_season(), 
-    #    #annualData: function_name()
-    #}
-    season_data = climate_data.get_season()
+#Get Data by Season per country
+@app.route("/season_data/<country>")
+def get_season_data(country):
+
+    #Call climate.py get_season 
+    season_data = climate_data.get_season(country)
     return jsonify(season_data)
 
 @app.route("/months_data")
