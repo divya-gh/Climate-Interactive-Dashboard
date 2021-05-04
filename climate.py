@@ -107,7 +107,7 @@ def launchPage() :
     #   }  
     meta ={
         'country' : country_name,
-        'tool_tip' : [{'c_name': country_name,
+        'tool_tip' : [{
                     'avg_temp':avg_temp,
                     'avg_co2' : new_Avg_c02                    
                     }]
@@ -116,27 +116,53 @@ def launchPage() :
 
     return print(meta)
 
+
+
+
+
 ##############################################################################################
+#Function to calculate mean and years for seasonal and months data
+#------------------------------------------------------------------
 
-## Return avg_temp by season
-def get_season() :
+def get_mean_and_year(df):
+    #Groupby countries and months/seasons to get avg.change in temp for each country
+    grouped_df = df.groupby(['Area','Months'],sort=False).mean()
 
-    #Calculate Mean temp by country and by seasons from season_df
-    season_country_group_df = season_df.groupby(['Area','Months']).mean()
+    #Rename and drop field1
+    grouped_df_mean= grouped_df.drop('field1', 1)
+    
+    #get years
+    year = grouped_df_mean.columns
+    
+    return grouped_df_mean, year 
 
-    #Drop field1
-    season_country_mean= season_country_group_df.drop('field1', 1)
 
-    #Get Years 
-    year = season_country_mean.columns
+#############################################################################################
+#Function to get unique Countries
+#-----------------------------------------
 
-    #Get unique Countries 
-    country_list = season_country_mean.index
+def get_unique_countries(mean_df):     
+    country_list = mean_df.index
     countries = [item[0] for item in country_list]
     unique_countries = []
     for item in countries:
         if(item not in unique_countries):
             unique_countries.append(item)
+    return unique_countries
+
+
+
+###############################################################################################
+## Function to calculate avg_temp by season
+#--------------------------------------------
+
+def get_season() :
+
+    #Call get_mean_and_year function to get avg_temp and years
+    season_country_mean, year = get_mean_and_year(season_df) 
+
+    #Call function to get unique Countries 
+    unique_countries = get_unique_countries(season_country_mean)
 
     #Create an object with keys [countries, year, winter,Spring,Summer and Fall]
     # Set 'Data Found ' to 'Yes' or 'No' for each country 
@@ -154,7 +180,7 @@ def get_season() :
         avg_temp_list.append(country_df.values)
 
         #Find the length for no. of seasons
-        print('No. of seasons: ', format(len(avg_temp_list[0])))
+        #print('No. of seasons: ', format(len(avg_temp_list[0])))
 
         #Create an object if length is equal to 4
         if len(avg_temp_list[0]) == 4:
@@ -170,8 +196,8 @@ def get_season() :
         #If length is 3, check to see if Countries have long summer and dry winter . If so, exclude 'fall'
         elif len(avg_temp_list[0]) == 3 :
             print(f'...............\n Country: {country}')
-            print(season_country_mean.loc[country,:])
-            print(avg_temp_list[0])
+            #print(season_country_mean.loc[country,:])
+            #print(avg_temp_list[0])
             season_obj ={
                 'Country': country,
                 'Year': year,
@@ -184,7 +210,7 @@ def get_season() :
         else:
             print(f'..........\nCountry: {country}')
             print(season_country_mean.loc[country,:])
-            print(avg_temp_list[0])
+            #print(avg_temp_list[0])
             season_obj ={ 'Data Found' :'No' }
 
         #Append the object to a list
@@ -192,12 +218,58 @@ def get_season() :
     return season_list
 
 
+#################################################################################
+# function to return avg_temp by months for each Country
+#-----------------------------------------------------------
+
+def get_months():
+    #Call get_mean_and_year function to get avg_temp and years
+    months_country_mean, year = get_mean_and_year(month_df) 
+
+    #Call the function to get unique Countries 
+    unique_countries = get_unique_countries(months_country_mean)
+
+    # create an object for each month and append it to a list
+    months_list = []
+    for country in unique_countries:
+        country_df = months_country_mean.loc[country,:]
+        #print(country_df)
+        # Get months for each country
+        month_index = country_df.index
+
+        months_obj ={
+        'Country': country,       
+                }
+        if len(month_index) > 4:
+            months_obj['Year'] =year
+            for item in month_index:
+                months_obj[item] = country_df.loc[item].values,
+
+            #print(country_df.loc[item].values)
+            months_obj["Data Found"] = 'Yes'    
+
+        else:
+            months_obj["Data Found"] = 'No' 
+            #print(f'...............\n Country: {country}\n')
+            #print(country_df)
+            #print(months_obj)
+
+        months_list.append(months_obj)
+
+    return months_list
+
+
+
+
+
 ###############################################################################
 #Call the functions to check
 #launchPage()
 avg_temp_by_season = get_season()
-print(avg_temp_by_season)
+#print(avg_temp_by_season)
 
+avg_temp_by_months= get_months()
+#print(avg_temp_by_months)
     
 
 
