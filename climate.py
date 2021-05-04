@@ -24,7 +24,7 @@ Base = automap_base()
 Base.prepare(engine, reflect =True)
 
 # View all of the classes that automap found
-print(Base.classes.keys())
+#print(Base.classes.keys())
 
 # Save references to each table
 Emission = Base.classes.CO2_emission
@@ -42,7 +42,7 @@ results_emission = session.query(Emission).filter(Emission.Year >= 1961)
 
 emission_df = pd.read_sql(results_emission.statement, session.connection())
 
-print(emission_df.head())
+#print(emission_df.head())
 results_temp = session.query(Temp_change)
 
 #print(results) 
@@ -58,11 +58,14 @@ month_df = temp_df.loc[(~temp_df["Months"].isin(selection)) & (temp_df["Months"]
 
 # filter Meteorological year
 meteor_df = temp_df.loc[temp_df["Months"] == 'Meteorological year' ]
+meteor_df_new = meteor_df.copy()
+
 # Calculate avg temp per Meteorological year
-meteor_df['avg_temp']= meteor_df.mean(axis =1)
-meteor_id_df = meteor_df.set_index('Area')
+meteor_df_new['avg_temp']= round(meteor_df_new.mean(axis =1),3)
+meteor_id_df = meteor_df_new.set_index('Area')
 
 session.close() 
+
 
 ##===================================================================##
 ##Functions
@@ -72,31 +75,25 @@ session.close()
 
 def launchPage() :   
 
-    # Average Temperature
-    avg_temp = meteor_id_df['avg_temp']
-
-    #calculate avg co2 emission per country
+    #calculate overall avg_co2 emission per country
     avg_co2 =  emission_df.groupby("Entity").agg({'AnnualCO2emissions':'mean'})
+    avg_co2 = round(avg_co2/1000000,3) ## converting GT to Mega ton for the tooltip
 
-    #Find countries by temp change
-    country_name = temp_df['Area'].unique()
+    #Merge Temp_change by meteor year per country to Avg_Co2 Emission df
+    merged_co2_country =meteor_id_df.merge(avg_co2, how = 'right',  left_index=True, right_index=True,)
 
-    # Merge Countries in temp_change to Co2 Emission
-    country_name_df = pd.DataFrame(country_name)
-    merged_co2_country =country_name_df.merge(avg_co2, how = 'outer', left_on=0, right_on='Entity', left_index=False, right_index=False,)
     #find null
     merged_co2_country.isna().sum()
     #fill 0
     merged_co2_country = merged_co2_country.fillna(0)
-    #find null
+    #find null again
     merged_co2_country.isna().sum()
 
-    #New Avg Co2 Emission per country
-    new_Avg_c02 = merged_co2_country['AnnualCO2emissions']
-    new_Avg_c02 = round(new_Avg_c02/1000000,3) ## converting GT to Mega ton for the tooltip
+    #Get New Countries from the merged DF
+    New_Countires = merged_co2_country.index
 
     #Create a dictionary holding above values
-     #meta ={
+     #meta = [{
     #    'country' : country_name,
     #    'demo_info' : [web scraped data],
     #    'tool_tip' : [{'c_name': country_name,
@@ -104,17 +101,24 @@ def launchPage() :
     #                'avg_co2' : new_Avg_c02,
     #                'population':population from web scraping
     #                }]
-    #   }  
-    meta ={
-        'country' : country_name,
-        'tool_tip' : [{
-                    'avg_temp':avg_temp,
-                    'avg_co2' : new_Avg_c02                    
-                    }]
-            }  
+    #   } ]
+
+    #New Code---------------------------------------------------
+
+    meta = []
+
+    for country in New_Countires:
+        temp_co2_obj = {
+                        "Country":country,
+                        "Avg Temp Change":merged_co2_country.loc[country,"avg_temp"],
+                        "Avg Co2 Change":merged_co2_country.loc[country,"AnnualCO2emissions"],
+                        }
+        meta.append(temp_co2_obj)
 
 
-    return print(meta)
+
+
+    return meta
 
 
 
@@ -156,7 +160,7 @@ def get_unique_countries(mean_df):
 ## Function to calculate avg_temp by season
 #--------------------------------------------
 
-def get_season() :
+def get_season():
 
     #Call get_mean_and_year function to get avg_temp and years
     season_country_mean, year = get_mean_and_year(season_df) 
@@ -186,30 +190,30 @@ def get_season() :
         if len(avg_temp_list[0]) == 4:
             season_obj ={
                 'Country': country,
-                'Year': year,
-                'Winter':avg_temp_list[0][0],
-                'Spring':avg_temp_list[0][1],
-                'Summer':avg_temp_list[0][2],
-                'Fall':avg_temp_list[0][3],
+                'Year': list(np.ravel(year)),
+                'Winter':list(np.ravel(avg_temp_list[0][0])),
+                'Spring':list(np.ravel(avg_temp_list[0][1])),
+                'Summer':list(np.ravel(avg_temp_list[0][2])),
+                'Fall':list(np.ravel(avg_temp_list[0][3])),
                 'Data Found':'yes'
                 }
         #If length is 3, check to see if Countries have long summer and dry winter . If so, exclude 'fall'
         elif len(avg_temp_list[0]) == 3 :
-            print(f'...............\n Country: {country}')
+            #print(f'...............\n Country: {country}')
             #print(season_country_mean.loc[country,:])
             #print(avg_temp_list[0])
             season_obj ={
                 'Country': country,
-                'Year': year,
-                'Winter':avg_temp_list[0][0],
-                'Spring':avg_temp_list[0][1],
-                'Summer':avg_temp_list[0][2],
+                'Year': list(np.ravel(year)),
+                'Winter':list(np.ravel(avg_temp_list[0][0])),
+                'Spring':list(np.ravel(avg_temp_list[0][1])),
+                'Summer':list(np.ravel(avg_temp_list[0][2])),
                 'Data Found':'yes'
                 }
         #Set No data found if length is < 3
         else:
-            print(f'..........\nCountry: {country}')
-            print(season_country_mean.loc[country,:])
+            #print(f'..........\nCountry: {country}')
+            #print(season_country_mean.loc[country,:])
             #print(avg_temp_list[0])
             season_obj ={ 'Data Found' :'No' }
 
@@ -241,9 +245,9 @@ def get_months():
         'Country': country,       
                 }
         if len(month_index) > 4:
-            months_obj['Year'] =year
+            months_obj['Year'] =list(np.ravel(year))
             for item in month_index:
-                months_obj[item] = country_df.loc[item].values,
+                months_obj[item] = list(np.ravel(country_df.loc[item].values)),
 
             #print(country_df.loc[item].values)
             months_obj["Data Found"] = 'Yes'    
@@ -257,8 +261,6 @@ def get_months():
         months_list.append(months_obj)
 
     return months_list
-
-
 
 
 
