@@ -50,7 +50,12 @@ def get_months_data(country):
     months_data = climate_data.get_months(country)
     return jsonify(months_data )
  
+@app.route("/scatter_data/<country>")
+def get_scatter_data(country):
 
+    #Call climate.py get data by months per country
+    scatter_data = climate_data.get_scatter(country)
+    return jsonify(scatter_data)
 
  
 if __name__ == '__main__':

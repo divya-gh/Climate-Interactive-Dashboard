@@ -37,20 +37,13 @@ session = Session(bind = engine)
 
 #Filter the data for the year >= 1961
 results_emission = session.query(Emission).filter(Emission.Year >= 1961)
-#print(results) 
-
-
 emission_df = pd.read_sql(results_emission.statement, session.connection())
 
 #print(emission_df.head())
 results_temp = session.query(Temp_change)
-
-#print(results) 
-
 temp_df = pd.read_sql(results_temp.statement, session.connection())
 
 selection = ['DecJanFeb', 'MarAprMay', 'JunJulAug', 'SepOctNov']
-
 season_df = temp_df.loc[temp_df["Months"].isin(selection)]
 
 #filter by months
@@ -166,7 +159,7 @@ def get_season(country='United States of America'):
     #Get years data
     year = season_country_mean.columns.drop(['Area', 'Months'])
 
-    #Create a lsit of objects with keys [countries, year, winter,Spring,Summer and Fall]
+    #Create a list of objects with keys [countries, year, winter,Spring,Summer and Fall]
     # Set 'Data Found ' to 'Yes' or 'No' based on the length of data returned
 
     #Initialize the arrays
@@ -250,6 +243,43 @@ def get_months(country='United States of America'):
     return months_list
 
 
+#################################################################################
+# function to return scatter data of avg_temp and avg_co2 emission by year
+#-----------------------------------------------------------
+
+def get_scatter(country='United States of America'):
+    #Get Average Temp Change per year for the selected Country , Transpose table and reset index
+    temp_country = meteor_df.loc[meteor_df['Area'] == country].drop(['field1','Area','Months', 'Element', 'Unit'], 1).reset_index(drop=True).T.reset_index()
+    temp_country= temp_country.rename(columns = {'index':'Year', 0:'Avg Temp'})
+
+    #check for dtypes before merging
+    temp_country.dtypes
+    #parse df object to datetime object and get only Years
+    temp_country['Year'] = pd.to_datetime(temp_country['Year'],format="%Y")
+    temp_country['Year'] = pd.DatetimeIndex(temp_country['Year']).year
+
+    #get Co2 Emission Data , drop unwated fields and reset index
+    co2_country = emission_df.loc[emission_df['Entity']==country].drop(['Entity', 'Code'], 1).reset_index(drop=True)
+    co2_country= co2_country.rename(columns = {'Year':'Year', 'AnnualCO2emissions':'CO2 Emission'})
+
+    #check for data types before merging
+    co2_country.dtypes
+
+    #Merge Temp_change Co2 Emission df
+    merged_Temp_co2 =temp_country.merge(co2_country, on="Year", left_index=False, right_index=False)
+
+    #convert Co2 Emission to MegaTon
+    merged_Temp_co2['CO2 Emission'] = round(merged_Temp_co2['CO2 Emission'].apply(lambda x: x/1000000),3)
+
+    # Get data in a object in a list
+    Scatter_obj =  {    "Country":country,
+                        "Year":list(np.ravel(merged_Temp_co2['Year'].astype('float64'))),
+                        "Avg Temp Change":list(np.ravel(merged_Temp_co2['Avg Temp'])), 
+                        "Co2 Emission":list(np.ravel(merged_Temp_co2['CO2 Emission']))
+                    }                               
+    
+    return Scatter_obj
+
 
 ###############################################################################
 #Call the functions to check
@@ -260,5 +290,6 @@ avg_temp_by_season = get_season()
 avg_temp_by_months= get_months()
 #print(avg_temp_by_months)
     
-
+scatter_data_by_country = get_scatter('United States of America')
+#print(scatter_data_by_country)
 
