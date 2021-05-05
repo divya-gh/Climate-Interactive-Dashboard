@@ -3,7 +3,6 @@ import os
 #clear Screen
 os.system("cls")
 
-
 import pandas as pd
 import numpy as np
 import sqlalchemy
@@ -29,7 +28,7 @@ Base.prepare(engine, reflect =True)
 # Save references to each table
 Emission = Base.classes.CO2_emission
 Temp_change = Base.classes.temp_change
-
+Country_demo = Base.classes.country_demo
 #print(Emission)
 
 # Create a session (link) from Python to the sqlite DB
@@ -57,6 +56,15 @@ meteor_df_new = meteor_df.copy()
 meteor_df_new['avg_temp']= round(meteor_df_new.mean(axis =1),3)
 meteor_id_df = meteor_df_new.set_index('Area')
 
+results_Demo = session.query(Country_demo)
+demo_df = pd.read_sql(results_Demo.statement, session.connection(),index_col='index')
+
+demo_sorted_df = demo_df.sort_values(by=["name"]).reset_index(drop=True)
+demo_sorted_df = demo_sorted_df.rename({"name":"Area","population":"Population",
+                                        "density":"Density",
+                                        "land-size":"Land Size","image_url":"Images",
+                                        "latitude":"Lat","longitude":"Lng"},axis='columns')
+
 session.close() 
 
 
@@ -71,9 +79,11 @@ def launchPage() :
     #calculate overall avg_co2 emission per country
     avg_co2 =  emission_df.groupby("Entity").agg({'AnnualCO2emissions':'mean'})
     avg_co2 = round(avg_co2/1000000,3) ## converting GT to Mega ton for the tooltip
+    avg_co2.reset_index(inplace=True)
+    avg_co2 = avg_co2.rename({'Entity':'Area', 'AnnualCO2emissions':'AnnualCO2emissions'}, axis='columns')
 
     #Merge Temp_change by meteor year per country to Avg_Co2 Emission df
-    merged_co2_country =meteor_id_df.merge(avg_co2, how = 'left',  left_index=True, right_index=True,)
+    merged_co2_country =meteor_id_df.merge(avg_co2, how = 'left',  on="Area")
 
     #find null
     merged_co2_country.isna().sum()
@@ -81,6 +91,12 @@ def launchPage() :
     merged_co2_country = merged_co2_country.fillna(0)
     #find null again
     merged_co2_country.isna().sum()
+
+    #merge population data to Temp and Co2 Emission df
+    popu_data = merged_co2_country.merge(demo_sorted_df, how = 'left', on ="Area" )
+
+    popu_data = popu_data[['Area', 'Population','Density', 'Land Size', 'Images', 'Lat','Lng']].fillna(0).set_index("Area",drop=True)
+    merged_co2_country.set_index("Area",inplace=True)
 
     #Get New Countries from the merged DF
     New_Countires = merged_co2_country.index
@@ -99,12 +115,18 @@ def launchPage() :
     #New Code---------------------------------------------------
 
     meta = []
-    #Create a list of objects for overall avg_temp change per country
+
     for country in New_Countires:
         temp_co2_obj = {
                         "Country":country,
                         "Avg Temp Change":merged_co2_country.loc[country,"avg_temp"],
                         "Avg Co2 Change":merged_co2_country.loc[country,"AnnualCO2emissions"],
+                        "Population":popu_data.loc[country,"Population"],
+                        "Density":popu_data.loc[country,"Density"],
+                        "Land Size":popu_data.loc[country,"Land Size"],
+                        "Images":popu_data.loc[country,"Images"],
+                        "Lat":popu_data.loc[country,"Lat"],
+                        "Lng":popu_data.loc[country,"Lng"],
                         }
         meta.append(temp_co2_obj)
 
@@ -290,6 +312,8 @@ avg_temp_by_season = get_season()
 avg_temp_by_months= get_months()
 #print(avg_temp_by_months)
     
-scatter_data_by_country = get_scatter('United States of America')
-#print(scatter_data_by_country)
 
+
+if __name__ == '__main__':
+    scatter_data_by_country = launchPage()
+    print("Launch data\n", scatter_data_by_country)
