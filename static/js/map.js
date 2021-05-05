@@ -64,35 +64,39 @@ function init() {
     d3.json("/launch_data").then((climateData) => {
         d3.json(countriesGeo).then((geoData) => {
             climateData.forEach((country) => {
-                var countryName = country.country_name;
-                var geoCountryName = geoData.features.properties.admin;
-                var climateInfo;
+                var countryName = country.Country;
 
-                if (countryName === geoCountryName) {
-                    climateInfo = {
-                        averageTemp: climateData.tool_tip.avg_temp,
-                        averageCO2: climateData.tool_tip.avg_co2};
-                        // uncomment when scraped data is added
-                        // population: climateData.tool_tip.population
-                    // };       
-                }
-                else {
-                    climateInfo = {
-                        averageTemp: null,
-                        averageCO2: null};
-                        // uncomment when scraped data is added
-                        // population: null
-                    // };
-                };
+                geoData.forEach((poly) => {
+                    var geoCountryName = poly.properties.ADMIN;
+                    var climateInfo;
+    
+                    if (countryName === geoCountryName) {
+                        climateInfo = {
+                            averageTemp: climateData['Avg Temp Change'],
+                            averageCO2: climateData['Avg Co2 Change'],
+                            population: climateData['Population']
+                        };       
+                    }
+                    else {
+                        climateInfo = {
+                            averageTemp: null,
+                            averageCO2: null,
+                            population: null
+                        };
+                    };
+    
+                    var countryPoly = {
+                        countryName: geoCountryName,
+                        climateInfo: climateInfo,
+                        geometry: geoData.features.geometry 
+                    };
+    
+                    countryPolys.push(countryPoly);
 
-                var countryPoly = {
-                    countryName: geoCountryName,
-                    climateInfo: climateInfo,
-                    geometry: geoData.features.geometry 
-                };
+                })
 
-                countryPolys.push(countryPoly);
             });
+
             console.log(countryPolys);
         });
     });
