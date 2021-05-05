@@ -1,6 +1,6 @@
 ![thermometer pic](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/corters22/Images/thermometer%20pic.png)
 
-This is a question that has been on everyone's mind since June 23, 1988 when Dr James Hansen, director of NASA's Institute for Space Studies testified before the US Senate[(1)]. Since that time, climate change has moved more and more from a scientific debate to a political one. There have been numerous studies done to see if the CO2 emissions are being reduced, the changes of the Earth's temperature, and its affects on the future. 
+This is a question that has been on everyone's mind since June 23, 1988 when Dr James Hansen, director of NASA's Institute for Space Studies testified before the US Senate[(1)]. Since that time, climate change has moved more and more from a scientific debate to a political one. There have been numerous studies done to see if CO2 emissions are being reduced, the changes of the Earth's temperature, and its affects on our future. 
 
 As a project, we have decided to look into the temperature changes of the different countries of the world, spanning a time period of over 60 years, and created a dashboard depicting those changes. This dashboard contains current demographics of each country and has multiple charts that interact with each other to visually display how the temperatures have changed.
 
@@ -12,7 +12,7 @@ The original dataset can be found [here](https://www.kaggle.com/sevgisarac/tempe
 
 **2. CO2 Emissions**
 
-Temperature fluctuations can be caused by many different events, one of which is CO2 emissions. Each country produces different amounts of CO2 dependent on their access to electricity, the total population, the urban population and other factors. We used the data from 
+Temperature fluctuations can be caused by many different events, one of which is CO2 emissions. Each country produces different amounts of CO2 dependent on their access to electricity, the total population, the urban population and other factors. We used the data from https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions and you can find the dataset [here](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/data/annual-co-emissions-by-region.csv).
 
 **3. Country demographics**
 
@@ -29,6 +29,29 @@ Since the CO2 emissions can be influenced by the demographics of the country, th
 **4. Cleaning Data**
 
 AFter pulling the data in from the csv files, the temperature change file was reduced to only include the temperature changes and not the standard deviations. The null values were also dropped. After cleaning the data, it was imported into the sqlite database found [here](https://github.com/divya-gh/Climate-Interactive-Dashboard/edit/main/static/data/climateDB.db).
+
+![world climate pic](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/corters22/Images/Climate%20zones2.png)
+
+<h2 align='center'>Navigation</h2>
+
+Using Flask, the initial html page shows a dropdown option to choose a country, a table of demographics (default United States) and a geoJson map of the world. Once a country is chosen from the dropdown, it will render new charts that display information specific to that country. The header bar is a special kind of chart that shows the increase and decrease of the temperatures by color. Shades of red for warmer and shades of blue for colder. This chart is not interactive, but it sures does look cool. The demographic table will also update. A country can also be chosen by clicking on the country on the map. While the mouse is hovering over the country, a toolTip shows the country name, the population and average temperature change. Since data is not available for all countries, your selection is limited to the highlighted countries on the map. The countries highlighted in red show an average increase in temperature whereas the countires highlighted in blue show a decrease in temperature. After choosing a country and the charts update, the dropdown box is still available to choose a new country.
+
+<h3 align='center'>Charts</h3>
+
+1. Scatter Plot
+
+Shows a correlation of temperature change and year. The size and color of the markers coordinate with population and CO2 emissions. 
+
+2. Line Chart
+
+Shows all the temperature changes for each month of the years for the chosen country.
+
+3. Sunburst Chart
+
+With this chart, you can choose to narrow the line chart by season and then by month.
+
+4. Picture of country with flag(if flag data was found)
+
 
 
 
