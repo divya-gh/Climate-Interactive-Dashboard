@@ -20,9 +20,9 @@ app.config['JSON_SORT_KEYS'] = False
 
 @app.route("/")
 def welcome():
-    launch_data = climate_data.launchPage()
+    countries = climate_data.get_unique_countries()
     # print(launch_data)
-    return render_template("index.html")
+    return render_template("index.html",countries = countries)
 
 
 #------------------------------------------------------------------------------------------#
@@ -34,6 +34,10 @@ def welcome():
 def initMap():
     launch_data = climate_data.launchPage()
     return jsonify(launch_data)
+
+@app.route("/api/v1.0/countries")
+def get_all_countries():
+    return jsonify(climate_data.get_unique_countries()[:165])
 
 #Get Data by Season per country
 @app.route("/season_data/<country>")

@@ -3,6 +3,14 @@ body {
     height:100%;
 }
 
+.bc_color-b {
+    background-color:black;
+}
+.bc_color-w{
+    background-color:rgb(234, 237, 241);
+}
+
+
 .set_font_size{
     word-wrap: break-word;
     -webkit-hyphens: auto;
