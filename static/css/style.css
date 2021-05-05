@@ -21,7 +21,21 @@ body {
     font-size:30px;
 }
 
-/*When your screen as less to 768px*/
+#selDataset {
+    font-weight:bold;
+    border-color:rgb(2, 109, 18)!important;
+    border-width:2px !important;
+    width:12vw !important;
+}
+.panel_font {
+    font-size:1vw;
+    font-weight:bold;
+    padding:1vw;
+    font-family:georgia;
+    border-width:3px !important;
+}
+
+/*When your screen as less than 768px*/
 @media screen and (max-width: 768px) {
     .set_font_size{
         font-size:14px;

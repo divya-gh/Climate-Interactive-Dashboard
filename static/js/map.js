@@ -1,7 +1,7 @@
 var myMap = L.map("map")
             .setView([0,0], 10);
 
-countriesGeo = 'static\data\countries.geojson'
+countriesGeo = '/static/data/countries.geojson'
 
 function buildWorldMap(overlays) {
 
@@ -54,47 +54,53 @@ function buildWorldMap(overlays) {
 };
 
 
+
+
 function init() {
     // Grab a reference to the map element
     var selector = d3.select("#map");
 
     var countryPolys = [];
+    var country = 'China'
+    url = `/launch_data` ;
   
     // Use the list of sample names to populate the select options
-    d3.json("/map_data").then((climateData) => {
-        d3.json(countriesGeo).then((geoData) => {
-            climateData.forEach((country) => {
-                var countryName = country.country_name;
-                var geoCountryName = geoData.features.properties.admin;
-                var climateInfo;
+    d3.json("url").then((climateData) => {
+        console.log(climateData)
 
-                if (countryName === geoCountryName) {
-                    climateInfo = {
-                        averageTemp: climateData.tool_tip.avg_temp,
-                        averageCO2: climateData.tool_tip.avg_co2};
-                        // uncomment when scraped data is added
-                        // population: climateData.tool_tip.population
-                    // };       
-                }
-                else {
-                    climateInfo = {
-                        averageTemp: null,
-                        averageCO2: null};
-                        // uncomment when scraped data is added
-                        // population: null
-                    // };
-                };
+        // d3.json(countriesGeo).then((geoData) => {
+        //     climateData.forEach((country) => {
+        //         var countryName = country.country_name;
+        //         var geoCountryName = geoData.features.properties.admin;
+        //         var climateInfo;
 
-                var countryPoly = {
-                    countryName: geoCountryName,
-                    climateInfo: climateInfo,
-                    geometry: geoData.features.geometry 
-                };
+        //         if (countryName === geoCountryName) {
+        //             climateInfo = {
+        //                 averageTemp: climateData.tool_tip.avg_temp,
+        //                 averageCO2: climateData.tool_tip.avg_co2};
+        //                 // uncomment when scraped data is added
+        //                 // population: climateData.tool_tip.population
+        //             // };       
+        //         }
+        //         else {
+        //             climateInfo = {
+        //                 averageTemp: null,
+        //                 averageCO2: null};
+        //                 // uncomment when scraped data is added
+        //                 // population: null
+        //             // };
+        //         };
 
-                countryPolys.push(countryPoly);
-            });
-            console.log(countryPolys);
-        });
+        //         var countryPoly = {
+        //             countryName: geoCountryName,
+        //             climateInfo: climateInfo,
+        //             geometry: geoData.features.geometry 
+        //         };
+
+        //         countryPolys.push(countryPoly);
+        //     });
+        //     console.log(countryPolys);
+        // });
     });
   };
   
