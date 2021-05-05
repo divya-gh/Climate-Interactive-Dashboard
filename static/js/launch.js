@@ -64,7 +64,7 @@ function demoInfo(country) {
             return obj = {'Country':obj.Country,
                           "Population":obj.Population,
                           "Avg Temp Change":obj['Avg Temp Change'],
-                          "Avg Co2 Emission,":obj['Avg Co2 Change'],
+                          "Avg Co2 Emission":obj['Avg Co2 Change'],
                           "Land Size":obj['Land Size'],
                           "Lat":obj.Lat,
                           "Lon":obj.Lng 

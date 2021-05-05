@@ -10,7 +10,9 @@ body {
     background-color:rgb(234, 237, 241);
 }
 
-
+.col-color {
+    background-color:rgb(11,47,71);
+}
 .set_font_size{
     word-wrap: break-word;
     -webkit-hyphens: auto;
@@ -29,6 +31,7 @@ body {
 }
 .panel_font {
     font-size:1vw;
+    color:white;
     font-weight:bold;
     padding:1vw;
     font-family:georgia;
