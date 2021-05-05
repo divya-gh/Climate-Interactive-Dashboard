@@ -1,7 +1,7 @@
 var myMap = L.map("map")
             .setView([0,0], 10);
 
-countriesGeo = 'static\data\countries.geojson'
+countriesGeo = 'static/data/countries.geojson'
 
 function buildWorldMap(overlays) {
 
