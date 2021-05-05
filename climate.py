@@ -314,6 +314,6 @@ avg_temp_by_months= get_months()
     
 
 
-if __name__ == '__main__':
-    scatter_data_by_country = launchPage()
-    print("Launch data\n", scatter_data_by_country)
+# if __name__ == '__main__':
+    # scatter_data_by_country = launchPage()
+    # print("Launch data\n", scatter_data_by_country)
