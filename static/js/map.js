@@ -61,7 +61,7 @@ function init() {
     var countryPolys = [];
   
     // Use the list of sample names to populate the select options
-    d3.json("/map_data").then((climateData) => {
+    d3.json("/launch_data").then((climateData) => {
         d3.json(countriesGeo).then((geoData) => {
             climateData.forEach((country) => {
                 var countryName = country.country_name;
