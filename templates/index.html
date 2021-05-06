@@ -22,6 +22,9 @@
    <!-- Our CSS -->
   <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 
+  <!-- JQuery from google CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 
 <body class="bc_color-b">
@@ -43,7 +46,7 @@
       <div class="col-2  border border-dark border-right-0 border-top-0 col-color">        
         <div class="mt-5" style="font-weight:bold;">
           <h5 style="font-weight:bold;font-size:13px;color:white;">Select A Country</h5>
-          <select id="selDataset" class="dropdown">
+          <select id="selDataset" class=" selDataset dropdown">
           </select>
         </div>
         <div class="container-fluid">
@@ -60,7 +63,7 @@
         </div>        
       </div>
       <div class="col-10 p-0 border border-dark rounded-lg">
-        <div id="map"></div>
+        <div id="map" class="container-fluid"></div>
       </div>      
   </div>
 
@@ -73,7 +76,7 @@
    <!--Plotly.js -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <!-- Data file-->
-  <!-- <script src="static/data/samples.json"></script>   -->
+  <script src="/static/js/JQueryRenderHTML.js"></script>
   <!-- API key -->
   <!-- <script type="text/javascript" src="static/js/config.js"></script> -->
   <!--Our javaScript file-->

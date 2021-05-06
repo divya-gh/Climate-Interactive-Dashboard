@@ -32,7 +32,7 @@ function init() {
 init();
 
 
-d3.selectAll("#selDataset").on("change", buildPlots)
+d3.select("#selDataset").on("change", buildPlots)
     
 // for each selection option, built plots
 function  buildPlots(){
@@ -40,8 +40,13 @@ function  buildPlots(){
     var country = d3.selectAll('#selDataset').node().value ;
         console.log(country);
 
-    //Get Demo Info for the selected Country
+    //Update Demo Info for the selected Country
     demoInfo(country)
+
+    //Call JQueryRenderHTML
+    //$.getScript('JQueryRenderHTML.js')
+
+    // plotCharts(country)
 
 }
 
@@ -52,9 +57,9 @@ function  buildPlots(){
 function demoInfo(country) {
     // Get Demo info for the selected Country - call API 
     d3.json("/launch_data").then((demoData) => {
-        console.log(demoData)
+        console.log('DemoData:', demoData)
         var countryInfo = demoData.filter(obj => country === obj.Country)
-        console.log(countryInfo)
+        console.log('Old Demo Info: ', countryInfo)
 
         //Get HTML element for Demo Info
         var demoSelector = d3.select("#demo-info");
@@ -79,15 +84,17 @@ function demoInfo(country) {
         Object.entries(countryInfoObj[0]).forEach(([key,value]) => { 
                     demoSelector.append('p').text(`${key}: ${value}`)
                                                                     });
-        demoSelector.attr("class" , 'border border-success panel_font mt-3 pt-4')
-                    
+        demoSelector.attr("class" , 'border border-success panel_font mt-3 pt-4')                  
+
+                  });       
+
+}//End of Demo update
 
 
+//-----------------------------------------------------//
+// Function to update charts per country
+//-----------------------------------------------------//
 
-      });
-
-}
-
-
-
-
+// plotCharts = (country) => {
+//     selector = 
+// }
