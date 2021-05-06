@@ -25,7 +25,7 @@ body {
 
 #selDataset {
     font-weight:bold;
-    border-color:rgb(2, 109, 18)!important;
+    border-color:#5cb85c!important;
     border-width:2px !important;
     width:12vw !important;
 }
@@ -43,4 +43,8 @@ body {
     .set_font_size{
         font-size:14px;
     }
+    #selDataset {
+        width:10vw !important;
+    }
+
 }
