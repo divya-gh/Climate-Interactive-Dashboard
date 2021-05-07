@@ -1,7 +1,14 @@
 var myMap = L.map("leaf")
-            .setView([0,0], 10);
+            .setView([0,0], 3);
 
 countriesGeo = 'static/data/countries.geojson'
+
+// Another solution.... maybe
+// countriesGeo = 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json'
+
+// countries = d3.json(countriesGeo).then(data => data);
+
+country = 'China'
 
 streetLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
@@ -24,52 +31,55 @@ satelliteLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x
 var baseMaps = {
     Streets: streetLayer,
     Satellite: satelliteLayer
-}
+};
 
-// Grabbing our GeoJSON data..
-d3.json(countriesGeo).then(function(data) {
-    // Creating a geoJSON layer with the retrieved data
-    geoJson = L.geoJson(data, {
-    // Style each feature (in this case a neighborhood)
+function getAPIData() {
+    url = `/launch_data` ;
+
+    geoData = d3.json(url).then(data => data);
+
+};
+
+function chooseColor(country) {
+
+    const allowed = [country];
+
+    const filtered = Object.keys(geoData)
+    .filter(key => allowed.includes(key))
+    .reduce((obj, key) => {
+        obj[key] = raw[key];
+        return obj;
+    }, {});
+
+    console.log(filtered);
+
+
+
+
+    return color
+};
+
+function getPopUp(country) {
+
+};
+
+
+// Country GeoJson Styled based on API data
+geoJson = L.geoJson(countriesGeo, {
+    // Style each feature based on avg temp change
     style: function(feature) {
         return {
         color: "white",
-        // Call the chooseColor function to decide which color to color our neighborhood (color based on borough)
-        // fillColor: chooseColor(feature.properties.ADMIN),
+        // fillColor: chooseColor(feature),
         fillColor: "gray",
         fillOpacity: 0.5,
         weight: 1.5
         };
-    },
-    // Called on each feature
-    onEachFeature: function(feature, layer) {
-        // Set mouse events to change map styling
-        layer.on({
-        // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
-        mouseover: function(event) {
-            layer = event.target;
-            layer.setStyle({
-            fillOpacity: 0.9
-            });
-        },
-        // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
-        mouseout: function(event) {
-            layer = event.target;
-            layer.setStyle({
-            fillOpacity: 0.5
-            });
-        },
-        // When a feature (neighborhood) is clicked, it changes the page and shows feature in a small card
-        //   click: function(event) {
-        //     myMap.fitBounds(event.target.getBounds());
-        //   }
-        });
-        // Giving each feature a pop-up with information pertinent to it
-        // layer.bindPopup("<h1>" + feature.properties.ADMIN + "</h1> <hr> <tr>" + feature.properties.borough + "</h2>");
+    }})
+    // .bindPopup("<b>Location: </b>" + location + "<br><b>Magnitude: </b>" + magnitude + "<br><b>Depth: </b>" + depth + "<br><b>Lat,Long: </b>(" + lat +","+ long +")")
+    .addTo(myMap);
 
-    }
-    }).addTo(myMap);
-});
+
 
 // var overlays = {
 //     Countries: geoJson
