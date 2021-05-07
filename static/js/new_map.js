@@ -1,12 +1,51 @@
 var myMap = L.map("leaf")
             .setView([0,0], 3);
 
-countriesGeo = 'static/data/countries.geojson'
 
-// Another solution.... maybe
-// countriesGeo = 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json'
+var countriesGeo = 'https://opendata.arcgis.com/datasets/2b93b06dc0dc4e809d3c8db5cb96ba69_0.geojson'
 
-// countries = d3.json(countriesGeo).then(data => data);
+// Grabbing our GeoJSON data..
+d3.json(countriesGeo).then(function(data) {
+    // Creating a GeoJSON layer with the retrieved data
+    L.geoJson(data, {
+        // // Style each feature based on avg temp change
+        style: function(feature) {
+            return {
+            color: "darkgray",
+            fillColor: chooseColor(feature.properties.COUNTRY),
+            // fillColor: "gray",
+            fillOpacity: 0.6,
+            weight: 1
+            };
+        },
+        // Called on each feature
+        onEachFeature: function(feature, layer) {
+          // Set mouse events to change map styling
+          layer.on({
+            // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
+            mouseover: function(event) {
+              layer = event.target;
+              layer.setStyle({
+                fillOpacity: 0.9
+              });
+            },
+            // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
+            mouseout: function(event) {
+              layer = event.target;
+              layer.setStyle({
+                fillOpacity: 0.6
+              });
+            },
+            // When a feature (country) is clicked, it is enlarged to fit the screen
+            click: function(event) {
+              myMap.fitBounds(event.target.getBounds());
+            }
+          });
+          // Giving each feature a pop-up with information pertinent to it
+          layer.bindPopup(getPopUp(feature.properties.COUNTRY));
+        }
+        }).addTo(myMap);
+  });
 
 country = 'China'
 
@@ -26,58 +65,82 @@ satelliteLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x
     zoomOffset: -1,
     id: "mapbox/satellite-streets-v11",
     accessToken: API_KEY
-    }).addTo(myMap);
+    });
 
 var baseMaps = {
     Streets: streetLayer,
     Satellite: satelliteLayer
 };
 
-function getAPIData() {
-    url = `/launch_data` ;
-
-    geoData = d3.json(url).then(data => data);
-
-};
-
 function chooseColor(country) {
+    url = `/launch_data` ;
+    console.log(country)
 
-    const allowed = [country];
+    d3.json(url).then(function(data) {
+        for (i=0; i< data.length; i++) {
+            if (data[i].Country == country) {
+                avg_temp = data[i]['Avg Temp Change']
+                if (avg_temp > 0) {
+                    var color = "red";
+                }
+                else if (avg_temp < 0) {
+                    var color = "blue";
+                }
+                else {
+                    var color = "gray";
+                };
+            }
+            else {
+                var color = "none";
+                console.log('Country Not Found');
+            };
 
-    const filtered = Object.keys(geoData)
-    .filter(key => allowed.includes(key))
-    .reduce((obj, key) => {
-        obj[key] = raw[key];
-        return obj;
-    }, {});
+        };
+        return color;
+    });    
 
-    console.log(filtered);
-
-
-
-
-    return color
 };
 
 function getPopUp(country) {
+    url = `/launch_data`;
+    console.log(country);
+
+    d3.json(url).then(function(data) {
+        for (i=0; i< data.length; i++) {
+            if (data[i].Country == country) {
+                var popup = "<b>Country: </b>" + data[i]['Country'] + "<br><b>Avg Temp Change: </b>" + data[i]['Avg Temp Change'] + "<br><b>Avg CO2 Change: </b>" + data[i]['Avg Co2 Change'] + "<br><b>Population: </b>" + data[i]['Population'];         
+            }
+            else {
+                var popup = "<b>Country: </b>" + country 
+                console.log('Country Not Found');
+            };
+
+        };
+        return popup;
+    });    
 
 };
 
 
+
+
 // Country GeoJson Styled based on API data
-geoJson = L.geoJson(countriesGeo, {
-    // Style each feature based on avg temp change
-    style: function(feature) {
-        return {
-        color: "white",
-        // fillColor: chooseColor(feature),
-        fillColor: "gray",
-        fillOpacity: 0.5,
-        weight: 1.5
-        };
-    }})
-    // .bindPopup("<b>Location: </b>" + location + "<br><b>Magnitude: </b>" + magnitude + "<br><b>Depth: </b>" + depth + "<br><b>Lat,Long: </b>(" + lat +","+ long +")")
-    .addTo(myMap);
+// var countries = L.geoJson(countriesGeo).addTo(myMap);
+// L.geoJSON(JSON.parse(countriesGeo)).addTo(myMap);
+    
+    // , {
+    // // Style each feature based on avg temp change
+    // style: function(feature) {
+    //     return {
+    //     color: "white",
+    //     // fillColor: chooseColor(feature),
+    //     fillColor: "gray",
+    //     fillOpacity: 0.5,
+    //     weight: 1.5
+    //     };
+    // }})
+    // // .bindPopup("<b>Location: </b>" + location + "<br><b>Magnitude: </b>" + magnitude + "<br><b>Depth: </b>" + depth + "<br><b>Lat,Long: </b>(" + lat +","+ long +")")
+    // .addTo(myMap);
 
 
 
@@ -85,61 +148,20 @@ geoJson = L.geoJson(countriesGeo, {
 //     Countries: geoJson
 // };
 
-// function chooseColor(geoCountryName) {
-//     climateInfo = getPopUp(geoCountryName);
 
-//     if (climateInfo.averageTemp < 0) {
-//         color = "red";
-//     }
-//     if (climateInfo.averageTemp > 0) {
-//         color = "blue";
-//     }
-//     else {
-//         color = "gray";
-//     }
-//     return color
-// };
 
-// function getPopUp(geoCountryName) {
+function init() {
 
-//     // Use the list of sample names to populate the select options
-//     d3.json("/launch_data").then((climateData) => {
-//         climateData.forEach((country) => {
-//             var countryName = country.Country;
-//             var climateInfo;
+    L.control.layers(baseMaps, {
+        collapsed: false
+    }).addTo(myMap);
 
-//             if (countryName === geoCountryName) {
-//                 climateInfo = {
-//                     averageTemp: climateData['Avg Temp Change'],
-//                     averageCO2: climateData['Avg Co2 Change'],
-//                     population: climateData['Population']
-//                 };       
-//             }
-//             else {
-//                 climateInfo = {
-//                     averageTemp: null,
-//                     averageCO2: null,
-//                     population: null
-//                 };
-//             };
-//         });
-//     });
-
-//     return climateInfo;
-// };
-
-// function init() {
-
-//     L.control.layers(baseMaps, {
-//         collapsed: false
-//     }).addTo(myMap);
-
-// };
+};
   
 
   
-//   // Initialize the dashboard
-//   init();
+  // Initialize the dashboard
+  init();
 
 
 ////use divid country for new smaller zoomed in map
