@@ -12,6 +12,9 @@ body {
 
 .col-color {
     background-color:rgb(11,47,71);
+    color:white;
+    font-weight:bold;
+
 }
 .set_font_size{
     word-wrap: break-word;
@@ -41,10 +44,12 @@ body {
 /*When your screen as less than 768px*/
 @media screen and (max-width: 768px) {
     .set_font_size{
-        font-size:14px;
+        font-size:13px;
+        
     }
     #selDataset {
-        width:10vw !important;
+        width:60vw !important;
+        margin-left:30px;;
     }
 
 }

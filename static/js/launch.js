@@ -19,13 +19,7 @@ function init() {
     }); 
 
     //DemoInfo();
-    //BuildWorldMap();
-    
-   
-    //get initial subject ID - Default ID
-    //-----------------------------------//
-
-
+    //BuildWorldMap();  
 
   }
 
@@ -44,7 +38,7 @@ function  buildPlots(){
     demoInfo(country)
 
     //Call JQueryRenderHTML
-    //$.getScript('JQueryRenderHTML.js')
+    slideUp();
 
     // plotCharts(country)
 

@@ -99,7 +99,7 @@ def launchPage() :
     merged_co2_country.set_index("Area",inplace=True)
 
     #Get New Countries from the merged DF
-    New_Countires = merged_co2_country.index
+    New_Countries = merged_co2_country.index
 
     #Create a dictionary holding above values
      #meta = [{
@@ -116,7 +116,7 @@ def launchPage() :
 
     meta = []
 
-    for country in New_Countires:
+    for country in New_Countries:
         temp_co2_obj = {
                         "Country":country,
                         "Avg Temp Change":merged_co2_country.loc[country,"avg_temp"],

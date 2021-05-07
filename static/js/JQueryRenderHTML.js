@@ -1,23 +1,22 @@
-
-//Manipulate Dom when the document is ready
-$(document).ready(function(){
+function slideUp() {
     $("select#selDataset").change(function(){
         
         if($('#leaf').length){
             $('#leaf').slideUp("slow", function(){
              // Code to be executed
                  addDom()	                   
-                                                });
-                            }
+            });
+        }
      else {
        addDom()
            }
          
      
         });         
- 
- });
- 
+}
+//Manipulate Dom when the document is ready
+$(document).ready(slideUp);
+
 
 //-----------------------------------------------------//
 // Function to render DOM elements for charting
@@ -43,9 +42,6 @@ addDom = () => {
     $("#map").append(pieAndScatter);
 
     //---------------------------------------------------------------------------------
-
-
-
     // experiment -remove these later  
     $('#first-chart').css("border", "1px solid black")
     $("div#warming-stripes").text("Im a warming stripes chart")
