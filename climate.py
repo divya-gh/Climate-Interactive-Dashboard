@@ -155,11 +155,12 @@ def get_mean_and_year(df):
 #Function to get unique Countries
 #-----------------------------------------
 
-def get_unique_countries(mean_df):     
-    country_list = mean_df.index
-    countries = [item[0] for item in country_list]
+def get_unique_countries(): 
+
+    country_list = meteor_id_df.index
+    print(len(country_list))
     unique_countries = []
-    for item in countries:
+    for item in country_list:
         if(item not in unique_countries):
             unique_countries.append(item)
     return unique_countries
@@ -314,6 +315,8 @@ avg_temp_by_months= get_months()
     
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
     # scatter_data_by_country = launchPage()
     # print("Launch data\n", scatter_data_by_country)
+    unique_countries = get_unique_countries()
+    #print('countries :' , len(unique_countries))

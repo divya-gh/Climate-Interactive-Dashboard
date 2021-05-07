@@ -1,7 +1,7 @@
 // var myMap = L.map("map")
 //             .setView([0,0], 10);
 
-// countriesGeo = 'static/data/countries.geojson'
+// countriesGeo = '/static/data/countries.geojson'
 
 // function buildWorldMap(overlays) {
 
@@ -101,56 +101,53 @@
 //                     // Add the new marker to the appropriate layer
 //                     newMarker.addTo(layers[stationStatusCode]);
 
-//                 });
 
-//                 // Grabbing our GeoJSON data..
-// d3.json(link).then(function(data) {
-//     // Creating a geoJSON layer with the retrieved data
-//     L.geoJson(data, {
-//       // Style each feature (in this case a neighborhood)
-//       style: function(feature) {
-//         return {
-//           color: "white",
-//           // Call the chooseColor function to decide which color to color our neighborhood (color based on borough)
-//           fillColor: chooseColor(feature.properties.borough),
-//           fillOpacity: 0.5,
-//           weight: 1.5
-//         };
-//       },
-//       // Called on each feature
-//       onEachFeature: function(feature, layer) {
-//         // Set mouse events to change map styling
-//         layer.on({
-//           // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
-//           mouseover: function(event) {
-//             layer = event.target;
-//             layer.setStyle({
-//               fillOpacity: 0.9
-//             });
-//           },
-//           // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
-//           mouseout: function(event) {
-//             layer = event.target;
-//             layer.setStyle({
-//               fillOpacity: 0.5
-//             });
-//           },
-//           // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
-//         //   click: function(event) {
-//         //     myMap.fitBounds(event.target.getBounds());
-//         //   }
-//         });
-//         // Giving each feature a pop-up with information pertinent to it
-//         layer.bindPopup("<h1>" + feature.properties.neighborhood + "</h1> <hr> <h2>" + feature.properties.borough + "</h2>");
+
+// function init() {
+//     // Grab a reference to the map element
+//     var selector = d3.select("#map");
+
+//     var countryPolys = [];
+//     var country = 'China'
+//     url = `/launch_data` ;
   
-//       }
-//     }).addTo(myMap);
-//   });
+//     // Use the list of sample names to populate the select options
+//     d3.json("url").then((climateData) => {
+//         console.log(climateData)
 
-//             });
+        // d3.json(countriesGeo).then((geoData) => {
+        //     climateData.forEach((country) => {
+        //         var countryName = country.country_name;
+        //         var geoCountryName = geoData.features.properties.admin;
+        //         var climateInfo;
 
-//             console.log(countryPolys);
-//         });
+        //         if (countryName === geoCountryName) {
+        //             climateInfo = {
+        //                 averageTemp: climateData.tool_tip.avg_temp,
+        //                 averageCO2: climateData.tool_tip.avg_co2};
+        //                 // uncomment when scraped data is added
+        //                 // population: climateData.tool_tip.population
+        //             // };       
+        //         }
+        //         else {
+        //             climateInfo = {
+        //                 averageTemp: null,
+        //                 averageCO2: null};
+        //                 // uncomment when scraped data is added
+        //                 // population: null
+        //             // };
+        //         };
+
+        //         var countryPoly = {
+        //             countryName: geoCountryName,
+        //             climateInfo: climateInfo,
+        //             geometry: geoData.features.geometry 
+        //         };
+
+        //         countryPolys.push(countryPoly);
+        //     });
+        //     console.log(countryPolys);
+        // });
 //     });
 //   };
   

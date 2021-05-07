@@ -3,6 +3,16 @@ body {
     height:100%;
 }
 
+.bc_color-b {
+    background-color:black;
+}
+.bc_color-w{
+    background-color:rgb(234, 237, 241);
+}
+
+.col-color {
+    background-color:rgb(11,47,71);
+}
 .set_font_size{
     word-wrap: break-word;
     -webkit-hyphens: auto;
@@ -13,9 +23,28 @@ body {
     font-size:30px;
 }
 
-/*When your screen as less to 768px*/
+#selDataset {
+    font-weight:bold;
+    border-color:#5cb85c!important;
+    border-width:2px !important;
+    width:12vw !important;
+}
+.panel_font {
+    font-size:1vw;
+    color:white;
+    font-weight:bold;
+    padding:1vw;
+    font-family:georgia;
+    border-width:3px !important;
+}
+
+/*When your screen as less than 768px*/
 @media screen and (max-width: 768px) {
     .set_font_size{
         font-size:14px;
     }
+    #selDataset {
+        width:10vw !important;
+    }
+
 }
