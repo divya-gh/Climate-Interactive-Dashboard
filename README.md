@@ -38,20 +38,44 @@ Using Flask, the initial html page shows a dropdown option to choose a country, 
 
 <h3 align='center'>Charts</h3>
 
-1. Scatter Plot
-
-Shows a correlation of temperature change and year. The size and color of the markers coordinate with population and CO2 emissions. 
+1. Picture of country with flag(if flag data was found)
 
 2. Line Chart
 
-Shows all the temperature changes for each month of the years for the chosen country.
+    + Shows all the temperature changes for each month of the years for the chosen country.
 
 3. Sunburst Chart
 
-With this chart, you can choose to narrow the line chart by season and then by month.
+    + With this chart, you can choose to narrow the line chart by season and then by month.
 
-4. Picture of country with flag(if flag data was found)
+4. Scatter Plot
 
+    + Shows a correlation of temperature change and year. The size and color of the markers coordinate with population and CO2 emissions. 
+
+
+<h2 align='center'>Tools and Technology</h2>
+
+1. JavaScript
+ 
+    + Plotly
+    + D3.js
+    + JQuery
+    + Leaflet/GeoJson
+
+2. Python
+
+    + Flask
+    + SqlAlchemy
+    + Pandas
+    + Beautiful Soup
+    + Splinter
+
+3. Sqlite
+4. CSS
+5. Bootstrap
+6. HTML
+
+<h3 align='center'>ScreenShots</h3>
 
 
 
