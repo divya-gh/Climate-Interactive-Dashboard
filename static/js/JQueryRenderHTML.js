@@ -69,6 +69,7 @@ addDom = (country) => {
     //Render Charts when DOM elements are ready
 
     plotCharts(country);
+    $("div#warming-stripes").css("height",'100')
 
 
 
