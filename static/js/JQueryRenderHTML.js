@@ -1,28 +1,35 @@
+//const wait = (t) => new Promise((r) => setTimeout(r, t));
 function slideUp() {
     $("select#selDataset").change(function(){
+
+        var selCountry = $(this).children("option:selected").val();
         
         if($('#leaf').length){
             $('#leaf').slideUp("slow", function(){
              // Code to be executed
-                 addDom()	                   
+                 addDom(selCountry);	                   
             });
         }
-     else {
-       addDom()
-           }
+        else {
+                addDom(selCountry);
+           }         
          
      
-        });         
-}
+        });
+    
+    }
 //Manipulate Dom when the document is ready
-$(document).ready(slideUp);
+$(document).ready(slideUp);  
+
+
+
 
 
 //-----------------------------------------------------//
 // Function to render DOM elements for charting
 //-----------------------------------------------------//
 
-addDom = () => {
+addDom = (country) => {
 
     //clear map and render Chart-area when a country is selected  
     $('#map').html("")
@@ -44,7 +51,7 @@ addDom = () => {
     //---------------------------------------------------------------------------------
     // experiment -remove these later  
     $('#first-chart').css("border", "1px solid black")
-    $("div#warming-stripes").text("Im a warming stripes chart")
+    // $("div#warming-stripes").text("Im a warming stripes chart")
     
     $('#second-chart').css("border", "1px solid black")
     $("div#scatter").text("Im a scatter plot")
@@ -57,11 +64,53 @@ addDom = () => {
     
     $('#fifth-chart').css("border", "1px solid black")
     $("div#country").text("Im a Country") 
+
+
+    //Render Charts when DOM elements are ready
+
+    plotCharts(country);
+
+
+
+    
 }
         
         
+//-----------------------------------------------------//
+// Function to update charts per country
+//-----------------------------------------------------//
+
+plotCharts = (country) => {
+
+    //Call the function buildWarming Stripes
+    buildWarmingStripes(country);
+
+  
+
+}
 
 
+//-----------------------------------------------------//
+// Function to Build Warming stripes Chart
+//-----------------------------------------------------//
+
+function buildWarmingStripes(country){
+    // Get Demo info for the selected Country - call API 
+    d3.json(`/scatter_data/${country}`).then((scatterData) => {
+    //print
+    console.log('ScatterData:', scatterData);
+
+    //Fetch avg_temp Change per year
+    AvgTempChange = scatterData['Avg Temp Change'] ;
+
+    //call the function stripe_chart(avg_temp) from stripe_charts.js
+    stripe_chart(AvgTempChange);
+
+
+
+    });
+
+}
 
       
 

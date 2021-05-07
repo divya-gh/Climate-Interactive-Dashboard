@@ -1,4 +1,7 @@
-function stripe_chart (data) {
+function stripe_chart (tempData) {
+
+    //print data
+    console.log('Strip chart Data', tempData)
 
     function color_choice(temp) {
         if (temp<-8.5) {
@@ -91,10 +94,10 @@ function stripe_chart (data) {
         return x_list;
     }
     var data = [{
-        y: y_data(data),
-        x: x_data(data), 
+        y: y_data(tempData),
+        x: x_data(tempData), 
         type: 'bar',
-        marker: {color: (color(data))}
+        marker: {color: (color(tempData))}
     }]
     var layout = {
         showlegend: false,
@@ -110,5 +113,10 @@ function stripe_chart (data) {
     }
     Plotly.newPlot('warming-stripes', data, layout)
 }
-var avg_temp = [-4, 3, 5, 0, -2, 1, -3, 8.8, 9, 4, 1]
-stripe_chart(avg_temp)
+
+//stripe_chart(avg_temp)
+
+//-------------------------------------------------------//
+
+
+
