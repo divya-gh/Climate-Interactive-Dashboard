@@ -1,9 +1,13 @@
+//-----------------------------------------------------//    
+// Function to render Launch Page
+//-----------------------------------------------------//
+
 function init() {
     // Grab a reference to the dropdown select element
     var selector = d3.select("#selDataset");
 
-    //Set initial value to Country
-    selector.append("option").attr('value','Country').text("Country")
+    //Set initial value as World Info
+    selector.append("option").attr('value','Country').text("World Info")
   
     // Use the list of countries names to populate the select options
     d3.json("/api/v1.0/countries").then((data) => {
@@ -19,34 +23,52 @@ function init() {
     }); 
 
     //DemoInfo();
-    //BuildWorldMap();
+    //BuildWorldMap();  
+
+    //------------------------------------------------------//
+
+    //On selection of a country call the function setStage to render Deo info and create DOM elements    
+    d3.select("#selDataset").on("change", setStage) ;
     
-   
-    //get initial subject ID - Default ID
-    //-----------------------------------//
-
-
-
+    
   }
 
+
+//Initialize and render launch informations
 init();
 
 
-d3.select("#selDataset").on("change", buildPlots)
-    
-// for each selection option, built plots
-function  buildPlots(){
 
+//-----------------------------------------------------//    
+// Function to build charts on each selection
+//-----------------------------------------------------//
+
+function  setStage(){    
+
+    //Get options selected by the user
     var country = d3.selectAll('#selDataset').node().value ;
-        console.log(country);
+    console.log(country);
 
     //Update Demo Info for the selected Country
-    demoInfo(country)
+    demoInfo(country);
 
-    //Call JQueryRenderHTML
-    //$.getScript('JQueryRenderHTML.js')
+    //Call JQueryRenderHTML to render chart elements
+    slideUp(); 
 
-    // plotCharts(country)
+    // var p = new Promise(function(resolve, reject) {
+                 
+    //             setTimeout(function(){ 
+    //                 slideUp();
+    //                 console.log("first function executed"); }, 3000);
+    //             if($('#first-chart').length){
+    //                 resolve(country)
+    //             }
+
+    //             });
+    //     p.then(plotCharts)
+                
+
+      
 
 }
 
@@ -57,9 +79,13 @@ function  buildPlots(){
 function demoInfo(country) {
     // Get Demo info for the selected Country - call API 
     d3.json("/launch_data").then((demoData) => {
-        console.log('DemoData:', demoData)
+        //print
+        console.log('DemoData:', demoData);
+
+        //Filter selected country
         var countryInfo = demoData.filter(obj => country === obj.Country)
-        console.log('Old Demo Info: ', countryInfo)
+        //print
+        console.log('Old Demo Info: ', countryInfo);
 
         //Get HTML element for Demo Info
         var demoSelector = d3.select("#demo-info");
@@ -75,7 +101,8 @@ function demoInfo(country) {
                           "Lon":obj.Lng 
                         }
                     }) ;
-        console.log("New Demo Info: ",countryInfoObj )        
+        //print ordered selection
+        console.log("Demo Info Sorted: ",countryInfoObj )  ;      
         
         //Clear previous data if any
         demoSelector.html("");
@@ -83,7 +110,8 @@ function demoInfo(country) {
         //Add demo data to the selector
         Object.entries(countryInfoObj[0]).forEach(([key,value]) => { 
                     demoSelector.append('p').text(`${key}: ${value}`)
-                                                                    });
+                    });
+        //style demo info panel
         demoSelector.attr("class" , 'border border-success panel_font mt-3 pt-4')                  
 
                   });       
@@ -91,10 +119,5 @@ function demoInfo(country) {
 }//End of Demo update
 
 
-//-----------------------------------------------------//
-// Function to update charts per country
-//-----------------------------------------------------//
 
-// plotCharts = (country) => {
-//     selector = 
-// }
+

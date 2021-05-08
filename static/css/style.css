@@ -4,7 +4,7 @@ body {
 }
 
 .bc_color-b {
-    background-color:black;
+    background-color:rgb(255, 255, 255);
 }
 .bc_color-w{
     background-color:rgb(234, 237, 241);
@@ -38,6 +38,15 @@ body {
     border-width:3px !important;
 }
 
+.warm-stripes {
+    font-size:large;
+    font-family: Chathura;
+    
+    
+
+}
+
+
 /*When your screen as less than 768px*/
 @media screen and (max-width: 768px) {
     .set_font_size{
@@ -48,3 +57,14 @@ body {
     }
 
 }
+
+body {
+    padding: 0;
+    margin: 0;
+  }
+  
+  #map,
+  body,
+  html {
+    height: 100%;
+  }
