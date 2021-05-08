@@ -73,7 +73,25 @@ html {
   }
     
 
+.active {
+  font-weight: bold;
+  fill: #000;
+  transition: fill 0.7s ease-out;
+  text-anchor: middle;
+}
 
+.inactive {
+  font-weight: lighter;
+  fill: #bab7e2;
+  transition: fill 0.9s ease-out;
+  text-anchor: middle;
+}
+
+.inactive:hover {
+  fill: rgb(71, 175, 2);
+  cursor: pointer;
+  font-weight: bold;
+}
 
 
 
