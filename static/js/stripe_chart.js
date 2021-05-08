@@ -32,40 +32,31 @@ function stripe_chart (tempData) {
             return 'rgb(179, 179, 255)';
         }
         else if ((0<=temp)&&(temp<0.2)) {
-            return 'rgb(236, 70, 68)'
+            return 'rgb(255, 179, 179)'
         }
         else if((0.2<=temp)&&(temp<0.4)) {
-            return 'rgba(236, 43, 43, 0.1)';
+            return 'rgb(255, 153, 153)';
         }
         else if((0.4<=temp)&&(temp<0.6)) {
-            return 'rgba(236, 43, 43, 0.3)';
+            return 'rgb(255, 102, 102)';
         }
         else if((0.6<=temp)&&(temp<0.8)) {
-            return 'rgba(236, 43, 43, 0.4)';
+            return 'rgb(255, 77, 77)';
         }
         else if((0.8<=temp)&&(temp<1)) {
-            return 'rgba(236, 43, 43, 0.6)';
+            return 'rgb(255, 0, 0)';
         }
         else if((1 <= temp)&&(temp < 2)) {
-            return 'rgba(236, 43, 43, 0.7)';
+            return 'rgb(230, 0, 0)';
         }
         else if((2<=temp)&&(temp<3)) {
-            return 'rgba(236, 43, 43, 0.9)';
+            return 'rgb(179, 0, 0)';
         }
         else if((3<=temp)&&(temp<4)) {
-            return 'rgb(236, 43, 43)';
-        }
-        else if((4<=temp)&&(temp<5)) {
-            return 'rgb(211, 18, 18)';
-        }
-        else if((5<=temp)&&(temp<6)) {
-            return 'rgb(164, 14, 14)';;
-        }
-        else if((6<=temp)&&(temp<7)) {
-            return 'rgb(117, 10, 10)'
+            return 'rgb(128, 0, 0)';
         }
         else {
-            return 'rgb(97, 4, 4)';
+            return 'rgb(77, 0, 0)';
         }
     };
     
@@ -96,23 +87,14 @@ function stripe_chart (tempData) {
         
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 6c5546c80fb15ef6e44723f29fe678f39c6a2070
     var data = [{
         y: y_data(tempData),
         x: x_data(tempData), 
         type: 'bar',
-<<<<<<< HEAD
-        marker: {color: (color(tempData)),
-            opacity: 1}
-=======
         mode:markers,
         marker: {color: color(tempData),
                  showscale:True
                 }
->>>>>>> 6c5546c80fb15ef6e44723f29fe678f39c6a2070
     }]
     var layout = {
         showlegend: false,
