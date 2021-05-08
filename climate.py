@@ -321,4 +321,4 @@ if __name__ == '__main__':
     scatter_data_by_country = get_scatter('China, Hong Kong SAR')
     #print("Launch data\n", scatter_data_by_country)
     unique_countries = get_unique_countries()
-    print('countries :' , unique_countries)
+    #print('countries :' , unique_countries)
