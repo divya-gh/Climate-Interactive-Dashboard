@@ -38,6 +38,15 @@ body {
     border-width:3px !important;
 }
 
+.warm-stripes {
+    font-size:large;
+    font-family: Chathura;
+    
+    
+
+}
+
+
 /*When your screen as less than 768px*/
 @media screen and (max-width: 768px) {
     .set_font_size{

@@ -20,9 +20,8 @@ app.config['JSON_SORT_KEYS'] = False
 
 @app.route("/")
 def welcome():
-    countries = climate_data.get_unique_countries()
-    # print(launch_data)
-    return render_template("index.html",countries = countries)
+    
+    return render_template("index.html")
 
 
 #------------------------------------------------------------------------------------------#
@@ -32,12 +31,12 @@ def welcome():
 # Flask Api to to get country, overall avg_temp change/ averall avg_co2 emission per country
 @app.route("/launch_data")
 def initMap():
-    launch_data = climate_data.launchPage()
+    launch_data , countries = climate_data.launchPage()
     return jsonify(launch_data)
 
 @app.route("/api/v1.0/countries")
 def get_all_countries():
-    return jsonify(climate_data.get_unique_countries()[:165])
+    return jsonify(climate_data.get_unique_countries())
 
 #Get Data by Season per country
 @app.route("/season_data/<country>")

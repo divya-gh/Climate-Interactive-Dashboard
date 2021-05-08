@@ -96,15 +96,27 @@ function stripe_chart (tempData) {
         
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6c5546c80fb15ef6e44723f29fe678f39c6a2070
     var data = [{
         y: y_data(tempData),
         x: x_data(tempData), 
         type: 'bar',
+<<<<<<< HEAD
         marker: {color: (color(tempData)),
             opacity: 1}
+=======
+        mode:markers,
+        marker: {color: color(tempData),
+                 showscale:True
+                }
+>>>>>>> 6c5546c80fb15ef6e44723f29fe678f39c6a2070
     }]
     var layout = {
         showlegend: false,
+        height:100,
         margin: {
             l: 0,
             r: 0,
@@ -123,7 +135,7 @@ function stripe_chart (tempData) {
         },
         bargap:0, 
     }
-    Plotly.newPlot('warming-stripes', data, layout)
+    Plotly.newPlot('warming-stripes', data, layout,{responsive : true})
 }
 
 //stripe_chart(avg_temp)
