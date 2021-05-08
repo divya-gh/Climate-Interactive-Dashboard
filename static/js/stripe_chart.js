@@ -5,7 +5,7 @@ function stripe_chart (tempData) {
 
     function color_choice(temp) {
         if (temp<-8.5) {
-            return '#0b275b';
+            return '#055af7';
         }
         else if((-8.5<=temp)&&(temp<-7.5)) {
             return 'rgb(3, 22, 52)';
@@ -93,14 +93,20 @@ function stripe_chart (tempData) {
         };
         return x_list;
     }
+
+
     var data = [{
         y: y_data(tempData),
         x: x_data(tempData), 
         type: 'bar',
-        marker: {color: (color(tempData))}
+        mode:markers,
+        marker: {color: color(tempData),
+                 showscale:True
+                }
     }]
     var layout = {
         showlegend: false,
+        height:100,
         margin: {
             l: 0,
             r: 0,
@@ -119,7 +125,7 @@ function stripe_chart (tempData) {
         },
         bargap:0, 
     }
-    Plotly.newPlot('warming-stripes', data, layout)
+    Plotly.newPlot('warming-stripes', data, layout,{responsive : true})
 }
 
 //stripe_chart(avg_temp)

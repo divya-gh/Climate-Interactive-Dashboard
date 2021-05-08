@@ -35,7 +35,7 @@ addDom = (country) => {
     $('#map').html("")
 
     //create rows and columns with specific Id's for each chart
-    var warmingStripsChart = '<div class="row"><div id="first-chart" class="col-12"><div id="warming-stripes"></div></div></div>'
+    var warmingStripsChart = '<div class="row"><div id="first-chart" class="col-12 p-0"><div id="warming-stripes"></div></div></div>'
 
     var countryAndbar = '<div class="row"><div id="second-chart" class="col-6"><div id="country"></div></div><div id="third-chart" class="col-md-6"><div id="bar"></div></div></div>'
 
@@ -69,7 +69,7 @@ addDom = (country) => {
     //Render Charts when DOM elements are ready
 
     plotCharts(country);
-    $("div#warming-stripes").css("height",'100')
+    //$("div#warming-stripes").text("Country").addClass("warm-stripes text-center")
 
 
 

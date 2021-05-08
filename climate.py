@@ -83,7 +83,7 @@ def launchPage() :
     avg_co2 = avg_co2.rename({'Entity':'Area', 'AnnualCO2emissions':'AnnualCO2emissions'}, axis='columns')
 
     #Merge Temp_change by meteor year per country to Avg_Co2 Emission df
-    merged_co2_country =meteor_id_df.merge(avg_co2, how = 'left',  on="Area")
+    merged_co2_country =meteor_id_df.merge(avg_co2, how = 'inner',  on="Area")
 
     #find null
     merged_co2_country.isna().sum()
@@ -130,7 +130,7 @@ def launchPage() :
                         }
         meta.append(temp_co2_obj)
 
-    return meta
+    return meta , New_Countries
 
 
 
@@ -156,14 +156,16 @@ def get_mean_and_year(df):
 #-----------------------------------------
 
 def get_unique_countries(): 
+    
+    meta, unique_countries = launchPage()
 
-    country_list = meteor_id_df.index
-    print(len(country_list))
-    unique_countries = []
-    for item in country_list:
-        if(item not in unique_countries):
-            unique_countries.append(item)
-    return unique_countries
+    # country_list = meteor_id_df.index
+    # print(len(country_list))
+    # unique_countries = []
+    # for item in country_list:
+    #     if(item not in unique_countries):
+    #         unique_countries.append(item)
+    return list(np.ravel(unique_countries))
 
 
 
@@ -316,7 +318,7 @@ avg_temp_by_months= get_months()
 
 
 if __name__ == '__main__':
-    # scatter_data_by_country = launchPage()
-    # print("Launch data\n", scatter_data_by_country)
+    scatter_data_by_country = get_scatter('China, Hong Kong SAR')
+    #print("Launch data\n", scatter_data_by_country)
     unique_countries = get_unique_countries()
-    #print('countries :' , len(unique_countries))
+    print('countries :' , unique_countries)
