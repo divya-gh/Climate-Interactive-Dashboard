@@ -181,10 +181,13 @@ function pieChart(seasonData){
     d3.select("div#pie").html("")
     var svg = d3.select("div#pie")
                 .append("svg")
-                .attr("width", width)
-                .attr("height", height)
-                .append("g")
-                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+                .attr("preserveAspectRatio", "xMinYMin meet")
+                .attr("viewBox", "0 0 400 300")
+                // .attr("width", width)
+                // .attr("height", height)
+
+    var piegroup = svg.append("g")
+                      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
     console.log("season data keys:",Object.keys(seasonData));
 
@@ -211,7 +214,7 @@ function pieChart(seasonData){
 
 
     //Create groups and bind data
-    var pathGroup = svg.selectAll(".gr")
+    var pathGroup = piegroup.selectAll(".gr")
                                  .data(data_ready)
                                  .enter()
                                  .append('g')
