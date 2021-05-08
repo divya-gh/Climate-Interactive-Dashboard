@@ -3,10 +3,20 @@ function pieChart(seasonData){
     // set the dimensions and margins of the graph
     var width = 400
     var height = 300
-    var margin = 10
+    //var margin = 10
+
+    var margin = {
+        top: 10,
+        right: 10,
+        bottom: 25,
+        left: 10
+      };
+
+    var chartWidth = width - margin.left - margin.right;
+    var chartHeight = height - margin.top - margin.bottom;
 
     // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
-    var radius = Math.min(width, height) / 2 - margin
+    var radius = Math.min(chartWidth, chartHeight) / 2 - margin.left
 
     //clear previous svg data
     d3.select("div#pie").html("")
@@ -20,7 +30,7 @@ function pieChart(seasonData){
                 // .attr("height", height)
 
     var piegroup = svg.append("g")
-                      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+                      .attr("transform", "translate(" + (width/2) + "," + height/2 + ")");
 
     console.log("season data keys:",Object.keys(seasonData));
 
@@ -61,9 +71,9 @@ function pieChart(seasonData){
                                  .duration(1000)
                                  .attr('d', arcGenerator)
                                  .attr('fill', function(d){ return(color(d.data.key)) })
-                                 .attr("stroke", "darkgrey")
+                                 .attr("stroke", "black")
                                  .style("stroke-width", "3px")
-                                 .style("opacity", .9)
+                                 .style("opacity", 0.8)
                     //Add Labels
                         pathGroup.append('text')
                                  .transition()
@@ -71,7 +81,17 @@ function pieChart(seasonData){
                                  .text(function(d){ return d.data.key})
                                  .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
                                  .attr('class','pie_text')
-                  
+
+    // Create X title for seasons
+    svg.append("text")
+              .attr("transform", `translate(${width / 3}, ${height -2.5})`)
+              .classed("aText season", true)
+              .text("Seasons");
+    svg.append("text")
+              .attr("transform", `translate(${width /2 + 60}, ${height -2.5})`)
+              .classed("aText month", true)
+              .text("Months");       
+              
     
 
 }

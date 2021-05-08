@@ -90,10 +90,8 @@ function stripe_chart (tempData) {
     var data = [{
         y: y_data(tempData),
         x: x_data(tempData), 
-        type: 'bar',
-        mode:markers,
-        marker: {color: color(tempData),
-                 showscale:True
+        type: 'bar',        
+        marker: {color: color(tempData)                
                 }
     }]
     var layout = {
