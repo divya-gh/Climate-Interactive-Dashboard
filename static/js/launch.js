@@ -7,7 +7,7 @@ function init() {
     var selector = d3.select("#selDataset");
 
     //Set initial value as World Info
-    selector.append("option").attr('value','Country').text("World Info")
+    selector.append("option").attr('value','World Info').text("World Info")
   
     // Use the list of countries names to populate the select options
     d3.json("/api/v1.0/countries").then((data) => {
@@ -49,26 +49,17 @@ function  setStage(){
     var country = d3.selectAll('#selDataset').node().value ;
     console.log(country);
 
-    //Update Demo Info for the selected Country
-    demoInfo(country);
+    //if worldInfo is Selected,
+    if(country === "World Info"){
+        init();
+    }
+    else{
+            //Update Demo Info for the selected Country
+            demoInfo(country);
 
-    //Call JQueryRenderHTML to render chart elements
-    slideUp(); 
-
-    // var p = new Promise(function(resolve, reject) {
-                 
-    //             setTimeout(function(){ 
-    //                 slideUp();
-    //                 console.log("first function executed"); }, 3000);
-    //             if($('#first-chart').length){
-    //                 resolve(country)
-    //             }
-
-    //             });
-    //     p.then(plotCharts)
-                
-
-      
+            //Call JQueryRenderHTML to render chart elements
+            slideUp(); 
+    }        
 
 }
 

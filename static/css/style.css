@@ -44,8 +44,21 @@ body {
 .warm-stripes {
     font-size:large;
     font-family: Chathura;
+
     
+
+}
+
+.pie_text {
+    text-anchor: middle;
+    font-size:22px;
+    font-family:Karantina;
+    /* font-family:Girassol; */
+    /* font-family:Niconne; */
     
+
+    
+
 
 }
 
