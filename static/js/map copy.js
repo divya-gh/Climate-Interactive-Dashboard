@@ -52,11 +52,38 @@ geojsonLayer.eachLayer(function (layer) {
 
 
 // Grabbing our GeoJSON data..
-geojsonLayer = d3.json(countriesGeo).then(function(geoData) {
+d3.json(countriesGeo).then(function(geoData) {
 
-       
+        d3.json(climateUrl).then(function(climateData) {
+
+                for (i=0; i< geoData.length; i++) {
+                        var feature = geoData[i];
+                        var country = feature.properties.COUNTRY;
+
+                        var countryInfo = climateData.filter(obj => country === obj.Country);
+
+                        if (countryInfo) {
+                                feature.properties[avg_temp] = countryInfo['Avg Temp Change'];
+                                feature.properties[avg_co2] = countryInfo['Avg Co2 Change'];
+                                feature.properties[population] = countryInfo.Population;
+                        }
+                        else {
+                                feature.properties[avg_temp] = '';
+                                feature.properties[avg_co2] = '';
+                                feature.properties[population] = '';
+                        };
+                     
+                        
+                        var avg_temp = feature.properties.avg_temp;
+                        var avg_co2 = feature.properties.avg_co2;
+                        var population = feature.properties.Population;
+
+                        var popup = "<b>Country: </b>" + country + "<br><b>Avg Temp Change: </b>" + avg_temp + "<br><b>Avg CO2 Change: </b>" + avg_co2 + "<br><b>Population: </b>" + population;
+
+                };
+
                 // Creating a GeoJSON layer with the retrieved data
-                L.geoJson(geoData, {
+                geoJsonLayer = L.geoJson(geoData, {
                         // // Style each feature based on avg temp change
                         style: function(feature) {
                         return {
@@ -89,8 +116,8 @@ geojsonLayer = d3.json(countriesGeo).then(function(geoData) {
                                 myMap.fitBounds(event.target.getBounds());
                                 }
                                 });
-                                // //   // Giving each feature a pop-up with information pertinent to it
-                                // layer.bindPopup(popup);
+                                //   // Giving each feature a pop-up with information pertinent to it
+                                layer.bindPopup(popup);
                         }
                         }).addTo(myMap);
 
@@ -98,32 +125,3 @@ geojsonLayer = d3.json(countriesGeo).then(function(geoData) {
 
   
 });
-
-
-d3.json(climateUrl).then(function(climateData) {
-
-        for (i=0; i< geoData.length; i++) {
-                var feature = geoData[i];
-                var country = feature.properties.COUNTRY;
-
-                var countryInfo = climateData.filter(obj => country === obj.Country);
-
-                if (countryInfo) {
-                        feature.properties[avg_temp] = countryInfo['Avg Temp Change'];
-                        feature.properties[avg_co2] = countryInfo['Avg Co2 Change'];
-                        feature.properties[population] = countryInfo.Population;
-                }
-                else {
-                        feature.properties[avg_temp] = '';
-                        feature.properties[avg_co2] = '';
-                        feature.properties[population] = '';
-                };
-             
-                
-                var avg_temp = feature.properties.avg_temp;
-                var avg_co2 = feature.properties.avg_co2;
-                var population = feature.properties.Population;
-
-                var popup = "<b>Country: </b>" + country + "<br><b>Avg Temp Change: </b>" + avg_temp + "<br><b>Avg CO2 Change: </b>" + avg_co2 + "<br><b>Population: </b>" + population;
-
-        };

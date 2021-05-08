@@ -12,8 +12,7 @@ d3.json(countriesGeo).then(function(data) {
         style: function(feature) {
             return {
             color: "darkgray",
-            fillColor: chooseColor(feature.properties.COUNTRY),
-            // fillColor: "gray",
+            fillColor: "gray",
             fillOpacity: 0.6,
             weight: 1
             };
@@ -41,8 +40,8 @@ d3.json(countriesGeo).then(function(data) {
               myMap.fitBounds(event.target.getBounds());
             }
           });
-          // Giving each feature a pop-up with information pertinent to it
-          layer.bindPopup(getPopUp(feature.properties.COUNTRY));
+        //   // Giving each feature a pop-up with information pertinent to it
+        //   layer.bindPopup(getPopUp(feature.properties.COUNTRY));
         }
         }).addTo(myMap);
   });
@@ -72,54 +71,58 @@ var baseMaps = {
     Satellite: satelliteLayer
 };
 
-function chooseColor(country) {
-    url = `/launch_data` ;
-    console.log(country)
+function chooseColor(avg_temp) {
+    if (avg_temp > 0) {
+        var color = "red";
+    }
+    else if (avg_temp < 0) {
+        var color = "blue";
+    }
+    else {
+        var color = "gray";
+    };
 
-    d3.json(url).then(function(data) {
-        for (i=0; i< data.length; i++) {
-            if (data[i].Country == country) {
-                avg_temp = data[i]['Avg Temp Change']
-                if (avg_temp > 0) {
-                    var color = "red";
-                }
-                else if (avg_temp < 0) {
-                    var color = "blue";
-                }
-                else {
-                    var color = "gray";
-                };
-            }
-            else {
-                var color = "none";
-                console.log('Country Not Found');
-            };
 
-        };
-        return color;
-    });    
+    return color;  
 
 };
 
-function getPopUp(country) {
-    url = `/launch_data`;
-    console.log(country);
-
-    d3.json(url).then(function(data) {
-        for (i=0; i< data.length; i++) {
-            if (data[i].Country == country) {
-                var popup = "<b>Country: </b>" + data[i]['Country'] + "<br><b>Avg Temp Change: </b>" + data[i]['Avg Temp Change'] + "<br><b>Avg CO2 Change: </b>" + data[i]['Avg Co2 Change'] + "<br><b>Population: </b>" + data[i]['Population'];         
-            }
-            else {
-                var popup = "<b>Country: </b>" + country 
-                console.log('Country Not Found');
-            };
-
-        };
-        return popup;
-    });    
-
+function calcSize(avg_co2, population) {
+    size = avg_co2 * population;
+    return size;
 };
+
+var climateMarkers = [];
+url = `/launch_data`;
+
+d3.json(url).then(function(data) {
+    for (i=0; i< data.length; i++) {
+        var feature = data[i];
+        var name = feature.Country;
+        var lat = +feature.lat;
+        var long = +feature.lng;
+        var avg_temp = feature['Avg Temp Change'];
+        var avg_co2 = feature['Avg Co2 Change'];
+        var population = feature.Population;
+        var popup = "<b>Country: </b>" + name + "<br><b>Avg Temp Change: </b>" + avg_temp + "<br><b>Avg CO2 Change: </b>" + avg_co2 + "<br><b>Population: </b>" + population;
+        console.log([lat, long])
+
+        var marker = L.circle([lat, long], {
+            stroke: true,
+            weight: 0.5,
+            color: 'white',
+            fillColor: chooseColor(avg_temp),
+            fillOpacity: 0.75,
+            radius: calcSize(avg_co2, population), 
+
+        }).bindPopup(popup);
+
+        climateMarkers.push(marker);
+       var climateLayer = L.layerGroup(quakeMarkers).addTo(myMap);
+
+    };
+
+}); 
 
 
 
