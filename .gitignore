@@ -2,6 +2,7 @@
 data.js/
 map_old.js
 map_old2.js
+settings.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
