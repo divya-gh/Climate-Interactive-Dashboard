@@ -65,7 +65,7 @@ addDom = (country) => {
     //$("div#scatter").text("Im a scatter plot")
     
     $('#third-chart').css("border", "1px solid black")
-    $("div#bar").text("Im a bar chart") 
+    //$("div#bar").text("Im a bar chart") 
     
     $('#fourth-chart').css("border", "1px solid black")
     //$("div#pie").text("Im a pie chart")   
@@ -95,7 +95,7 @@ plotCharts = (country) => {
     buildWarmingStripes(country);
 
     //Call the function build sunburts
-    buildPie(country)
+    buildPieBar(country)
 
   
 
@@ -129,7 +129,7 @@ function buildWarmingStripes(country){
 // Function to Build Pie Chart
 //-----------------------------------------------------//
 
-function buildPie(country){
+function buildPieBar(country){
 
     // Get season data for the selected Country - call API 
     d3.json(`/season_data/${country}`).then((seasonData) => {
@@ -157,13 +157,45 @@ function buildPie(country){
     //print
     console.log('seasonData new:', newSeasonobj);
 
-    //Call the function from the pieChart file
-    pieChart(country, newSeasonobj);
+
+    //Call months data
+    d3.json(`/months_data/${country}`).then((monthsData) => {
+        //print data
+        //console.log("Months Data", monthsData)
+
+        // parse data
+        // Configure a parseTime function which will return a new Date object from a string
+        var parseYear = d3.timeParse("%Y");
+        var parseDate = d3.timeFormat("%B");
+
+        monthsData.forEach(obj => {
+            Object.entries(obj).forEach( ([key,value])=> {                                
+                if(key === "Year"){                    
+                    monthsData[key] = parseYear(value);
+                    //console.log(key,value)
+                }
+                else {
+                   /// console.log(key,value)  
+                    key = parseDate(key);
+                    monthsData[key] = +value ; 
+                    //console.log(key)                    
+                }               
+            });
+        });
+        console.log("parsed Months Data", monthsData) 
+
+        // Get data for the line chart for the selected country
+        d3.json(`/scatter_data/${country}`).then((yearData) => {
+        //print
+        //console.log('year-scatter:', scatterData);
 
 
+            //Call the function from the pieChart file
+            pieBarChart(newSeasonobj, monthsData, yearData);            
+
+        });  
     }); 
-
-
+  });
 }
 
 
