@@ -64,6 +64,16 @@ html {
     font-family:Niconne;
     
 }
+
+.mon_text {
+    text-anchor: middle;
+    font-size:22px;
+    font-family:Karantina;
+    /* font-family:Girassol; */
+    /* font-family:Niconne; */
+    
+}
+
 .aText {
    /* font-family:Karantina; */
     font-family:Girassol;

@@ -235,35 +235,23 @@ def get_months(country='United States of America'):
     #Drop unwanted fields
     months_country_mean = months_country_mean.drop(['field1','Area', 'Element', 'Unit'], 1)
     #Get years data
-    year = months_country_mean.columns
+    years = months_country_mean.columns
 
     # create a lsit of objects for each month
     months_list = []
     # Get months for each country
-    month_index = months_country_mean.index
+    months = months_country_mean.index
 
     #Create an object to hold keys[]
-    months_obj ={
-            'Country': country,       
-                }
-    #Check to see if the country has data for atleast 4 months
-    if len(months_country_mean) > 4:
-        months_obj['Year'] =list(np.ravel(year))
-
-        #Get data for each month
-        for item in month_index:
-            months_obj[item] = list(np.ravel(months_country_mean.loc[item].values)),
+    for year in years:
+        mon_obj = {
+                  "Year":year
+                  }
+        for month in months:
+            mon_obj[month] = months_country_mean.loc[month , year]        
+                
+        months_list.append(mon_obj) 
         
-        #set data found to 'yes'
-        months_obj["Data Found"] = 'Yes'    
-
-    else:
-        #if the country has less than 4 months of data,set Data Found to 'No'
-        months_obj["Data Found"] = 'No' 
-        #print(f'...............\n {months_country_mean}\n')
-        
-
-    months_list.append(months_obj)
 
     return months_list
 
@@ -312,8 +300,7 @@ def get_scatter(country='United States of America'):
 avg_temp_by_season = get_season()
 #print(avg_temp_by_season)
 
-avg_temp_by_months= get_months()
-#print(avg_temp_by_months)
+
     
 
 
@@ -322,3 +309,5 @@ if __name__ == '__main__':
     #print("Launch data\n", scatter_data_by_country)
     unique_countries = get_unique_countries()
     #print('countries :' , unique_countries)
+    avg_temp_by_months= get_months()
+    print(avg_temp_by_months)
