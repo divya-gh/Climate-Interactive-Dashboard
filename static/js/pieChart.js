@@ -1,4 +1,4 @@
-function pieChart(seasonData){
+function pieChart(country, seasonData){
 
     // set the dimensions and margins of the graph
     var width = 400
@@ -74,10 +74,44 @@ function pieChart(seasonData){
                 //set style
                 d3.select(this).classed("inactive inactive:hover" , false)
                 seasonG.classed("inactive inactive:hover" , true)
+
+                d3.json(`/months_data/${country}`).then((monthsData) => {
+                        //print data
+                        console.log("Months Data", monthsData)
+
+                        // parse data
+                        monthsData.forEach(function(data) {
+                            console.log("Data", data.key)
+                            if(data.key != "Country" || data.key!= "Year"){
+
+                                data.key = +data.key ; 
+                                
+
+                            }
+
+                        });
+
+                        //calculate new season data 
+                        var meanMonthsData = {}
+                        Object.entries(monthsData[0]).forEach( ([key,value])=> {
+                            meanMonthsData[key] = d3.mean(value)                         
+                            })
+                        
+
+                        var newSeasonobj = {
+                            "January":d3.mean(monthsData[0].January),
+
+                        }
+                        console.log("Mean Data", monthsData[0].January)
+
+                });
+                    //print
+
+
                 
 
                 //call pie functon
-                buildChartPie(color)
+               // buildChartPie(color)
 
             }
             else {
