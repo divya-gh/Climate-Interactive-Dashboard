@@ -134,15 +134,6 @@ function buildPie(country){
     // Get season data for the selected Country - call API 
     d3.json(`/season_data/${country}`).then((seasonData) => {
         //print
-        
-
-    
-    chartCaptions =[{
-        "captions":[{"Winter":"Winter", "Spring":"Spring","Summer":"Summer","Fall":"Fall"}],
-        "color":[{"Winter":"Blue", "Spring":"green","Summer":"red","Fall":"orange"}],
-        "xaxis":"Seasons",
-        "yaxis":"Avg Temp Change"
-    }]
     
     console.log('seasonData Old:', seasonData);
 
@@ -167,7 +158,7 @@ function buildPie(country){
     console.log('seasonData new:', newSeasonobj);
 
     //Call the function from the pieChart file
-    pieChart(newSeasonobj);
+    pieChart(country, newSeasonobj);
 
 
     }); 
