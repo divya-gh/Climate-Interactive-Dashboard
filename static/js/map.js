@@ -1,35 +1,38 @@
 // import cloneLayer from 'leaflet-clonelayer';
+$("#map-row").collapse('show');
+$("#charts").collapse('hide')
 
-function buildMap() {
-        
-        var myMap = L.map("leaf")
+var myMap = L.map("leaf-map")
             .setView([-0.17578097424708533,15.732421875000002], 3);
 
-        
+streetLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+        attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+        tileSize: 512,
+        maxZoom: 18,
+        zoomOffset: -1,
+        id: "mapbox/streets-v11",
+        accessToken: API_KEY
+});
 
-        streetLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-                attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-                tileSize: 512,
-                maxZoom: 18,
-                zoomOffset: -1,
-                id: "mapbox/streets-v11",
-                accessToken: API_KEY
-        });
+satelliteLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+        attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+        tileSize: 512,
+        maxZoom: 18,
+        zoomOffset: -1,
+        id: "mapbox/satellite-streets-v11",
+        accessToken: API_KEY
+}).addTo(myMap);
 
-        satelliteLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-                attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-                tileSize: 512,
-                maxZoom: 18,
-                zoomOffset: -1,
-                id: "mapbox/satellite-streets-v11",
-                accessToken: API_KEY
-        }).addTo(myMap);
+var baseMaps = {
+        Streets: streetLayer,
+        Satellite: satelliteLayer
+};
 
-        var baseMaps = {
-                Streets: streetLayer,
-                Satellite: satelliteLayer
-        };
+var countriesGeo = 'https://opendata.arcgis.com/datasets/2b93b06dc0dc4e809d3c8db5cb96ba69_0.geojson';
 
+var climateUrl = `/launch_data`;
+
+function buildMap(mapdiv) {          
         L.control.layers(baseMaps, null).addTo(myMap);
 
         function chooseColor(avg_temp) {
@@ -55,9 +58,7 @@ function buildMap() {
                 return color;  
         };
 
-        var countriesGeo = 'https://opendata.arcgis.com/datasets/2b93b06dc0dc4e809d3c8db5cb96ba69_0.geojson';
 
-        var climateUrl = `/launch_data`;
 
         // Grabbing our GeoJSON data..
         d3.json(countriesGeo).then(function(geoData) {
@@ -127,10 +128,17 @@ function buildMap() {
                                                 },
                                                 // When a feature (country) is clicked, it is enlarged to fit the screen
                                                 click: function(event) {
-                                                        // console.log(event.latlng);
+                                                        console.log(event.latlng);
                                                         // myMap.setView(event.latlng,10)
 
-                                                        slideUp();
+                                                        $("#map-row").collapse('hide')
+                                                        $("#charts").collapse('show')
+
+                                                        countryDropdown = d3.select("#selDataset").node();
+                                                        countryDropdown.value = country;
+
+                                                        // setStage();
+                                                        // slideUp();
 
                                                         var miniMap = L.map("country");
 
@@ -147,7 +155,7 @@ function buildMap() {
                                                         flag.onAdd = function() {
                                                                 var div = L.DomUtil.create("div", "info legend");
 
-                                                                var flagImg = "<img src=" + feature.properties.flag_Link + " alt=" + country + " width=" + "'" + "75" + "'" + "height="+ "'" + "50" + "'" +">";
+                                                                var flagImg = "<img src=" + flagLink + " alt=" + country + " width=" + "'" + "75" + "'" + "height="+ "'" + "50" + "'" +">";
 
                                                                 div.innerHTML = flagImg;
 
@@ -178,6 +186,8 @@ function buildMap() {
         
         });
 };
+
+// function addMiniMap ()
 
 
 
