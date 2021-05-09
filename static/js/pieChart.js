@@ -73,8 +73,10 @@ function pieBarChart(seasonData, monthsData, yearData){
     var lineChartWidth = width - m_line.left - m_line.right;
     var lineChartHeight = height - m_line.top - m_line.bottom;
 
+    //clear previous svg data
+    d3.select("div#bar").html("")
 
-     var svg_line = d3.select("div#bar")
+    var svg_line = d3.select("div#bar")
                  .append("svg")
                  .attr("preserveAspectRatio", "xMinYMin meet")
                  .attr("viewBox", "0 0 400 300")
@@ -170,29 +172,52 @@ function pieBarChart(seasonData, monthsData, yearData){
                   .attr("stroke", "orange");
           });
       
-    //Append circles to each point
+
     // append circles to data points
-    var circlesGroup = chartGroup.selectAll("circle")
+    var circlesGroup = chartGroup.selectAll(".ygr")
                                  .data(temp_list)
                                  .enter()
-                                 .append("circle")
-                                 .attr("r", 3)
-                                 .attr("fill", "lightblue");
+                                 .append('g')
+                                 .classed("ygr" , true)
+    //append circles to each group                             
+    circlesGroup.append("circle")
+                .attr("r", 3)
+                .attr("fill", "lightblue");                            
 
-    // Event listeners with transitions
+    // //append text to each group            
+    circlesGroup.append("text")
+                .text(d => `${d.temp}`)
+                .attr("x", (d) => xTimeScale(d.year))
+                .attr("y", function (d) {
+                  return (yLinearScale(d.temp))
+                }).transition()
+                .duration(300)
+                .attr("class", "set_text")
+                .style("display", 'none');
+
+    //Event listeners with transitions
     circlesGroup.on("mouseover", function() {
-                    d3.select(this)
-                      .transition()
-                      .duration(1000)
-                      .attr("r", 20)
-                      .attr("fill", "lightblue");
+                d3.select(this).selectAll('circle')
+                  .transition()
+                  .duration(1000)
+                  .attr("r", 20)
+
+              
+                d3.select(this).select('text')
+                    .transition()
+                    .duration(1000)
+                    .style("display", 'inline')     
+
     })
                 .on("mouseout", function() {
-                    d3.select(this)
+                    d3.select(this).selectAll('circle')
                       .transition()
                       .duration(1000)
                       .attr("r", 3)
-                      .attr("fill", "lightblue");
+                    d3.select(this).select('text')
+                      .transition()
+                      .duration(1000)
+                      .style("font-size", '0px');
     });
 
     // transition on page load
@@ -201,7 +226,9 @@ function pieBarChart(seasonData, monthsData, yearData){
     .duration(1000)
     .attr("cx", (d) => xTimeScale(d.year))
     .attr("cy", d => yLinearScale(d.temp));
-    
+
+
+
 
 
 

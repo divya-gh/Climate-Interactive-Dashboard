@@ -81,7 +81,17 @@ html {
     text-anchor: middle;
     font-weight: bold;
   }
-    
+
+.set_text
+{
+    font-family:Times;
+     font-size: 12px;
+     text-anchor: middle;
+     font-weight: bold;
+     color:black
+
+   } 
+   
 
 .active {
   font-weight: bold;
