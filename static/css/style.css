@@ -92,7 +92,7 @@ html {
 
 .inactive {
   font-weight: lighter;
-  fill: #bab7e2;
+  fill: #837ebe;
   transition: fill 0.9s ease-out;
   text-anchor: middle;
 }
