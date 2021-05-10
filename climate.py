@@ -293,11 +293,25 @@ def get_scatter(country='United States of America'):
     
     return Scatter_obj
 
+#################################################################################
+# function to return launch data for mini map
+#-----------------------------------------------------------
+def get_country_map(country='Mali'):
+    launch_data , countries = launchPage()
+
+    allCountries = pd.DataFrame(launch_data)
+
+    thisCountry = allCountries.loc[allCountries['Country']==country]
+
+    thisCountry = thisCountry.to_dict('r')
+
+    return thisCountry
+
 
 ###############################################################################
 #Call the functions to check
 #launchPage()
-avg_temp_by_season = get_season()
+# avg_temp_by_season = get_season()
 #print(avg_temp_by_season)
 
 
@@ -305,9 +319,11 @@ avg_temp_by_season = get_season()
 
 
 if __name__ == '__main__':
-    scatter_data_by_country = get_scatter('China, Hong Kong SAR')
+    # scatter_data_by_country = get_scatter('China, Hong Kong SAR')
     #print("Launch data\n", scatter_data_by_country)
-    unique_countries = get_unique_countries()
+    # unique_countries = get_unique_countries()
     #print('countries :' , unique_countries)
-    avg_temp_by_months= get_months()
-    print(avg_temp_by_months)
+    # avg_temp_by_months= get_months()
+    # print(avg_temp_by_months)
+    indvCountryData = get_country_map()
+    print(indvCountryData)

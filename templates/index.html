@@ -16,10 +16,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Bungee+Shade&family=Chathura:wght@800&family=Girassol&family=Karantina&family=Niconne&family=Odibee+Sans&family=Romanesco&display=swap" rel="stylesheet">
   <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-  crossorigin="" />
-   <!-- Our CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  
+
+  <!-- Our CSS -->
   <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 
   <!-- JQuery from google CDN -->
@@ -64,16 +64,21 @@
       </div>
       <div class="col-10 p-0 border border-dark rounded-lg">
         <div id="map" class="container-fluid">
-          <div id="leaf" class= "text-center"> 
-          </div>
+            <div id="leaf" class = "leafletmap">
+            <img class="w-50 map-background" src="http://2.bp.blogspot.com/-8P_iI3YueO0/T73feHn5VSI/AAAAAAAAAiw/N5N3HmVmk9I/s1600/6a00d834516a0869e2016760f339c3970b-800wi.jpg" alt="Big Smileys" />
+            </div>
         </div>
       </div>      
   </div>
 
    <!-- Leaflet JS -->
-   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
+   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <!-- MiniMap Leaflet PlugIn Js -->
+  <script src="../static/js/node_modules/leaflet.layerscontrol-minimap/L.Control.Layers.Minimap.js"></script>
+  <script src="../static/js/node_modules/leaflet-clonelayer/index.js"></script>
+  <script src="../static/js/node_modules/leaflet.sync/L.Map.Sync.js"></script>
+
    <!-- D3 JavaScript -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
    <!--Plotly.js -->
@@ -94,7 +99,7 @@
   <script src="/static/js/launch.js"></script>
 
   <!-- Build Map-->
-  <!-- <script src="/static/js/map.js"></script>  -->
+  <script src="/static/js/map.js"></script> 
 
   <!-- Buld Scatter Plot -->
   <!-- <script type="text/javascript" src="/static/js/JMRscatter.js"></script> -->
