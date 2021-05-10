@@ -12,7 +12,7 @@ function init() {
     // Use the list of countries names to populate the select options
     d3.json("/api/v1.0/countries").then((data) => {
       var sampleNames = data;
-      console.log(sampleNames)
+      //console.log(sampleNames)
       
       // assign Countries to each option
       data.forEach(country => {
