@@ -245,7 +245,7 @@ def get_months(country='United States of America'):
     #Create an object to hold keys[]
     for year in years:
         mon_obj = {
-                  "Year":year
+                  "year":year
                   }
         for month in months:
             mon_obj[month] = months_country_mean.loc[month , year]        

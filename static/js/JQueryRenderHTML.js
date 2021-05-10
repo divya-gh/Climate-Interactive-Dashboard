@@ -115,6 +115,9 @@ function buildWarmingStripes(country){
     //Fetch avg_temp Change per year
     AvgTempChange = scatterData['Avg Temp Change'] ;
 
+    //add text to the div container with id = warming-stripes
+    $("div#warming-stripes").attr("style",`background-text:${country}`)
+
     //call the function stripe_chart(avg_temp) from stripe_charts.js
     stripe_chart(AvgTempChange);
 

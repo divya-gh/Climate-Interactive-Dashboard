@@ -118,7 +118,18 @@ html {
 }
 
 
+#first-chart {
+    position: relative;
+ }
+ 
+#warming-stripes::after {
+        color: #fff;
+        display: block;
+        font-size: 80px;
+        line-height: 1;
+        position: absolute;
 
+        }
 
 
 /*When your screen as less than 768px*/
