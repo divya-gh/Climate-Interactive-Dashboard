@@ -23,6 +23,7 @@ function init() {
     }); 
 
     //DemoInfo();
+    demoInfo('World');
     //BuildWorldMap();  
 
     //------------------------------------------------------//
