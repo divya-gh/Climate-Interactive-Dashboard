@@ -77,15 +77,15 @@ html {
 .aText {
    /* font-family:Karantina; */
     font-family:Girassol;
-    font-size: 13px;
+    font-size: 12px;
     text-anchor: middle;
     font-weight: bold;
   }
 
 .set_text
 {
-    font-family:Times;
-     font-size: 12px;
+    font-family:Girassol;
+     font-size: 10px;
      text-anchor: middle;
      font-weight: bold;
      color:black
@@ -108,10 +108,16 @@ html {
 }
 
 .inactive:hover {
-  fill: rgb(71, 175, 2);
+  fill:#0000FF;
   cursor: pointer;
   font-weight: bold;
 }
+.WG:hover {
+    fill: rgb(5, 5, 5);
+    cursor: pointer;
+}
+
+
 
 
 

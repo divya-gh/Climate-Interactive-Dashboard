@@ -45,7 +45,7 @@ addDom = (country) => {
     //create rows and columns with specific Id's for each chart
     var warmingStripsChart = '<div class="row"><div id="first-chart" class="col-12 p-0"><div id="warming-stripes"></div></div></div>'
 
-    var countryAndbar = '<div class="row"><div id="second-chart" class="col-6"><div id="country"></div></div><div id="third-chart" class="col-md-6"><div id="bar"></div></div></div>'
+    var countryAndbar = '<div class="row"><div id="second-chart" class="col-6"><div id="country"></div></div><div id="third-chart" class="col-md-6 p-0"><div id="bar"></div></div></div>'
 
     var pieAndScatter = '<div class="row"><div id="fourth-chart" class="col-6"><div id="pie"></div></div><div id="fifth-chart" class="col-md-6"><div id="scatter"></div></div></div>'
 
@@ -138,26 +138,6 @@ function buildPieBar(country){
     console.log('seasonData Old:', seasonData);
 
 
-    //calculate new season data 
-    var meanSeasonData = {}
-    Object.entries(seasonData[0]).forEach( ([key,value])=> {
-            meanSeasonData[key] = d3.mean(value)              
-                      
-        })
-    
-    
-    //get only seasons for pie chart
-    var newSeasonobj = {
-        "Winter":meanSeasonData.Winter,
-        "Spring":meanSeasonData.Spring,
-        "Summer":meanSeasonData.Summer,
-        "Fall":meanSeasonData.Fall
-    }
-       
-    //print
-    console.log('seasonData new:', newSeasonobj);
-
-
     //Call months data
     d3.json(`/months_data/${country}`).then((monthsData) => {
         //print data
@@ -191,7 +171,7 @@ function buildPieBar(country){
 
 
             //Call the function from the pieChart file
-            pieBarChart(newSeasonobj, monthsData, yearData);            
+            pieBarChart(seasonData, monthsData, yearData);            
 
         });  
     }); 
