@@ -64,14 +64,34 @@ html {
     font-family:Niconne;
     
 }
+
+.mon_text {
+    text-anchor: middle;
+    font-size:22px;
+    font-family:Karantina;
+    /* font-family:Girassol; */
+    /* font-family:Niconne; */
+    
+}
+
 .aText {
    /* font-family:Karantina; */
     font-family:Girassol;
-    font-size: 13px;
+    font-size: 12px;
     text-anchor: middle;
     font-weight: bold;
   }
-    
+
+.set_text
+{
+    font-family:Girassol;
+     font-size: 10px;
+     text-anchor: middle;
+     font-weight: bold;
+     color:black
+
+   } 
+   
 
 .active {
   font-weight: bold;
@@ -82,16 +102,22 @@ html {
 
 .inactive {
   font-weight: lighter;
-  fill: #bab7e2;
+  fill: #837ebe;
   transition: fill 0.9s ease-out;
   text-anchor: middle;
 }
 
 .inactive:hover {
-  fill: rgb(71, 175, 2);
+  fill:#0000FF;
   cursor: pointer;
   font-weight: bold;
 }
+.WG:hover {
+    fill: rgb(5, 5, 5);
+    cursor: pointer;
+}
+
+
 
 
 
