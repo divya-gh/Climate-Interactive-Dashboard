@@ -142,9 +142,9 @@ function pieBarChart(seasonData, monthsData, yearData){
     //parse years
     years = years.map(data => parseTime(data));
 
-    avg_temp = yearData['Avg Temp Change'];
+    avg_tem = yearData['Avg Temp Change'];
     //parse avg temp
-    avg_temp = avg_temp.map(data => +data)
+    avg_tem = avg_tem.map(data => +data)
 
     console.log(d3.extent(years));
 
@@ -154,7 +154,7 @@ function pieBarChart(seasonData, monthsData, yearData){
                        .domain([d3.min(years), d3.max(years)])
                        .range([0, lineChartWidth]).nice();
     var yLinearScale = d3.scaleLinear()
-                          .domain([d3.min(avg_temp)-0.2, d3.max(avg_temp)+0.2])
+                          .domain([d3.min(avg_tem)-0.2, d3.max(avg_tem)+0.2])
                           .range([lineChartHeight, 0]).nice();
 
     // Create Axes
@@ -173,7 +173,8 @@ function pieBarChart(seasonData, monthsData, yearData){
     //create a list of data object
     var temp_list = [];
     years.forEach((year,i) =>{
-        var temp_obj = {"year":year, "temp" : avg_temp[i]}
+        var temp_obj = {"year":year, "temp" : +avg_tem[i]}
+        //console.log(temp_obj)
         temp_list.push(temp_obj)
     })
     //console.log(temp_list)
@@ -183,7 +184,7 @@ function pieBarChart(seasonData, monthsData, yearData){
     //===========================================================================//
 
     function createYearChart(temp_list){
-
+        //console.log(temp_list)
         // line generator
         var line = d3.line()
                      .x(d => xTimeScale(d.year))
@@ -401,7 +402,7 @@ function generateLine(key, data,color){
         var springData = seasonData[0].Spring.map(d => +d) ;
         var summerData = seasonData[0].Summer.map(d => +d) ;
         var fallData = seasonData[0].Fall.map(d => +d) ;
-        console.log("winterData", winterData)
+        //console.log("winterData", winterData)
 
         //Create a list of Objects
         seasonLine = [] ;
@@ -589,21 +590,30 @@ function generateLine(key, data,color){
 
 
     //When X-title Months is clicked
-    svg_line.selectAll(".aText").on("click", function() {
+    SG.on("click", seasonline);
+    
+    //function to generate season lines
+    function seasonline() {
         // get value of the selection
-        var value = d3.select(this).text();      
-        console.log(`Value of clicked title : ${value}`);
+        // var value = d3.select(this).text();      
+        // console.log(`Value of clicked title : ${value}`);
         
         
-        //set hover and active values
-        if(value === 'Seasons'){
+        // //set hover and active values
+        // if(value === 'Seasons'){
             
-        //set style when event occures
-        d3.select(this).classed("inactive inactive:hover" , false)
+        // //set style when event occures
+        // d3.select(this).classed("inactive inactive:hover" , false)
         //disable season text
+        SG.classed("inactive inactive:hover" , false)
         yearG.classed("inactive inactive:hover" , true)
         MG.classed("inactive inactive:hover" , true)
-        SG.classed("inactive inactive:hover" , false)
+
+        WG.attr("display","inline").classed("inactive inactive:hover" , false);
+        SPG.attr("display","inline").classed("inactive inactive:hover" , false);
+        SMG.attr("display","inline").classed("inactive inactive:hover" , false);
+        FG.attr("display","inline").classed("inactive inactive:hover" , false);
+        
 
         //Make the Months Y-titles none
         Jan.attr("display","none");
@@ -624,7 +634,7 @@ function generateLine(key, data,color){
 
         }       
 
-    });
+    
 
     //When X-title year is clicked
 
@@ -659,22 +669,23 @@ function generateLine(key, data,color){
         chartGroup.selectAll(".lgr").attr('display','none');
 
         //Set y scale again and call y axis
-        yLinearScale.domain([d3.min(avg_temp)-0.2, d3.max(avg_temp)+0.2]).nice();
+        yLinearScale.domain([d3.min(avg_tem)-0.2, d3.max(avg_tem)+0.2]).nice();
         // updates x axis with transition
         yGroup.transition().duration(500).call(d3.axisLeft(yLinearScale)) 
 
-        
+        //console.log(temp_list)
         //create line path -call the function to create
         createYearChart(temp_list);
 
     });
-    
+
+       
     //parse date and numbers        
     monthsData.forEach(obj => {
         Object.keys(obj).forEach(key =>{
             if(key === "year"){
                 obj[key] = parseTime(obj[key]);
-                console.log(obj[key])
+                //console.log(obj[key])
             }
             else {
                 obj[key] =+obj[key];
@@ -682,7 +693,9 @@ function generateLine(key, data,color){
         });
     });
 
-    MG.on("click", function() {
+    MG.on("click", buildMonthsLineChart);
+    
+    function buildMonthsLineChart() {
         //Make other titles inactive
         SG.classed("inactive inactive:hover" , true)
         MG.classed("inactive inactive:hover" , false)
@@ -713,7 +726,7 @@ function generateLine(key, data,color){
         chartGroup.selectAll(".ygr").attr('display','none');
 
         //Print data
-        console.log("Months Data: ", monthsData);
+        //console.log("Months Data: ", monthsData);
         var janData = d3.extent(monthsData.map(obj => obj.January));
         var febData = d3.extent(monthsData.map(obj => obj.February));
         var marData = d3.extent(monthsData.map(obj => obj.March));
@@ -765,7 +778,7 @@ function generateLine(key, data,color){
         const ranColor = ['#7BA05B',"#AFE313",'#FAFA37',"#5E8C31" ,"#FF7A00","#9C51B6","#FF5470","#E77200","#FD3A4A","#AF6E4D",'#FF00CC','#B5B35C'];
         var linegroup = [];
         Object.keys(monthsData[0]).forEach((key,i) =>{
-            console.log(key,i)
+            //console.log(key,i)
             if(key != "year"){
                 linegroup[i] = generateLine(key,monthsData,ranColor[i]);
 
@@ -1273,7 +1286,9 @@ function generateLine(key, data,color){
 
 
 
-    });
+    
+};
+
 
 
 
@@ -1299,9 +1314,9 @@ function generateLine(key, data,color){
                 var meanMonthsData ={}
                 Object.keys(monthsData[0]).forEach( (key)=> {
                     if(key != "year"){
-                        temp_list = monthsData.map(obj => obj[key])
+                        temp_list1 = monthsData.map(obj => obj[key])
                         //console.log("Mean Data", temp_list)
-                        meanMonthsData[key] = d3.mean(temp_list) ;
+                        meanMonthsData[key] = d3.mean(temp_list1) ;
                 };           
             //print        
             //console.log("Mean Data", meanMonthsData)
@@ -1312,7 +1327,8 @@ function generateLine(key, data,color){
                               .range(d3.schemeDark2);                      
 
                 //call pie functon
-                buildChartPie(radius,piegroup, color, value, meanMonthsData)           
+                buildChartPie(radius,piegroup, color, value, meanMonthsData) ; 
+                buildMonthsLineChart();
 
                  }
 
@@ -1327,7 +1343,9 @@ function generateLine(key, data,color){
                 monthG.classed("inactive inactive:hover" , true)
 
                 //call the function to build pie chart
-                buildChartPie(radius, piegroup, color,value,newSeasonobj)
+                buildChartPie(radius, piegroup, color,value,newSeasonobj);
+                seasonline();
+
             }
 
               
