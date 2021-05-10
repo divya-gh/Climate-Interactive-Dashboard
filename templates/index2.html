@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Climate Change Dashboard</title>
+
+  <!--Boot Strap-->
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+
+  <!-- Fonts from google -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Bungee+Shade&family=Chathura:wght@800&family=Girassol&family=Karantina&family=Niconne&family=Odibee+Sans&family=Romanesco&display=swap" rel="stylesheet">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  crossorigin="" />
+  <link rel="stylesheet" href="control.layers.minimap.css" />
+  <script src="https://unpkg.com/leaflet-providers@1.1.17"></script>
+  <script src="L.Control.Layers.Minimap.js"></script>
+   <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+
+  <!-- JQuery from google CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+
+<body class="bc_color-b">
+
+  <div class="container-fluid bc_color-b">
+    <!--row 1-->
+    <div class="row ml-5 mr-5 col-color">
+      <div class="col-xs-12 col-s-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 text-left col-color" style='font-family:Times New Roman;'>
+        <p class="pt-3 mb-0 font-italic set_font_size">Interactive climate Change Dashboard</p> 
+      </div>
+      <div class="col-xs-12 col-s-12 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-left pr-0 ">
+        <div class="pt-4">
+        <a href="#!" class="btn btn-primary active p-1  d-flex float-right float-bottom" style="line-height:1px;height:60px;width:100px;background-color:#023002;" ><input class="w-100"  alt="Responsive image" type="image" src="/static/Image/worldMap_button1.png" /></a>
+        </div>       
+      </div>
+    </div>
+    <!--row 2-->
+    <div class="row row ml-5 mr-5 bc_color-w">
+      <div class="col-xs-12 col-s-12 col-md-2  border border-dark border-right-0 border-top-0 col-color">        
+        <div class="mt-5 col-color">
+          <h5 style="font-size:13px;">Select A Country</h5>
+          <select id="selDataset" class=" selDataset dropdown">
+          </select>
+        </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-12 col-12 mt-5 p-0">
+              <div class="panel panel-primary">
+                <div class="panel-heading ">
+                  <h3 class="panel-title mt-5 set-pad" style="font-size:17px;">Demographic Info</h3>
+                </div>
+                <div id="demo-info" class="panel-body font-weight-bolder "></div>
+              </div>
+            </div>
+          </div>
+        </div>        
+      </div>
+      <div class="col-10 p-0 border border-dark rounded-lg">
+        <div class= "row">
+        <div id="map" class="container-fluid">
+          <div id="leaf" class= "text-center"> 
+            <img class="w-50" src="http://2.bp.blogspot.com/-8P_iI3YueO0/T73feHn5VSI/AAAAAAAAAiw/N5N3HmVmk9I/s1600/6a00d834516a0869e2016760f339c3970b-800wi.jpg" alt="Big Smileys" />
+          </div>
+        </div>
+        <div class="row">
+          <div id="charts" class="container-fluid" aria-expanded="false">
+            <div class="row">
+              <div id="first-chart" class="col-12 p-0">
+                <div id="warming-stripes"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div id="second-chart" class="col-6">
+                <div id="country" class ="map"></div>
+              </div>
+              <div id="third-chart" class="col-md-6">
+                <div id="bar"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div id="fourth-chart" class="col-6">
+                <div id="pie"></div>
+              </div>
+              <div id="fifth-chart" class="col-md-6">
+                <div id="scatter"></div>
+              </div>
+            </div>
+        </div>
+      </div>      
+  </div>
+
+   <!-- Leaflet JS -->
+   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+   <!-- D3 JavaScript -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+   <!--Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- Data.js -->
+  <!-- <script src="/static/js/data.js/src/index.js"></script> -->
+
+  <!-- Data file-->
+  <!-- <script src="static/data/ne_50m_admin_0_countries.geojson"></script> -->
+  <script src="/static/js/JQueryRenderHTML.js"></script>
+
+  <!-- API key -->
+  <script type="text/javascript" src="static/js/config.js"></script>
+
+  <!--Our javaScript file-->
+  <!---------------------------------------------->
+  <!-- Launch Page -->
+  <script src="/static/js/launch.js"></script>
+
+  <!-- Build Map-->
+  <script type="module" src="/static/js/map.js"></script> 
+
+  <!-- Buld Scatter Plot -->
+  <!-- <script type="text/javascript" src="/static/js/JMRscatter.js"></script> -->
+
+  <!-- JQuery file to render DOM elements-->
+  <script src="/static/js/JQueryRenderHTML.js"></script>
+
+  <!-- Build Warming Strips Chart-->
+  <script src="/static/js/stripe_chart.js"></script>
+
+    <!-- Build Pie Chart Chart-->
+    <script src="/static/js/pieChart.js"></script>
+  
+  
+</body>
+
+</html>

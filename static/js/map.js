@@ -1,8 +1,9 @@
-// import cloneLayer from 'leaflet-clonelayer';
-$("#map-row").collapse('show');
-$("#charts").collapse('hide')
+import cloneLayer from '/static/js/node_modules/leaflet-clonelayer/index.js';
 
-var myMap = L.map("leaf-map")
+// $("#map-row").collapse('show');
+// $("#charts").collapse('hide')
+
+var myMap = L.map("leaf")
             .setView([-0.17578097424708533,15.732421875000002], 3);
 
 streetLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -131,13 +132,13 @@ function buildMap(mapdiv) {
                                                         console.log(event.latlng);
                                                         // myMap.setView(event.latlng,10)
 
-                                                        $("#map-row").collapse('hide')
-                                                        $("#charts").collapse('show')
+                                                        // $("#map-row").collapse('hide')
+                                                        // $("#charts").collapse('show')
 
                                                         countryDropdown = d3.select("#selDataset").node();
                                                         countryDropdown.value = country;
 
-                                                        // setStage();
+                                                        setStage();
                                                         // slideUp();
 
                                                         var miniMap = L.map("country");

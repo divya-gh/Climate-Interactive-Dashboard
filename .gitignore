@@ -2,6 +2,7 @@
 data.js/
 map_old.js
 map_old2.js
+test.py
 settings.json
 
 # Byte-compiled / optimized / DLL files
@@ -133,3 +134,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
