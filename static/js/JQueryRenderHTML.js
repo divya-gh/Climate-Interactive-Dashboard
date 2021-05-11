@@ -43,18 +43,22 @@ addDom = (country) => {
     $('#map').html("")
 
     //create rows and columns with specific Id's for each chart
-    var warmingStripsChart = '<div class="row"><div id="first-chart" class="col-12 p-0"><div id="warming-stripes"></div></div></div>'
+    var warmingStripsChart = '<div class="row mt-0"><div id="first-chart flex mt-0" class="col-12 p-0"><div id="warming-stripes"></div></div></div>'
 
     var countryAndbar = '<div class="row"><div id="second-chart" class="col-6"><div id="country"></div></div><div id="third-chart" class="col-md-6 p-0"><div id="bar"></div></div></div>'
 
-    var pieAndScatter = '<div class="row"><div id="fourth-chart" class="col-6"><div id="pie"></div></div><div id="fifth-chart" class="col-md-6"><div id="scatter"></div></div></div>'
+    var pieAndScatter = '<div class="row"><div id="fourth-chart" class="col-6"><div id="pie"></div></div><div id="fifth-chart" class="col-md-6 p-0"><div id="scatter"></div></div></div>'
 
     //Create DOM elements
     $("#map").append(warmingStripsChart);
 
     $("#map").append(countryAndbar);
 
-    $("#map").append(pieAndScatter);
+    if($('#bar').length){
+        $("#map").append(pieAndScatter);
+    }
+
+    
 
     //---------------------------------------------------------------------------------
     // experiment -remove these later  
@@ -115,12 +119,11 @@ function buildWarmingStripes(country){
     //Fetch avg_temp Change per year
     AvgTempChange = scatterData['Avg Temp Change'] ;
 
-    //add text to the div container with id = warming-stripes
-    // $("div#warming-stripes").text(`${country}`).addClass("set_country");
 
+    selected_country = country
 
     //call the function stripe_chart(avg_temp) from stripe_charts.js
-    stripe_chart(AvgTempChange);
+    stripe_chart(AvgTempChange, selected_country);
 
     });
 
@@ -190,10 +193,13 @@ function buildScatter(country){
     d3.json(`/scatter_data/${country}`).then((scatterData) => {
         //print
        // console.log('ScatterData:', scatterData);
-       scatterchart(scatterData);
-        });
 
-        
+       d3.json()
+       scatterchart(scatterData);
+
+
+
+        });        
 }
 
 

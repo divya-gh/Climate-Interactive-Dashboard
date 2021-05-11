@@ -32,20 +32,23 @@
   <div class="container-fluid bc_color-b">
     <!--row 1-->
     <div class="row ml-5 mr-5 col-color">
-      <div class="col-xs-12 col-s-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 text-left col-color" style='font-family:Times New Roman;'>
+      <div class="col-xs-12 col-s-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 text-left col-color" style='font-family:georgia;'>
         <p class="pt-3 mb-0 font-italic set_font_size">Interactive Climate Change Dashboard</p> 
-      </div>
-      <div class="col-xs-12 col-s-12 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-left pr-0 ">
-        <div class="pt-4">
-        <a href="/" class="btn btn-primary active p-1  d-flex float-right float-bottom" style="line-height:1px;height:60px;width:100px;background-color:#023002;" ><input class="w-100"  alt="Responsive image" type="image" src="/static/Image/worldMap_button1.png" /></a>
-        </div>       
       </div>
     </div>
     <!--row 2-->
     <div class="row row ml-5 mr-5 bc_color-w">
-      <div class="col-xs-12 col-s-12 col-md-2  border border-dark border-right-0 border-top-0 col-color">        
-        <div class="mt-5 col-color">
-          <h5 style="font-size:13px;">Select A Country</h5>
+      <div class="col-xs-12 col-s-12 col-md-2  border border-dark border-right-0 border-top-0 col-color">   
+        <div>
+          <!-- <div class="p-3 m-2 butn">
+          <a href="/" class="btn btn-primary"><input class="w-100 image-fluid img-set"  alt="Responsive image" type="image" src="/static/Image/worldMap_button1.png" /></a>
+          </div>        -->
+          <div style="font-size:1.5em">
+             <a href="/" class="button5"><input class="w-100 img-set"  alt="Responsive image" type="image" src="/static/Image/worldMap_button1.png" /></a>
+          </div>
+        </div>     
+        <div class="mt-2 col-color">
+          <h5 class= "sel_opt">Select A Country</h5>
           <select id="selDataset" class=" selDataset dropdown">
           </select>
         </div>
@@ -54,7 +57,7 @@
             <div class="col-xs-12 col-12 mt-5 p-0">
               <div class="panel panel-primary">
                 <div class="panel-heading ">
-                  <h3 class="panel-title mt-5 set-pad" style="font-size:17px;">Demographic Info</h3>
+                  <h3 class="panel-title mt-5 set-panel">Demographic Info</h3>
                 </div>
                 <div id="demo-info" class="panel-body font-weight-bolder "></div>
               </div>
@@ -97,7 +100,7 @@
   <!-- <script src="/static/js/map.js"></script>  -->
 
   <!-- Buld Scatter Plot -->
-  <!-- <script type="text/javascript" src="/static/js/JMRscatter.js"></script> -->
+  <script type="text/javascript" src="/static/js/scatterTempCO2.js"></script>
 
   <!-- JQuery file to render DOM elements-->
   <script src="/static/js/JQueryRenderHTML.js"></script>

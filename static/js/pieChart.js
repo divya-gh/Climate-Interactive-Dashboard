@@ -170,6 +170,10 @@ function pieBarChart(seasonData, monthsData, yearData){
     // Add leftAxis to the left side of the display
     var yGroup = chartGroup.append("g").call(leftAxis);
 
+    //Set Y-title for the temperature
+    var YTitle = createYTitle("black", "Temperature", 100) ;
+
+
     //create a list of data object
     var temp_list = [];
     years.forEach((year,i) =>{
@@ -185,6 +189,8 @@ function pieBarChart(seasonData, monthsData, yearData){
 
     function createYearChart(temp_list){
         //console.log(temp_list)
+        //Set Y-title visible 
+        YTitle.attr("display","inline");
         // line generator
         var line = d3.line()
                      .x(d => xTimeScale(d.year))
@@ -487,6 +493,7 @@ function generateLine(key, data,color){
             SPG.classed("inactive inactive:hover" , true)
             SMG.classed("inactive inactive:hover" , true)
             FG.classed("inactive inactive:hover" , true)
+            //YTitle.attr("display","none");
 
             //make linegroups 1 , 2 and 3 invisible
             lineGroup.transition().duration(1000).attr('display','inline')
@@ -604,10 +611,13 @@ function generateLine(key, data,color){
             
         // //set style when event occures
         // d3.select(this).classed("inactive inactive:hover" , false)
+
+
         //disable season text
         SG.classed("inactive inactive:hover" , false)
         yearG.classed("inactive inactive:hover" , true)
         MG.classed("inactive inactive:hover" , true)
+        YTitle.attr("display","none");
 
         WG.attr("display","inline").classed("inactive inactive:hover" , false);
         SPG.attr("display","inline").classed("inactive inactive:hover" , false);
@@ -639,6 +649,9 @@ function generateLine(key, data,color){
     //When X-title year is clicked
 
     yearG.on("click", function() {
+
+        //set y-title active
+        YTitle.attr("display","inline");
 
         //Make other titles inactive
         SG.classed("inactive inactive:hover" , true)
@@ -697,9 +710,13 @@ function generateLine(key, data,color){
     
     function buildMonthsLineChart() {
         //Make other titles inactive
+
+        YTitle.attr("display","none");
         SG.classed("inactive inactive:hover" , true)
         MG.classed("inactive inactive:hover" , false)
         yearG.classed("inactive inactive:hover" , true)
+
+
 
         //clear Ytitles of seasons svg area
         SPG.attr('display','none')

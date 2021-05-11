@@ -86,6 +86,7 @@ function stripe_chart (tempData) {
         return x_list;
         
     }
+    
 
     var data = [{
         y: y_data(tempData),
@@ -97,7 +98,7 @@ function stripe_chart (tempData) {
     var layout = {
         showlegend: false,
         autosize: true,
-        height:100,
+        height:100,           
         margin: {
             l: 0,
             r: 0,

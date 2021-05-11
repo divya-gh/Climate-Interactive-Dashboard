@@ -30,8 +30,9 @@ html {
     -ms-hyphens: auto;
     -o-hyphens: auto;
     hyphens: auto;
-    font-size:50px;
-    height:120px;
+    font-size:35px;
+    height:100px;
+    font-family:Times;
 }
 
 #selDataset {
@@ -39,37 +40,60 @@ html {
     border-color:#5cb85c!important;
     border-width:2px !important;
     width:12vw !important;
+    font-family: Times;
+    /* font-size:12px; */
 }
+
+.sel_opt {
+    font-size:15px;
+    font-family: georgia;
+}
+
+
+.set-panel{
+    font-size:17px;
+    font-family: georgia;
+
+}
+
 .panel_font {
     font-size:1vw;
     color:white;
     font-weight:bold;
     padding:1vw;
-    /* font-family:georgia; */
+    font-family:georgia;
     border-width:3px !important;
 }
 
+
+
 .warm-stripes {
     font-size:large;
-    font-family: Chathura;
+    font-family: georgia;
 
     
 
 }
 
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
 .pie_text {
     text-anchor: middle;
-    font-size:22px;
+    font-size:15px;
     /* font-family:Karantina; */
     /* font-family:Girassol; */
-    font-family:Niconne;
+    font-family:georgia;
     
 }
 
 .mon_text {
     text-anchor: middle;
-    font-size:22px;
-    font-family:Karantina;
+    font-size:15px;
+    font-family:georgia;
     /* font-family:Girassol; */
     /* font-family:Niconne; */
     
@@ -133,27 +157,240 @@ html {
         }
 
 .set_country {
-    background-color:#5cb85c;
+    background-color:#060706;
     color:rgb(11,47,71);
-    font-family:arial;
+    font-family:georgia;
     font-size:60;
     text-align:center;
 }
+
+.butn .img_set {
+    background-size: fill;
+
+}
+
+/* --------------------------------------- */
+a.button5{
+    display:inline-block;
+    padding:0vw;
+    border:1px solid #42cc8c;
+    margin:28px;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:Georgia;
+    font-weight:300;
+    color:#000000;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+    background-color:#050505;
+    text-align:center;
+    transition: all 0.15s;
+   
+    }
+    a.button5:hover{
+    text-shadow: 0 0 4em rgba(255,255,255,1);
+    color:#FFFFFF;
+    border-color:#FFFFFF;
+    }
+    /* @media all and (max-width:30em){
+     a.button5 {
+    display:block;
+    margin:0.4em auto;
+    }
+    } */
+
+/* ------------------------------------------------------------------- */
+
+/*When your screen as more than 1550px*/
+@media screen and (min-width: 1550px) {
+    a.button5{
+        margin: 50px;
+        margin-top: 15px!important;
+        margin-right:60px !important;
+        margin-left:60px !important;
+   
+   }
+
+   .panel_font {
+    font-size: 0.8vw;
+    padding:1vw!important;
+}
+
+.set-panel {
+
+    
+    font-size:1vw !important;
+  }
+
+}
+
+/*When your screen as more than 1550px*/
+@media screen and (min-width: 1200px) {
+    a.button5{
+        margin: 50px;
+        margin-top: 15px!important;
+        margin-right:45px;
+        margin-left:45px;
+   
+   }
+}
+
+
+/*When your screen as less than 1000px*/
+@media screen and (max-width: 1000px) {
+    #selDataset {
+        font-size: 12px !important;
+        right:5px !important;
+    }
+    .set_font_size{
+        font-size:32px!important;
+        /* margin-left:15px!important */
+        
+    }
+
+    a.button5{
+        
+        margin-top: 15px!important;
+        margin-right:20px !important;
+        margin-left:7px !important;
+        margin-bottom:15px !important;
+   
+   }
+
+   .sel_opt{
+       margin-top:30px !important;
+   }
+   
+   }
+
 
 
 /*When your screen as less than 768px*/
 @media screen and (max-width: 768px) {
     .set_font_size{
-        font-size:14px;
+        font-size:30px;
+        margin-left:15px!important
+        
+    }
+    .col-color #selDataset {
+        width: 50vw !important;
+        /* margin-left: 10px !important; */
+     }
+    .aText {
+        
+        font-size: 13px;
+        
+      }
+      .panel_font {
+          font-size: 2vw;
+          padding:4vw!important;
+      }
+      .set-panel {
+
+        margin-left: 15px!important;
+        font-size:large;
+      }
+
+      .sel_opt{
+          font-size: 16px!important;
+          margin-left:15px !important;
+      }
+      #selDataset {
+        /* width:10vw !important; */
+        margin-left: 15px!important;
+        
+    }
+
+    a.button5 {
+        display: none;
+    }
+
+
+}
+
+/*When your screen as less than 600px*/
+@media screen and (max-width: 600px) {
+    .set_font_size{
+        font-size:25px!important;
+        margin-left:15px!important
+        
+    }
+    .col-color #selDataset {
+        width: 50vw !important;
+        /* margin-left: 10px !important; */
+     }
+    .aText {
+        
+        font-size: 13px;
+        
+      }
+      .panel_font {
+          font-size: 2vw;
+          padding:4vw!important;
+      }
+      .set-panel {
+
+        margin-left: 15px!important;
+        font-size:large;
+      }
+
+      .sel_opt{
+          font-size: 16px!important;
+          margin-left:15px !important;
+      }
+      #selDataset {
+        /* width:10vw !important; */
+        margin-left: 15px !important;
+        
+    }
+
+}
+
+
+/*When your screen as less than 400px*/
+@media screen and (max-width: 400px) {
+    .set_font_size{
+        font-size:20px !important;
+        margin-left:10px!important
     }
     #selDataset {
         width:10vw !important;
+        margin-left:10px !important;
+
+        
     }
+    .set-panel {
+
+        margin-left: 10px!important;
+        font-size:large;
+      }
+    .sel_opt{
+        font-size: 16px!important;
+        margin-left:10px !important;
+    }
+
     .aText {
         
         font-size: 13px;
         
       }
 
+
+a.button5 {
+            display: inline-block;
+            margin:40px!important;
+            margin-top:5px !important;
+
+        }
+    
+    
+.panel_font {
+        font-size: 3vw;
+        padding:4vw!important;
+        margin-left:10px !important;
+    }
+
 }
+
 
