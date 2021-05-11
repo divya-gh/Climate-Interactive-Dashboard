@@ -1,4 +1,4 @@
-function stripe_chart (tempData) {
+function stripe_chart (tempData, country) {
 
     //print data
     console.log('Strip chart Data', tempData)
@@ -105,7 +105,22 @@ function stripe_chart (tempData) {
             t: 0,
             pad: 0
         },
-        
+        annotations: [{
+            x: (tempData.length/2),
+            y: 6,
+            xref: 'x',
+            yref: 'y',
+            text: country,
+            showarrow: false,
+            font: {
+                family: 'Arial',
+                size: 60,
+                color: 'rgb(11,47,71)'
+            },
+            align: 'center',
+            // borderpad: 4,
+            // bgcolor: 'rgb(11,47,71)'
+        }],
         xaxis: {
             visible:false
         },
