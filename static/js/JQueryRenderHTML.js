@@ -116,7 +116,7 @@ function buildWarmingStripes(country){
     AvgTempChange = scatterData['Avg Temp Change'] ;
 
     //add text to the div container with id = warming-stripes
-    $("div#warming-stripes").text(`${country}`).addClass("set_country");
+    // $("div#warming-stripes").text(`${country}`).addClass("set_country");
 
 
     //call the function stripe_chart(avg_temp) from stripe_charts.js

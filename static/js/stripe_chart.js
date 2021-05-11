@@ -96,6 +96,7 @@ function stripe_chart (tempData) {
     }]
     var layout = {
         showlegend: false,
+        autosize: true,
         height:100,
         margin: {
             l: 0,
