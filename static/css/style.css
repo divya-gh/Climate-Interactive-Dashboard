@@ -30,7 +30,8 @@ html {
     -ms-hyphens: auto;
     -o-hyphens: auto;
     hyphens: auto;
-    font-size:30px;
+    font-size:50px;
+    height:120px;
 }
 
 #selDataset {
@@ -44,7 +45,7 @@ html {
     color:white;
     font-weight:bold;
     padding:1vw;
-    font-family:georgia;
+    /* font-family:georgia; */
     border-width:3px !important;
 }
 
@@ -130,6 +131,14 @@ html {
         position: absolute;
 
         }
+
+.set_country {
+    background-color:#5cb85c;
+    color:rgb(11,47,71);
+    font-family:arial;
+    font-size:60;
+    text-align:center;
+}
 
 
 /*When your screen as less than 768px*/
