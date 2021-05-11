@@ -118,6 +118,7 @@ function buildWarmingStripes(country){
 
     //Fetch avg_temp Change per year
     AvgTempChange = scatterData['Avg Temp Change'] ;
+    selected_country = country
 
 
     selected_country = country

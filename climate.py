@@ -23,7 +23,7 @@ Base = automap_base()
 Base.prepare(engine, reflect =True)
 
 # View all of the classes that automap found
-#print(Base.classes.keys())
+print(Base.classes.keys())
 
 # Save references to each table
 Emission = Base.classes.CO2_emission
