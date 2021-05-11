@@ -113,53 +113,13 @@ d3.json(climateUrl).then(function(climateData) {
                             // When a feature (country) is clicked, it is enlarged to fit the screen
                             click: function(event) {
 
-                                    console.log(event.latlng);
-                                    newView = event.latlng;
-                                    
-                                    layer = event.target;
-                                    layer.setStyle({
-                                        fillColor: "gray",
-                                        color: "orange"
-
-                                     });
-
-                                     newBounds = layer.getBounds()
-
-                                     myMap.setView(newView, 7)
-
-                                     $('#leaf').addClass('col-6');
-
-                                     myMap.fitBounds(newBounds);
-
-                                    // Set up the legend
-                                    var flag = L.control({ position: "bottomright" });
-                                    flag.onAdd = function() {
-                                            var div = L.DomUtil.create("div", "info legend");
-
-                                            var flagImg = "<img src=" + flagLink + " alt= 'flag of " + country + "' width='75' height='50'>";
-
-                                            div.innerHTML = flagImg;
-
-                                            return div;
-                                    };
-
-                                    // Adding flag to the map
-                                    flag.addTo(myMap);
-
-                                    
-
-                                    var clonedMap = $(".leafletmap").clone();
-
+                                    console.log('you clicked:', event.latlng);
+                           
                                     countryDropdown = d3.select("#selDataset").node();
                                     countryDropdown.value = country;
 
                                     addDom(country);
-
-                                    // addDom(country, newView, newBounds, countriesGeo);
-
-                                    $("#second-chart").append(clonedMap.attr("id","country"));
-
-                                //    miniMap(country, newView, newBounds, countriesGeo);
+                                    demoInfo(country);
                                     
                             }
                     });
@@ -170,121 +130,33 @@ d3.json(climateUrl).then(function(climateData) {
                     layer.bindPopup(popup);
             }
             }).addTo(myMap);
-            // L.control.layers(baseMaps, countryLayer).addTo(myMap);
-});
 
-
-});
-
-function miniMap(country, newView, newBounds, countriesGeo) {
-    
-    var miniMap = L.map("country").setView(newView);
-    
-    miniMap.fitBounds(newBounds);
-
-    streetLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-        attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-        tileSize: 512,
-        maxZoom: 18,
-        zoomOffset: -1,
-        id: "mapbox/streets-v11",
-        accessToken: API_KEY
-        }).addTo(miniMap);
-
-    var countryUrl = `/launch_data/${country}`;
-
-    var miniSatMap = cloneLayer(satelliteLayer);
-    miniSatMap.addTo(miniMap);
-
-    // Grabbing our GeoJSON data..
-    d3.json(countriesGeo).then(function(geoData) {
-
-        d3.json(countryUrl).then(function(climateData) {
+        var legend = L.control({ position: "bottomright" });
+        legend.onAdd = function() {
+                var div = L.DomUtil.create("div", "legend");
         
-            // Creating a GeoJSON layer with the retrieved data
-            indvCountry = L.geoJson(geoData, {
-                    // // Style each feature based on avg temp change
-                    style: {
-                    color: "orange",
-                    fillColor: "gray",
-                    fillOpacity: 0.6,
-                    weight: 5
-                    },
-                    // Called on each feature
-                    onEachFeature: function(feature, layer) {
-                            var country = feature.properties.COUNTRY;
-        
-                            var countryInfo = climateData.filter(obj => country === obj.Country);
-                            console.log(countryInfo[0]);
+                var colors = ['red', 'lightcoral', 'royalblue', 'darkblue','gray'];
+                var limits = ['120.959+', '80.959 to 120.958', '40.959 to 80.958', '0 to 40.958', 'No Data'];
+                var labels = [];
+            
+                // var legendInfo = "<p style='text-align:center;font-size:16'>Average Temperature Change</h5>";
+                var legendInfo = "<h6>Average Temperature Change</h6>";
                 
-                            if (countryInfo[0]) {
-        
-                                    console.log(countryInfo[0]['Avg Temp Change']);
-        
-                                    var avg_temp = countryInfo[0]['Avg Temp Change'];
-                                    var avg_co2 = countryInfo[0]['Avg Co2 Change'];
-                                    var population = countryInfo[0].Population;
-                                    var flagLink = countryInfo[0].Images;
-                                    
-                            }
-                            else {
-        
-                                    var avg_temp = 0;
-                                    var avg_co2 = 0;
-                                    var population = 0;
-                                    var flagLink = '';
-                            };
-        
-                            feature.properties.avg_temp = avg_temp;
-                            feature.properties.flag_Link = flagLink;
-                            console.log(feature.properties.avg_temp);
-                    
-                            
-                            var popup = "<b>Country: </b>" + country + "<br><b>Avg Temp Change: </b>" + avg_temp + "<br><b>Avg CO2 Change: </b>" + avg_co2 + "<br><b>Population: </b>" + population;
-                                                // Set mouse events to change map styling
-                            layer.on({
-                                onAdd: function() {
-                                    var flag = L.control({ position: "bottomright" });
-                                    flag.onAdd = function() {
-                                            var div = L.DomUtil.create("div", "info legend");
-                            
-                                            var flagImg = "<img src=" + flagLink + " alt= 'flag of " + country + "' width='75' height='50'>";
-                            
-                                            div.innerHTML = flagImg;
-                            
-                                            return div;
-                                    };
-                            
-                                    // Adding flag to the map
-                                    flag.addTo(myMap);
-                                },
-                                // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
-                                mouseover: function(event) {
-                                        layer = event.target;
-                                        layer.setStyle({
-                                                fillOpacity: 0.9,
-                                                weight: 5
-                                        });
-                                        this.openPopup()
-                                },
-                                // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
-                                mouseout: function(event) {
-                                        layer = event.target;
-                                        layer.setStyle({
-                                                fillOpacity: 0.5,
-                                                weight: 1
-                                        });
-                                        this.closePopup()
-                                }
-                            });
+                div.innerHTML = legendInfo;
                 
-                //   // Giving each feature a pop-up with information pertinent to it
-                layer.bindPopup(popup);
-        }
-        }).addTo(miniMap);
+                limits.forEach(function(limit, index) {
+                    labels.push("<li style=\"background-color: " + colors[index] + "\"></li> " + limits[index] + "<br>");
+                });
 
+                div.innerHTML += "<ul>" + labels.join(" ") + "</ul>";
+        
+                return div;
+        };
+        // Adding flag to the map
+        legend.addTo(myMap);
 
-    });
 });
 
-};
+
+});
+

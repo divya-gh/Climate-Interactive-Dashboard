@@ -45,8 +45,8 @@ addDom = (country, newView, newBounds, countriesGeo) => {
     //create rows and columns with specific Id's for each chart
     var warmingStripsChart = '<div class="row"><div id="first-chart" class="col-12 p-0"><div id="warming-stripes"></div></div></div>'
 
-    var countryAndbar = '<div class="row"><div id="second-chart" class="col-6 align-items-center"></div><div id="third-chart" class="col-md-6 p-0"><div id="bar"></div></div></div>'
-    // var countryAndbar = '<div class="row"><div id="second-chart" class="col-6"><div id="country"></div></div><div id="third-chart" class="col-md-6 p-0"><div id="bar"></div></div></div>'
+    // var countryAndbar = '<div class="row"><div id="second-chart" class="col-6 align-items-center"></div><div id="third-chart" class="col-md-6 p-0"><div id="bar"></div></div></div>'
+    var countryAndbar = '<div class="row"><div id="second-chart" class="col-6"><div id="country"></div></div><div id="third-chart" class="col-md-6 p-0"><div id="bar"></div></div></div>'
 
     var pieAndScatter = '<div class="row"><div id="fourth-chart" class="col-6"><div id="pie"></div></div><div id="fifth-chart" class="col-md-6"><div id="scatter"></div></div></div>'
 
@@ -76,7 +76,7 @@ addDom = (country, newView, newBounds, countriesGeo) => {
     // $("div#country").text("Im a Country") 
 
     //add background for country so map will display
-    // $("#country").append('<img class="w-50 map-background" src="http://2.bp.blogspot.com/-8P_iI3YueO0/T73feHn5VSI/AAAAAAAAAiw/N5N3HmVmk9I/s1600/6a00d834516a0869e2016760f339c3970b-800wi.jpg" alt="Big Smileys" />')
+    $("#country").append('<img class="w-50 map-background" src="http://2.bp.blogspot.com/-8P_iI3YueO0/T73feHn5VSI/AAAAAAAAAiw/N5N3HmVmk9I/s1600/6a00d834516a0869e2016760f339c3970b-800wi.jpg" alt="Big Smileys" />')
 
     // append cloned map
 
@@ -109,7 +109,7 @@ plotCharts = (country) => {
     buildPieBar(country)
 
     //build MiniMap
-    // miniMap(country, newView, newBounds, countriesGeo);
+    buildMiniMap(country);
 
 }
 
