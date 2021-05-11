@@ -97,7 +97,7 @@ plotCharts = (country) => {
     //Call the function build sunburts
     buildPieBar(country)
 
-  
+    buildScatter(country);
 
 }
 
@@ -179,6 +179,20 @@ function buildPieBar(country){
         });  
     }); 
   });
+}
+
+//==================================//
+//Function to build scatter plot
+
+
+function buildScatter(country){
+    d3.json(`/scatter_data/${country}`).then((scatterData) => {
+        //print
+       // console.log('ScatterData:', scatterData);
+       scatterchart(scatterData);
+        });
+
+        
 }
 
 
