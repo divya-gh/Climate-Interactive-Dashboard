@@ -95,7 +95,7 @@ d3.json(climateUrl).then(function(climateData) {
 
         // return {popup: popup,
         //         newcenter: newCenter};
-        if (flagLink !== '') {
+        if (flagLink) {
                 var flag = L.control({ position: "bottomright" });
                 flag.onAdd = function() {
                         var div = L.DomUtil.create("div", "flag");
