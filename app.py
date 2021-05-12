@@ -60,6 +60,13 @@ def get_scatter_data(country):
     scatter_data = climate_data.get_scatter(country)
     return jsonify(scatter_data)
 
+#get data for mini map
+@app.route("/launch_data/<country>")
+def get_minimap_data(country):
+    #Call climate.py get data by months per country
+    minimap_data = climate_data.get_country_map(country)
+    return jsonify(minimap_data)
+
  
 if __name__ == '__main__':
     app.run(debug=True)

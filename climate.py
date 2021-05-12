@@ -294,6 +294,17 @@ def get_scatter(country='United States of America'):
     return Scatter_obj
 
 
+#################################################################################
+# function to return launch data for mini map
+#-----------------------------------------------------------
+def get_country_map(country='Mali'):
+    launch_data , countries = launchPage()
+    allCountries = pd.DataFrame(launch_data)
+    thisCountry = allCountries.loc[allCountries['Country']==country]
+    thisCountry = thisCountry.to_dict('r')
+    return thisCountry
+
+
 ###############################################################################
 #Call the functions to check
 #launchPage()
