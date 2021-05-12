@@ -43,9 +43,9 @@
           <!-- <div class="p-3 m-2 butn">
           <a href="/" class="btn btn-primary"><input class="w-100 image-fluid img-set"  alt="Responsive image" type="image" src="/static/Image/worldMap_button1.png" /></a>
           </div>        -->
-          <div style="font-size:1.5em">
+          <!-- <div style="font-size:1.5em">
              <a href="/" class="button5"><input class="w-100 img-set"  alt="Responsive image" type="image" src="/static/Image/worldMap_button1.png" /></a>
-          </div>
+          </div> -->
         </div>     
         <div class="mt-2 col-color">
           <h5 class= "sel_opt">Select A Country</h5>
@@ -66,17 +66,22 @@
         </div>        
       </div>
       <div class="col-10 p-0 border border-dark rounded-lg">
-        <div id="map" class="container-fluid">
-          <div id="leaf" class= "text-center"> 
+        <div id="map" class="container-fluid p-0" >
+          <div id="leaf" class= "text-center" style="background-color:black;"> 
+            <img class="w-50 map-background" src="http://2.bp.blogspot.com/-8P_iI3YueO0/T73feHn5VSI/AAAAAAAAAiw/N5N3HmVmk9I/s1600/6a00d834516a0869e2016760f339c3970b-800wi.jpg" alt="Big Smileys" />
+
           </div>
         </div>
       </div>      
   </div>
+  </div>
 
-   <!-- Leaflet JS -->
-   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+
    <!-- D3 JavaScript -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
    <!--Plotly.js -->
@@ -97,7 +102,10 @@
   <script src="/static/js/launch.js"></script>
 
   <!-- Build Map-->
-  <!-- <script src="/static/js/map.js"></script>  -->
+  <script src="/static/js/map.js"></script> 
+ 
+  <!-- minimap js -->
+  <script src="/static/js/mimMap.js"></script>
 
   <!-- Buld Scatter Plot -->
   <script type="text/javascript" src="/static/js/scatterTempCO2.js"></script>

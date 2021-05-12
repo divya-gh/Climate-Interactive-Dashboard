@@ -321,4 +321,4 @@ if __name__ == '__main__':
     unique_countries = get_unique_countries()
     #print('countries :' , unique_countries)
     avg_temp_by_months= get_months()
-    print(avg_temp_by_months)
+    # print(avg_temp_by_months)

@@ -5,6 +5,7 @@ import os
 import pandas as pd
 from splinter import Browser
 from webdriver_manager.chrome import ChromeDriverManager
+import numpy as np
 
 #Set up Splinter
 executable_path = {'executable_path': ChromeDriverManager().install()}
@@ -81,6 +82,29 @@ for row in table_rows:
     urban_pop = table_data[10].text
     #------ADDING INFO TO LIST-----------
     country_demo.append({'name': country, 'population': population, 'density': density, 'land-size': land_size, 'median_age': med_age, 'urban_pop': urban_pop})
+#---------GETTING WORLD DATA----------------
+
+#-------STARTING WITH SUM OF ZERO------------
+world_pop = 0
+world_land = 0
+world_urban = 0
+#-------LOOPING THROUGH LIST TO PULL DATA-------------
+for country in country_demo:
+    country_pop = int(country['population'].replace(',', ''))
+    world_pop = world_pop + country_pop
+    country_land = int(country['land-size'].replace(',', ''))
+    world_land = world_land + country_land
+    if country['urban_pop'] != 'N.A.':
+        country_urban = int(country['urban_pop'].replace('%', ''))
+        world_urban = world_urban + country_urban
+#-------ROUNDING WORLD_URBAN------------
+world_urban = np.round(world_urban/352, 2)
+#--------APPENDING TO LIST---------------
+country_demo.append({'name': 'World', 
+                    'population': world_pop, 
+                    'density': np.round((world_pop/world_land), 2), 
+                    'land-size': world_land, 
+                    'urban_pop':f'{world_urban}%' })
 
 #--------PUT LIST INTO DATAFRAME-------------
 demo_df = pd.DataFrame(country_demo)

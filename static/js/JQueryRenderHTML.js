@@ -75,7 +75,12 @@ addDom = (country) => {
     //$("div#pie").text("Im a pie chart")   
     
     $('#fifth-chart').css("border", "1px solid black")
-    $("div#country").text("Im a Country") 
+    // $("div#country").text("Im a Country") 
+       //add background for country so map will display
+    $("#country").append('<img class="w-50 map-background" src="http://2.bp.blogspot.com/-8P_iI3YueO0/T73feHn5VSI/AAAAAAAAAiw/N5N3HmVmk9I/s1600/6a00d834516a0869e2016760f339c3970b-800wi.jpg" alt="Big Smileys" />')
+
+
+
 
 
     //Render Charts when DOM elements are ready
@@ -102,6 +107,9 @@ plotCharts = (country) => {
     buildPieBar(country)
 
     buildScatter(country);
+
+    //build MiniMap
+    buildMiniMap(country);
 
 }
 
