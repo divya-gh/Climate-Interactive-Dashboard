@@ -85,16 +85,16 @@ html {
 
 .pie_text {
     text-anchor: middle;
-    font-size:15px;
+    font-size:10px;
     /* font-family:Karantina; */
-    /* font-family:Girassol; */
+    font-family:Girassol;
     font-family:georgia;
     
 }
 
 .mon_text {
     text-anchor: middle;
-    font-size:15px;
+    font-size:12px;
     font-family:georgia;
     /* font-family:Girassol; */
     /* font-family:Niconne; */

@@ -11,7 +11,7 @@
    
    var margin = {
      top: 20,
-     right: 13,
+     right: 20,
      bottom: 30,
      left: 40
    };
@@ -223,12 +223,24 @@ var yTitle = svg.append("text")
                 .attr("x", 0 - (height -100))
                 .attr("dy", "1em")
                 .attr("class", "aText active")
-                .text("Temperature")
+                .text("Temperature  \u00B0C")
                 //.attr("fill", black)
-                .attr("display", "inline")                
+                .attr("display", "inline")    
+                
+ //Add Title to the chart
+ var MainTitle = svg.append("g").append("text")
+                          .attr("x", 200)             
+                          .attr("y", 0 + 12)
+                          .attr("text-anchor", "middle")  
+                          .style("font-size", "11.5px") 
+                          // .style("text-decoration", "underline")
+                          .style("font-weight", "bold")   
+                          .text("Correlation Between Temperation and Co2 Emission");
 
 
   };
+
+
 
 
 

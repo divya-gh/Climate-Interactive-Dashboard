@@ -23,7 +23,7 @@ Base = automap_base()
 Base.prepare(engine, reflect =True)
 
 # View all of the classes that automap found
-print(Base.classes.keys())
+#print(Base.classes.keys())
 
 # Save references to each table
 Emission = Base.classes.CO2_emission
@@ -102,18 +102,7 @@ def launchPage() :
     #Get New Countries from the merged DF
     New_Countries = merged_co2_country.index
 
-    #Create a dictionary holding above values
-     #meta = [{
-    #    'country' : country_name,
-    #    'demo_info' : [web scraped data],
-    #    'tool_tip' : [{'c_name': country_name,
-    #                'avg_temp':avg_temp,
-    #                'avg_co2' : new_Avg_c02,
-    #                'population':population from web scraping
-    #                }]
-    #   } ]
-
-    #New Code---------------------------------------------------
+     #New Code---------------------------------------------------
 
     meta = []
 
@@ -210,6 +199,7 @@ def get_season(country='United States of America'):
             'Winter':list(np.ravel(season_country_mean.iloc[0,2:].values)),
             'Spring':list(np.ravel(season_country_mean.iloc[1,2:].values)),
             'Summer':list(np.ravel(season_country_mean.iloc[2,2:].values)),
+            'Fall':"nodata",
             'Data Found':'yes'
             }
     else:
@@ -324,4 +314,4 @@ if __name__ == '__main__':
     avg_temp_by_months= get_months()
     # print(avg_temp_by_months)
     launch = get_country_map("India")
-    print(launch)
+    #print(launch)

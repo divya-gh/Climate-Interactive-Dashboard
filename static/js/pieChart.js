@@ -7,9 +7,9 @@ function pieBarChart(seasonData, monthsData, yearData){
 
     var margin = {
         top: 10,
-        right: 10,
+        right: 13,
         bottom: 25,
-        left: 10
+        left: 40
       };
 
     var chartWidth = width - margin.left - margin.right;
@@ -48,6 +48,16 @@ function pieBarChart(seasonData, monthsData, yearData){
               .classed("aText month inactive inactive:hover", true)
               .text("Months");   
 
+    //Add Title to the chart
+    var PieTitle = svg.append("g").append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 + 12)
+        .attr("text-anchor", "middle")  
+        .style("font-size", "12px") 
+        // .style("text-decoration", "underline")
+        .style("font-weight", "bold")   
+        .text("Avg. temperature between 1961 & 2019");
+
 
     //calculate new season data 
     var meanSeasonData = {}
@@ -61,8 +71,11 @@ function pieBarChart(seasonData, monthsData, yearData){
     var newSeasonobj = {
         "Winter":meanSeasonData.Winter,
         "Spring":meanSeasonData.Spring,
-        "Summer":meanSeasonData.Summer,
-        "Fall":meanSeasonData.Fall
+        "Summer":meanSeasonData.Summer,        
+    }
+
+    if(meanSeasonData.Fall != undefined){
+        newSeasonobj["Fall"] = meanSeasonData.Fall ;
     }
        
     //print
@@ -92,7 +105,7 @@ function pieBarChart(seasonData, monthsData, yearData){
 
     var m_line = {
         top: 20,
-        right: 13,
+        right: 20,
         bottom: 39,
         left: 40
       };
@@ -135,7 +148,19 @@ function pieBarChart(seasonData, monthsData, yearData){
                             .text("Months");   
 
 
+         //Add Title to the chart
+    var YearsTitle = svg_line.append("g").append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 + 15)
+        .attr("text-anchor", "middle")  
+        .style("font-size", "11.5px") 
+        // .style("text-decoration", "underline")
+        .style("font-weight", "bold")   
+        .text("Avg. Temperature change since 1961");
+
+
     //set data for line creation---------------------------------------------------------------//
+
     //Parse time 
     var parseTime = d3.timeParse("%Y");
     var years = yearData.Year ;
@@ -171,7 +196,7 @@ function pieBarChart(seasonData, monthsData, yearData){
     var yGroup = chartGroup.append("g").call(leftAxis);
 
     //Set Y-title for the temperature
-    var YTitle = createYTitle("black", "Temperature", 100) ;
+    var YTitle = createYTitle("black", "Temperature \u00B0C", 100) ;
 
 
     //create a list of data object
@@ -299,7 +324,7 @@ function pieBarChart(seasonData, monthsData, yearData){
     function createYTitle(color, title, position){
         var yTitle = svg_line.append("text")
                 .attr("transform", "rotate(-90)")
-                .attr("y", 0 - margin.left +9.5)
+                .attr("y", 0 - margin.left +40)
                 .attr("x", 0 - (chartHeight -position))
                 .attr("dy", "1em")
                 .attr("class", "WG aText")
@@ -375,6 +400,11 @@ function generateLine(key, data,color){
         SMG.attr("display","inline");
         FG.attr("display","inline");
 
+        //clear previous groups
+        chartGroup.selectAll(".lgr").remove();
+        chartGroup.selectAll(".ygr").remove()
+        //chartGroup.selectAll(".lgr").atrr("display","none");
+
         //select dMin and Dmax for yDomain
         var minlist =[] ;
         var maxlist =[] ;
@@ -403,12 +433,9 @@ function generateLine(key, data,color){
         // updates x axis with transition
         yGroup.transition().duration(500).call(d3.axisLeft(yLinearScale)) 
 
-        //Get the data ready
         var winterData = seasonData[0].Winter.map(d => +d) ;
         var springData = seasonData[0].Spring.map(d => +d) ;
         var summerData = seasonData[0].Summer.map(d => +d) ;
-        var fallData = seasonData[0].Fall.map(d => +d) ;
-        //console.log("winterData", winterData)
 
         //Create a list of Objects
         seasonLine = [] ;
@@ -418,11 +445,21 @@ function generateLine(key, data,color){
                 "Winter": winterData[i],
                 "Spring":springData[i],
                 "Summer":summerData[i],
-                "Fall":fallData[i]
-            }
-            seasonLine.push(seasonLineObj);
-        });
-        //console.log("season line list:", seasonLine)
+            }                  
+
+        if(seasonData[0].Fall != "nodata"){      
+            var fallData = seasonData[0].Fall.map(d => +d) ;
+            seasonLineObj["Fall"] = fallData[i] ;
+        }
+        seasonLine.push(seasonLineObj);
+
+    });
+        
+        //console.log("winterData", winterData)
+
+
+             
+        console.log("season line list:", seasonLine)
 
         // Line generator for Winter data
         var lineWin = d3.line()
@@ -445,9 +482,6 @@ function generateLine(key, data,color){
         .y(d => yLinearScale(d.Fall));
 
         // Append a path element to the svg, make sure to set the stroke, stroke-width, and fill attributes.
-        //clear previous groups
-        chartGroup.selectAll(".lgr").remove();
-        chartGroup.selectAll(".ygr").remove();
         var lineGroup = chartGroup.append('g')
                             .attr("class", "lgr")
                             .append("path")
@@ -578,13 +612,19 @@ function generateLine(key, data,color){
             lineGroup2.transition().duration(1000).attr('display','none')
             lineGroup3.transition().duration(1000).attr('display','inline')
 
-            var fallCircleData = seasonLine.map(obj => {
-                obj = {'year': obj.year ,  'temp':+obj.Fall}
-                return obj ;
-            })
 
-            var circleColor = "#9999FF"
-            createCircle(fallCircleData, circleColor);
+            //check to see if property exists
+            if("Fall" in seasonLine){
+                var fallCircleData = seasonLine.map(obj => {
+                    obj = {'year': obj.year ,  'temp':+obj.Fall}
+                    return obj ;
+                })
+    
+                var circleColor = "#9999FF"
+                createCircle(fallCircleData, circleColor);
+            }
+
+
         });
                      
 
@@ -1336,7 +1376,7 @@ function generateLine(key, data,color){
                         meanMonthsData[key] = d3.mean(temp_list1) ;
                 };           
             //print        
-            //console.log("Mean Data", meanMonthsData)
+            //console.log("Mean months Data", meanMonthsData)
             });
                 // set the color scale
                 var color = d3.scaleOrdinal()
@@ -1380,7 +1420,7 @@ function buildChartPie(radius, piegroup, color, value, data){
     // Compute the position of each group on the pie:
     var pie = d3.pie()
       .value(function(d) {return d.value; })
-      //.sort(function(a, b) { console.log(a) ; return d3.ascending(a.key, b.key);} ) // This make sure that group order remains the same in the pie chart
+    //   .sort(function(a, b) { console.log(a) ; return b.property.localeCompare(a.property);} ) // This make sure that group order remains the same in the pie chart
 
     // shape helper to build arcs:
     var arcGenerator = d3.arc()
@@ -1440,7 +1480,7 @@ function buildChartPie(radius, piegroup, color, value, data){
                  .duration(1000)
                  .text(function(d){ return `${(d.data.value).toFixed(2)} \u00B0C`})
                  .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
-                 .attr('class','mon_text')
+                 .attr('class','pie_text')
             
 });
     pathGroup.on("mouseout", (d) => {
@@ -1450,7 +1490,7 @@ function buildChartPie(radius, piegroup, color, value, data){
                  if(value === "Seasons"){
                     hover.text(function(d){ return d.data.key})
                          .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
-                         .attr('class','pie_text')
+                         .attr('class','mon_text')
                  }
                  else {
                     hover.text(function(d){ return (d.data.key).slice(0,3)})
