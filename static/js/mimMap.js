@@ -31,14 +31,7 @@ var countriesGeo = 'https://opendata.arcgis.com/datasets/2b93b06dc0dc4e809d3c8db
 
 var climateUrl = `/launch_data/${country}`;
 
-// // Null variable that will hold layer
-// var countryLayer = L.geoJson(null, {style: {
-//         color: "orange",
-//         fillColor: "gray",
-//         fillOpacity: 0.6,
-//         weight: 3
-//         },
-// });
+
 
 // Grabbing our GeoJSON data..
 d3.json(countriesGeo).then(function(geoData) {
