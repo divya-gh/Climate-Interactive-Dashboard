@@ -1438,7 +1438,7 @@ function buildChartPie(radius, piegroup, color, value, data){
         pathGroup.select("text")
                  .transition()
                  .duration(1000)
-                 .text(function(d){ return (d.data.value).toFixed(2)})
+                 .text(function(d){ return `${(d.data.value).toFixed(2)} \u00B0C`})
                  .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
                  .attr('class','mon_text')
             
