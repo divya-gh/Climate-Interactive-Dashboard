@@ -32,7 +32,7 @@ function chooseColor(avg_temp) {
             var color = "gray";
     };
 
-    console.log(color);
+//     console.log(color);
 
     return color;  
 };
@@ -60,11 +60,11 @@ d3.json(climateUrl).then(function(climateData) {
                     var country = feature.properties.COUNTRY;
 
                     var countryInfo = climateData.filter(obj => country === obj.Country);
-                    console.log(countryInfo[0]);
+                //     console.log(countryInfo[0]);
         
                     if (countryInfo[0]) {
 
-                            console.log(countryInfo[0]['Avg Temp Change']);
+                        //     console.log(countryInfo[0]['Avg Temp Change']);
 
                             var avg_temp = countryInfo[0]['Avg Temp Change'];
                             var avg_co2 = countryInfo[0]['Avg Co2 Change'];
@@ -82,7 +82,7 @@ d3.json(climateUrl).then(function(climateData) {
 
                     feature.properties.avg_temp = avg_temp;
                     feature.properties.flag_Link = flagLink;
-                    console.log(feature.properties.avg_temp);
+                //     console.log(feature.properties.avg_temp);
             
                     
                     var popup = "<b>Country: </b>" + country + "<br><b>Avg Temp Change: </b>" + avg_temp + "<br><b>Avg CO2 Emission: </b>" + avg_co2 + "<br><b>Population: </b>" + population;

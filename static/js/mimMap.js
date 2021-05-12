@@ -57,11 +57,11 @@ d3.json(countriesGeo).then(function(geoData) {
 d3.json(climateUrl).then(function(climateData) {
 
         var countryInfo = climateData.filter(obj => country === obj.Country);
-        console.log(countryInfo[0]);
+        // console.log(countryInfo[0]);
 
         if (countryInfo[0]) {
 
-                console.log(countryInfo[0]['Avg Temp Change']);
+                // console.log(countryInfo[0]['Avg Temp Change']);
 
                 var avg_temp = countryInfo[0]['Avg Temp Change'];
                 var avg_co2 = countryInfo[0]['Avg Co2 Change'];
@@ -95,16 +95,20 @@ d3.json(climateUrl).then(function(climateData) {
 
         // return {popup: popup,
         //         newcenter: newCenter};
-        var flag = L.control({ position: "bottomright" });
-        flag.onAdd = function() {
-                var div = L.DomUtil.create("div", "flag");
+        if (flagLink) {
+                var flag = L.control({ position: "bottomright" });
+                flag.onAdd = function() {
+                        var div = L.DomUtil.create("div", "flag");
+
+                        
+                        var flagImg = "<img src=" + flagLink + " alt= 'flag of " + country + "' width='75' height='50'>";
         
-                var flagImg = "<img src=" + flagLink + " alt= 'flag of " + country + "' width='75' height='50'>";
-        
-                div.innerHTML = flagImg;
-        
-                return div;
-        };
+                        div.innerHTML = flagImg;
+                
+                        return div;        
+                        
+                };
+        }
         // Adding flag to the map
         flag.addTo(myMap);
 
