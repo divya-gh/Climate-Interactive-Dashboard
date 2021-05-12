@@ -103,7 +103,7 @@ var chartGroup = svg.append("g")
                             .classed("ygr" , true);
 //append circles to each group                             
 circlesGroup.append("circle")
-           .attr("r", 3)
+           .attr("r", 6)
            .attr("fill", d => pickColor(d.co2));                            
 
 // //append text to each group            
@@ -136,7 +136,7 @@ circlesGroup.on("mouseover", function() {
                d3.select(this).selectAll('circle')
                  .transition()
                  .duration(1000)
-                 .attr("r", 3)
+                 .attr("r", 6)
                d3.select(this).select('text')
                  .transition()
                  .duration(1000)
