@@ -3,6 +3,7 @@ body {
     height:100%;
     padding: 0;
     margin: 0;
+    
 }
 
   
@@ -13,7 +14,7 @@ html {
 }
 
 .bc_color-b {
-    background-color:rgb(8, 8, 8);
+    background-color:rgb(13, 13, 14);
 }
 .bc_color-w{
     background-color:rgb(234, 237, 241);
@@ -169,6 +170,45 @@ html {
 
 }
 
+
+  #map {
+    /* height: 850px; */
+    width: 100%;
+    position: relative;
+  }
+  
+  .map-background {
+      opacity: 0.0;
+      background-color: #000;
+      
+  }
+  
+  .stats {
+      padding: 10px;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 14px;
+      /* font-weight: bold; */
+      line-height: 18px;
+      color: #555;
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+  
+    .legend {
+      padding: 10px;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 14px;
+      /* font-weight: bold; */
+      line-height: 18px;
+      color: #555;
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+
+
 /* --------------------------------------- */
 a.button5{
     display:inline-block;
@@ -268,6 +308,14 @@ a.button5{
 
 /*When your screen as less than 768px*/
 @media screen and (max-width: 768px) {
+
+    
+#country {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+  }
+
     .set_font_size{
         font-size:30px;
         margin-left:15px!important
