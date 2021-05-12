@@ -84,7 +84,7 @@ d3.json(climateUrl).then(function(climateData) {
         stats.onAdd = function() {
                 var div = L.DomUtil.create("div", "stats");
         
-                var popup = "<b>Avg Temp Change: </b>" + avg_temp + "<br><b>Avg CO2 Change: </b>" + avg_co2;
+                var popup = "<b>Avg Temp Change: </b>" + avg_temp + "<br><b>Avg CO2 Emission: </b>" + avg_co2;
         
                 div.innerHTML = popup;
         

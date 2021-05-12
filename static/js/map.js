@@ -12,19 +12,16 @@ id: "mapbox/satellite-streets-v11",
 accessToken: API_KEY
 }).addTo(myMap);
 
-// var baseMaps = {
-// Streets: streetLayer,
-// Satellite: satelliteLayer
-// };
+
 
 function chooseColor(avg_temp) {
-    if (avg_temp > 120.958) {
+    if (avg_temp > 0.552) {
             var color = "red";
     }
-    else if (avg_temp > 80.958) {
+    else if (avg_temp > 0.448) {
             var color = "lightcoral";
     }
-    else if (avg_temp > 40.958) {
+    else if (avg_temp > 0.364) {
             var color = "royalblue";
     }
     else if (avg_temp > 0) {
@@ -88,7 +85,7 @@ d3.json(climateUrl).then(function(climateData) {
                     console.log(feature.properties.avg_temp);
             
                     
-                    var popup = "<b>Country: </b>" + country + "<br><b>Avg Temp Change: </b>" + avg_temp + "<br><b>Avg CO2 Change: </b>" + avg_co2 + "<br><b>Population: </b>" + population;
+                    var popup = "<b>Country: </b>" + country + "<br><b>Avg Temp Change: </b>" + avg_temp + "<br><b>Avg CO2 Emission: </b>" + avg_co2 + "<br><b>Population: </b>" + population;
                     
                     // Set mouse events to change map styling
                     layer.on({
@@ -136,7 +133,7 @@ d3.json(climateUrl).then(function(climateData) {
                 var div = L.DomUtil.create("div", "legend");
         
                 var colors = ['red', 'lightcoral', 'royalblue', 'darkblue','gray'];
-                var limits = ['120.959+', '80.959 to 120.958', '40.959 to 80.958', '0 to 40.958', 'No Data'];
+                var limits = ['0.553+', '0.449 to 0.552', '0.365 to 0.448', '0 to 0.364', 'No Data'];
                 var labels = [];
             
                 // var legendInfo = "<p style='text-align:center;font-size:16'>Average Temperature Change</h5>";
