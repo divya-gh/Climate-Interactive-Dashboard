@@ -208,8 +208,9 @@ html {
     }
 
 .mini-map {
-    height: 400px;
+    height: 300px;
     align-items: center;
+    padding-top:10px;
 
 }
 

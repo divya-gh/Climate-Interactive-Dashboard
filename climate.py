@@ -53,8 +53,9 @@ meteor_df = temp_df.loc[temp_df["Months"] == 'Meteorological year' ]
 meteor_df_new = meteor_df.copy()
 
 # Calculate avg temp per Meteorological year
-meteor_df_new['avg_temp']= round(meteor_df_new.mean(axis =1),3)
+meteor_df_new = meteor_df_new.drop(columns=["field1", "Months", "Element", "Unit"])
 meteor_id_df = meteor_df_new.set_index('Area')
+meteor_id_df['avg_temp']= round(meteor_id_df.mean(axis =1),3)
 
 results_Demo = session.query(Country_demo)
 demo_df = pd.read_sql(results_Demo.statement, session.connection(),index_col='index')
@@ -322,3 +323,5 @@ if __name__ == '__main__':
     #print('countries :' , unique_countries)
     avg_temp_by_months= get_months()
     # print(avg_temp_by_months)
+    launch = get_country_map("India")
+    print(launch)
