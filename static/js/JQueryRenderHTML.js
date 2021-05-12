@@ -45,7 +45,7 @@ addDom = (country) => {
     //create rows and columns with specific Id's for each chart
     var warmingStripsChart = '<div class="row mt-0"><div id="first-chart flex mt-0" class="col-12 p-0"><div id="warming-stripes"></div></div></div>'
 
-    var countryAndbar = '<div class="row"><div id="second-chart" class="col-6 pt-5" style="align-items: center;"><div class="mini-map" id="country" ></div></div><div id="third-chart" class="col-md-6"><div id="bar"></div></div></div>'
+    var countryAndbar = '<div class="row"><div id="second-chart" class="col-6 pt-4" style="align-items: center;"><div class="mini-map" id="country" ></div></div><div id="third-chart" class="col-md-6"><div id="bar"></div></div></div>'
 
     var pieAndScatter = '<div class="row"><div id="fourth-chart" class="col-6"><div id="pie"></div></div><div id="fifth-chart" class="col-md-6 p-0"><div id="scatter"></div></div></div>'
 

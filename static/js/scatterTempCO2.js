@@ -145,12 +145,12 @@ circlesGroup.on("mouseover", function() {
 
 // transition on page load
 chartGroup.selectAll("circle")
-// .transition()
-// .duration(100)
-// .attr("cx", (d) => width/2)
-// .attr("cy", d => height)
-// .transition()
-// .duration(100)
+.transition()
+.duration(100)
+.attr("cx", (d) => width/2)
+.attr("cy", d => height)
+.transition()
+.duration(100)
 .attr("cx", (d) => xTimeScale(d.year))
 .attr("cy", d => yLinearScale(d.temp));
 
