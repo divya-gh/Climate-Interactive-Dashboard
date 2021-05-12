@@ -23,6 +23,7 @@ html {
 .col-color {
     background-color:rgb(11,47,71);
     color:white;
+    
 }
 .set_font_size{
     word-wrap: break-word;
@@ -34,6 +35,8 @@ html {
     font-size:35px;
     height:100px;
     font-family:Times;
+    padding-top:30px;
+
 }
 
 #selDataset {
@@ -165,12 +168,6 @@ html {
     text-align:center;
 }
 
-.butn .img_set {
-    background-size: fill;
-
-}
-
-
   #map {
     /* height: 850px; */
     width: 100%;
@@ -216,11 +213,18 @@ html {
 
 
 /* --------------------------------------- */
+.button5 .img_set {
+    background-size: fill;
+    display:inline;
+    float:right;
+
+}
+
 a.button5{
-    display:inline-block;
+    display:inline;
     padding:0vw;
     border:1px solid #42cc8c;
-    margin:28px;
+    /* margin:28px; */
     border-radius:0.12em;
     box-sizing: border-box;
     text-decoration:none;
@@ -230,8 +234,9 @@ a.button5{
     text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
     box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
     background-color:#050505;
-    text-align:center;
+    /* text-align:center; */
     transition: all 0.15s;
+    float: right;
    
     }
     a.button5:hover{
@@ -246,40 +251,93 @@ a.button5{
     }
     } */
 
-/* ------------------------------------------------------------------- */
-
-/*When your screen as more than 1550px*/
-@media screen and (min-width: 1550px) {
     a.button5{
-        margin: 50px;
-        margin-top: 15px!important;
-        margin-right:60px !important;
-        margin-left:60px !important;
+        /* margin: 60px; */
+
+        height:50px;
+        width:95px;
    
    }
+
+/* ------------------------------------------------------------------- */
+
+/* When your screen as more than 1550px */
+@media screen and (min-width: 1600px) {
+    .set-img-col {
+        padding-top:20px;
+        padding-left:80px;
+    }
+    
+    a.button5 {
+        /* margin: 60px; */
+        margin-top: 20px!important;
+        margin-right:20px !important;
+        margin-left:50px !important;
+        margin-bottom:20px !important;
+        height:50px;
+        width:100px;
+        float: right;
+   
+   }
+}
+
+
+
+/* When your screen as more than 1550px */
+@media screen and (min-width: 1500px) {
+    .set-img-col {
+        padding-top:20px;
+        padding-left:60px;
+    }
+    
+    a.button5 {
+        /* margin: 60px; */
+        margin-top: 20px!important;
+        margin-right:20px !important;
+        margin-left:10px !important;
+        margin-bottom:20px !important;
+        height:50px;
+        width:100px;
+   
+   }
+}
+
+/* When your screen as more than 1210px */
+@media screen and (min-width: 1210px) {
+    .set-img-col {
+        /* padding-:30px; */
+        padding-left:60px;
+    }
 
    .panel_font {
     font-size: 0.8vw;
     padding:1vw!important;
 }
 
-.set-panel {
-
-    
-    font-size:1vw !important;
+.set-panel {    
+    font-size:large;
   }
 
 }
 
-/*When your screen as more than 1550px*/
-@media screen and (min-width: 1200px) {
+/* .col-color {
+    height:120px !important;
+} */ 
+
+/* When your screen as more than 1000px */
+@media screen and (min-width: 1000px) {
     a.button5{
-        margin: 50px;
-        margin-top: 15px!important;
-        margin-right:45px;
-        margin-left:45px;
+        /* margin: 60px; */
+        margin-top: 10px!important;
+        margin-right:25px !important;
+        margin-left:10px !important;
+        height:50px;
+        width:100px;
    
    }
+   .set-panel {
+        font-size:17px;
+  }
 }
 
 
@@ -297,16 +355,21 @@ a.button5{
 
     a.button5{
         
-        margin-top: 15px!important;
-        margin-right:20px !important;
-        margin-left:7px !important;
+        margin-top: 10px!important;
+        /* margin-right:20px !important;
+        margin-left:20px !important; */
         margin-bottom:15px !important;
+        width:90px !important;
    
    }
 
    .sel_opt{
        margin-top:30px !important;
    }
+
+   .set-panel {    
+    font-size:large;
+  }
    
    }
 
@@ -433,8 +496,10 @@ a.button5{
 
 a.button5 {
             display: inline-block;
-            margin:40px!important;
+            margin:20px!important;
             margin-top:5px !important;
+            margin-right:60px !important;
+            margin-left:60px !important;
 
         }
     

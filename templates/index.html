@@ -8,18 +8,18 @@
   <title>Climate Change Dashboard</title>
 
   <!--Boot Strap-->
-  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
 
   <!-- Fonts from google -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Bungee+Shade&family=Chathura:wght@800&family=Girassol&family=Karantina&family=Niconne&family=Odibee+Sans&family=Romanesco&display=swap" rel="stylesheet">
+  
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
   crossorigin="" />
-   <!-- Our CSS -->
+
+  <!-- Our CSS -->
   <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 
   <!-- JQuery from google CDN -->
@@ -33,21 +33,19 @@
     <!--row 1-->
     <div class="row ml-5 mr-5 col-color">
       <div class="col-xs-12 col-s-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 text-left col-color" style='font-family:georgia;'>
-        <p class="pt-3 mb-0 font-italic set_font_size">Interactive Climate Change Dashboard</p> 
+        <p class="pt-4 mb-0 font-italic set_font_size">Interactive Climate Change Dashboard</p> 
       </div>
+      <div class="col-xs-12 col-s-12 col-md-2 col-lg-2 col-xl-2 set-img-col">
+        <div>
+           <a href="/" class="button5"><input class="w-100 img-set h-100"  alt="Responsive image" type="image" src="/static/Image/worldMap_button1.png" /></a>
+        </div>
+      </div>       
     </div>
+    
     <!--row 2-->
     <div class="row row ml-5 mr-5 bc_color-w">
-      <div class="col-xs-12 col-s-12 col-md-2  border border-dark border-right-0 border-top-0 col-color">   
-        <div>
-          <!-- <div class="p-3 m-2 butn">
-          <a href="/" class="btn btn-primary"><input class="w-100 image-fluid img-set"  alt="Responsive image" type="image" src="/static/Image/worldMap_button1.png" /></a>
-          </div>        -->
-          <!-- <div style="font-size:1.5em">
-             <a href="/" class="button5"><input class="w-100 img-set"  alt="Responsive image" type="image" src="/static/Image/worldMap_button1.png" /></a>
-          </div> -->
-        </div>     
-        <div class="mt-2 col-color">
+      <div class="col-xs-12 col-s-12 col-md-2  border border-dark border-right-0 border-top-0 col-color">      
+        <div class="mt-4 col-color">
           <h5 class= "sel_opt">Select A Country</h5>
           <select id="selDataset" class=" selDataset dropdown">
           </select>
@@ -84,6 +82,7 @@
 
    <!-- D3 JavaScript -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+
    <!--Plotly.js -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <!-- Data.js -->
