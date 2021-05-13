@@ -25,6 +25,12 @@ html {
     color:white;
     
 }
+
+.set_mandp {
+    margin-top:50px !important;
+}
+
+
 .set_font_size{
     word-wrap: break-word;
     -webkit-hyphens: auto;
