@@ -232,7 +232,7 @@ var yTitle = svg.append("text")
  //Add Title to the chart
  var MainTitle = svg.append("g").append("text")
                           .attr("x", 200)             
-                          .attr("y", 0 + 12)
+                          .attr("y", 0 + 15)
                           .attr("text-anchor", "middle")  
                           .style("font-size", "11.5px") 
                           // .style("text-decoration", "underline")

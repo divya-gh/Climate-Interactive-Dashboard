@@ -104,7 +104,7 @@ plotCharts = (country) => {
     buildWarmingStripes(country);
 
     //Call the function build sunburts
-    buildPieBar(country)
+    buildPieLine(country)
 
     buildScatter(country);
 
@@ -145,7 +145,7 @@ function buildWarmingStripes(country){
 // Function to Build Pie Chart
 //-----------------------------------------------------//
 
-function buildPieBar(country){
+function buildPieLine(country){
 
     // Get season data for the selected Country - call API 
     d3.json(`/season_data/${country}`).then((seasonData) => {
@@ -187,7 +187,7 @@ function buildPieBar(country){
 
 
             //Call the function from the pieChart file
-            pieBarChart(seasonData, monthsData, yearData);            
+            pieLineChart(seasonData, monthsData, yearData);            
 
         });  
     }); 

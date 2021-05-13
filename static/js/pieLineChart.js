@@ -1,4 +1,4 @@
-function pieBarChart(seasonData, monthsData, yearData){
+function pieLineChart(seasonData, monthsData, yearData){
 
     // set the dimensions and margins of the graph
     var width = 400
@@ -51,7 +51,7 @@ function pieBarChart(seasonData, monthsData, yearData){
     //Add Title to the chart
     var PieTitle = svg.append("g").append("text")
         .attr("x", (width / 2))             
-        .attr("y", 0 + 12)
+        .attr("y", 0 + 15)
         .attr("text-anchor", "middle")  
         .style("font-size", "12px") 
         // .style("text-decoration", "underline")
@@ -229,7 +229,8 @@ function pieBarChart(seasonData, monthsData, yearData){
                                   .attr("d", line)
                                   .attr("fill", "none")
                                   .attr("stroke", "orange")
-                                  .attr("stroke-width",2);
+                                  .attr("stroke-width",2)
+                                  .attr('opacity', 0.8);
                               
         // Create the event listeners with transitions
         lineGroup.on("mouseover", function() {
@@ -384,7 +385,8 @@ function generateLine(key, data,color){
                         .attr("d", line(data))
                         .attr("fill", "none")
                         .attr("stroke", color)
-                        .attr("stroke-width",2);
+                        .attr("stroke-width",2)
+                        .attr('opacity',0.8);
 
     return lineGroup;
 }
@@ -488,7 +490,8 @@ function generateLine(key, data,color){
                             .attr("d", lineWin(seasonLine))
                             .attr("fill", "none")
                             .attr("stroke", "blue")
-                            .attr("stroke-width",2);
+                            .attr("stroke-width",2)
+                            .attr('opacity',0.8);
 
         // append line
         var lineGroup1 = chartGroup.append('g')
@@ -497,7 +500,8 @@ function generateLine(key, data,color){
                                   .attr("d", lineSpr(seasonLine))
                                   .attr("fill", "none")
                                   .attr("stroke", "green")
-                                  .attr("stroke-width",2);
+                                  .attr("stroke-width",2)
+                                  .attr('opacity',0.8);
 
         var lineGroup2 = chartGroup.append('g')
                                   .attr("class", "lgr")
@@ -505,7 +509,8 @@ function generateLine(key, data,color){
                                   .attr("d", lineSum(seasonLine))
                                   .attr("fill", "none")
                                   .attr("stroke", "red")
-                                  .attr("stroke-width",2);
+                                  .attr("stroke-width",2)
+                                  .attr('opacity',0.8);
     
         var lineGroup3 = chartGroup.append('g')
                                   .attr("class", "lgr")
@@ -513,7 +518,8 @@ function generateLine(key, data,color){
                                   .attr("d", lineFal(seasonLine))
                                   .attr("fill", "none")
                                   .attr("stroke", "orange")
-                                  .attr("stroke-width",2);
+                                  .attr("stroke-width",2)
+                                  .attr('opacity',0.8);
 
 //=================================================================================//
 //  Events - Seasons Y title on click
