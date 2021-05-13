@@ -841,10 +841,8 @@ function generateLine(key, data,color){
         Nov.attr("display","inline");
         Dec.attr("display","inline");
 
-
-
-        
-        const ranColor = ['#7BA05B',"#AFE313",'#FAFA37',"#5E8C31" ,"#FF7A00","#9C51B6","#FF5470","#E77200","#FD3A4A","#AF6E4D",'#FF00CC','#B5B35C'];
+        //Set colors for each month
+        const ranColor = ['#0066ff',"#3333ff",'#85b81f',"#33cc33" ,"#006600","#a60059","#e6001a","#ff0000","#ff8585","#ff7070",'#ff9900','#0099ff'];
         var linegroup = [];
         Object.keys(monthsData[0]).forEach((key,i) =>{
             //console.log(key,i)
@@ -939,7 +937,7 @@ function generateLine(key, data,color){
                 return obj ;
             })
         
-            var circleColor = "#ACBF60"
+            var circleColor = "#0066ff"
             createCircle(FCircleData, circleColor);
         });
 
@@ -1484,18 +1482,18 @@ function buildChartPie(radius, piegroup, color, value, data){
     }
 
     pathGroup.on("mouseover", (d) => {
-        // d3.select(this).select("path")
-        //                //alter path
+                       
 
         pathGroup.select("text")
                  .transition()
                  .duration(1000)
                  .text(function(d){ return `${(d.data.value).toFixed(2)} \u00B0C`})
                  .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
-                 .attr('class','pie_text')
+                 .attr('class','pie_text');
             
 });
     pathGroup.on("mouseout", (d) => {
+
         hover = pathGroup.select("text")
                  .transition()
                  .duration(1000)
@@ -1507,7 +1505,7 @@ function buildChartPie(radius, piegroup, color, value, data){
                  else {
                     hover.text(function(d){ return (d.data.key).slice(0,3)})
                          .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
-                         .attr('class','mon_text')
+                         .attr('class','mon_text');
                  }
                  
                 

@@ -191,8 +191,8 @@ def get_season(country='United States of America'):
             'Data Found':'yes'
             }
     elif len(season_country_mean) == 3 :
-        print(f'...............\n Country: {country}')
-        print(season_country_mean)
+        #print(f'...............\n Country: {country}')
+        #print(season_country_mean)
         season_obj ={
             'Country': country,
             'Year':list(np.ravel(year)),
@@ -203,8 +203,8 @@ def get_season(country='United States of America'):
             'Data Found':'yes'
             }
     else:
-        print(f'...............\n Country: {country}')
-        print(season_country_mean)
+        #print(f'...............\n Country: {country}')
+        #print(season_country_mean)
         season_obj ={ 'Data Found' :'No' }
 
     #Append the object to a list
