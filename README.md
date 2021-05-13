@@ -24,7 +24,7 @@ Since the CO2 emissions can be influenced by the demographics of the country, th
   
   c. Latitude and Longitude coordinates - https://developers.google.com/public-data/docs/canonical/countries_csv
   
-*You can find the scrape code [here](https://github.com/divya-gh/Climate-Interactive-Dashboard/edit/main/country-scrape.py).*
+*You can find the scrape code [here](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/country_scrape.py).*
 
 **4. GeoJson**
 
@@ -38,11 +38,15 @@ After pulling the data in from the csv files, the temperature change file was re
 
 <h2 align='center'>Navigation</h2>
 
-Using Flask, the initial html page shows a dropdown option to choose a country, a table of demographics (default United States) and a geoJson map of the world. Once a country is chosen from the dropdown, it will render new charts that display information specific to that country. The header bar is a special kind of chart that shows the increase and decrease of the temperatures by color. Shades of red for warmer and shades of blue for colder. This chart is not interactive, but it sure does look cool. The demographic table will also update. A country can also be chosen by clicking on the country on the map. While the mouse is hovering over the country, a toolTip shows the country name, the population and average temperature change. Since data is not available for all countries, your selection is limited to the highlighted countries on the map. The countries highlighted in red show an average increase in temperature whereas the countires highlighted in blue show a decrease in temperature. After choosing a country and the charts update, the dropdown box is still available to choose a new country or you can navigate back to the homepage by clicking on the world map button on the top.
+Using Flask, the initial html page shows a dropdown option to choose a country, a table of demographics (default United States) and a geoJson map of the world. Once a country is chosen from the dropdown, it will render new charts that display information specific to that country. The header bar is a special kind of chart that shows the increase and decrease of the temperatures by color. Shades of red for warmer and shades of blue for colder. This chart is not interactive, but it sure does look cool. The demographic table will also update. A country can also be chosen by clicking on the country on the map. While the mouse is hovering over the country, a toolTip shows the country name, the population and average temperature change. Since data is not available for all countries, your selection is limited to the highlighted countries on the map. The countries highlighted in red show an average increase in temperature whereas the countires highlighted in blue show a decrease in temperature. After choosing a country and the charts update, the dropdown box is still available to choose a new country or you can navigate back to the homepage by clicking on the world map button on the top. Below is a demo video of the home page. In order to see more, you'll have to navigate to the page and enjoy.
+
+![demo video](https://user-images.githubusercontent.com/72528267/118071457-6dceab00-b36d-11eb-9dfc-2622e575c764.mp4)
 
 <h3 align='center'>Charts</h3>
 
 1. Picture of country with flag(if flag data was found)
+
+![mini-map pic](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/Image/screenshot-minimap.PNG)
 
 2. Line Chart
 
@@ -50,13 +54,19 @@ Using Flask, the initial html page shows a dropdown option to choose a country, 
     + By clicking on Seasons or Months, you can see all the data for or navigate to a specific season/month for that country. 
     + Hovering over the markers will show the value of the temperature change.
 
+![line chart](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/Image/screenshot-line-chart.PNG)
+
 3. Pie Chart
 
     + With this chart, you can see the data specific to the seasons.
 
+![pie chart](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/Image/screenshot-piechart.PNG)
+
 4. Scatter Plot
 
     + Shows a correlation of temperature change and year. The size and color of the markers coordinate with population and CO2 emissions. 
+
+![scatter](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/Image/screenshot-scatter-chart.PNG)
 
 
 <h2 align='center'>Tools and Technology</h2>
@@ -82,28 +92,40 @@ Using Flask, the initial html page shows a dropdown option to choose a country, 
 5. Bootstrap
 6. HTML
 
-<h3 align='center'>ScreenShots</h3>
+<h3 align='center'>Additional ScreenShots</h3>
+
+1. Demo box
+
+![demo](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/Image/screenshot-demo.PNG)
+
+2. Home page
+
+![home page](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/Image/screenshot-large-map.PNG)
+
+3. Warming Stripes header
+
+![warming stripes](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/Image/screenshot-warming-stripes.PNG)
 
 <h3 align='center'>Files</h3>
 
-1. Climate.py
+1. [Climate.py](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/climate.py)
     -contains functions to pull necessary data from database
-2. app.py
+2. [app.py](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/app.py)
     -contains flask application with routes to render HTML page
     -needs to be run to launch page on local host
-3. country_scrape.py
+3. [country_scrape.py](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/country_scrape.py)
     -contains python script to scrape websites for country demographics
-4. JQueryRenderHTML.js
+4. [JQueryRenderHTML.js](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/js/JQueryRenderHTML.js)
     -contains JQuery functions to render HTML page events
-5. map.js
+5. [map.js](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/js/map.js) and [mimMap.js](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/js/mimMap.js)
     -contains geoJson for main map of countries with events and map of selected country with(out) flag
-6. launch.js
+6. [launch.js](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/js/launch.js)
     -contains function to render initial launch page
-7. pie&line.js
+7. [pieLineChart.js](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/js/pieLineChart.js)
     -contains SVG for pie chart and the line chart
-8. scatterTempCO2.js
+8. [scatterTempCO2.js](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/js/scatterTempCO2.js)
     -contains SVG for scatter chart
-9. stripe_chart.js
+9. [stripe_chart.js](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/js/stripe_chart.js)
     -contians function for plotly to create warming stripes chart.
 
 
