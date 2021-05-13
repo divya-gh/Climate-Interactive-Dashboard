@@ -205,9 +205,6 @@ function buildScatter(country){
 
        //d3.json()
        scatterchart(scatterData);
-
-
-
         });        
 }
 

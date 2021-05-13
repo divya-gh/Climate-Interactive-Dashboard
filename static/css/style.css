@@ -26,9 +26,9 @@ html {
     
 }
 
-.set_mandp {
-    margin-top:50px !important;
-}
+/* .set_mandp {
+    margin-top:70px !important;
+} */
 
 
 .set_font_size{
@@ -57,6 +57,7 @@ html {
 .sel_opt {
     font-size:15px;
     /* font-family: georgia; */
+    padding-top:10px;
 }
 
 
