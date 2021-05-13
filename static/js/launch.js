@@ -53,6 +53,8 @@ function  setStage(){
     //if worldInfo is Selected,
     if(country === "World Info"){
         init();
+        document.location.href="/";
+        
     }
     else{
             //Update Demo Info for the selected Country

@@ -8,7 +8,8 @@ function slideUp() {
         //If world Info is selected, run init function
         if(selCountry === "World Info"){
             init();
-            
+            document.location.href="/";
+       
             
         }
         else if($('#leaf').length){
