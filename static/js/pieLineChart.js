@@ -841,6 +841,8 @@ function generateLine(key, data,color){
         Nov.attr("display","inline");
         Dec.attr("display","inline");
 
+
+
         //Set colors for each month
         const ranColor = ['#0066ff',"#3333ff",'#85b81f',"#33cc33" ,"#006600","#a60059","#e6001a","#ff0000","#ff8585","#ff7070",'#ff9900','#0099ff'];
         var linegroup = [];
