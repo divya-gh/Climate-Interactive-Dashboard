@@ -1,7 +1,7 @@
 function stripe_chart (tempData, country) {
 
     //print data
-    console.log('Strip chart Data', tempData)
+    //console.log('Strip chart Data', tempData)
 
     function color_choice(temp) {
         if (temp<-4) {
@@ -98,7 +98,7 @@ function stripe_chart (tempData, country) {
     var layout = {
         showlegend: false,
         autosize: true,
-        height:100,           
+        height:100,         
         margin: {
             l: 0,
             r: 0,

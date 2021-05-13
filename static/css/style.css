@@ -80,7 +80,7 @@ html {
 .flex {
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
+    width: 90%;
   }
 
 .pie_text {

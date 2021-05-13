@@ -601,10 +601,11 @@ function generateLine(key, data,color){
         FG.on("click", function() {
         
             //set other titles as inactive
+            FG.classed("inactive inactive:hover" , false)
             SPG.classed("inactive inactive:hover" , true)
             WG.classed("inactive inactive:hover" , true)
             SMG.classed("inactive inactive:hover" , true)
-            FG.classed("inactive inactive:hover" , false)
+            
         
             //make linegroups 1 , 2 and 3 invisible
             lineGroup1.transition().duration(1000).attr('display','none')
@@ -614,15 +615,20 @@ function generateLine(key, data,color){
 
 
             //check to see if property exists
-            if("Fall" in seasonLine){
-                var fallCircleData = seasonLine.map(obj => {
-                    obj = {'year': obj.year ,  'temp':+obj.Fall}
-                    return obj ;
-                })
-    
-                var circleColor = "#9999FF"
-                createCircle(fallCircleData, circleColor);
-            }
+            seasonLine.forEach(obj => {
+                if("Fall" in obj){
+                    var fallCircleData = seasonLine.map(obj => {
+                        obj = {'year': obj.year ,  'temp':+obj.Fall}
+                        return obj ;
+                    })
+                    // console.log("fall data", fallCircleData)
+        
+                    var circleColor = "#9999FF"
+                    createCircle(fallCircleData, circleColor);
+                }
+
+            })
+
 
 
         });
@@ -1420,7 +1426,7 @@ function buildChartPie(radius, piegroup, color, value, data){
     // Compute the position of each group on the pie:
     var pie = d3.pie()
       .value(function(d) {return d.value; })
-    //   .sort(function(a, b) { console.log(a) ; return b.property.localeCompare(a.property);} ) // This make sure that group order remains the same in the pie chart
+       .sort(function(a, b) {return b.key.localeCompare(a.key)}) ; // This make sure that group order remains the same in the pie chart
 
     // shape helper to build arcs:
     var arcGenerator = d3.arc()

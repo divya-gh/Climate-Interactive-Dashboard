@@ -104,7 +104,8 @@ var chartGroup = svg.append("g")
 //append circles to each group                             
 circlesGroup.append("circle")
            .attr("r", 6)
-           .attr("fill", d => pickColor(d.co2));                            
+           .attr("fill", d => pickColor(d.co2))
+           .attr("opacity", 0.8);                            
 
 // //append text to each group            
 circlesGroup.append("text")
@@ -115,7 +116,8 @@ circlesGroup.append("text")
            }).transition()
            .duration(300)
            .attr("class", "set_text")
-           .style("display", 'none');
+           .style("display", 'none')
+           ;
 
 //Event listeners with transitions
 circlesGroup.on("mouseover", function() {
