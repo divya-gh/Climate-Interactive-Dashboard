@@ -1,3 +1,4 @@
+
 ![thermometer pic](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/corters22/Images/thermometer%20pic.png)
 
 This is a question that has been on everyone's mind since June 23, 1988 when Dr James Hansen, director of NASA's Institute for Space Studies testified before the US Senate[(1)]. Since that time, climate change has moved more and more from a scientific debate to a political one. There have been numerous studies done to see if CO2 emissions are being reduced, the changes of the Earth's temperature, and its affects on our future. 
@@ -6,67 +7,77 @@ As a project, we have decided to look into the temperature changes of the differ
 
 <h2 align='center'>Data</h2>
 
-**1. Temperature changes**
+|         Format      |        Description       |
+| ------------------------------ | ------------- |
+| <img src="./static/Image/csv.png" alt="TP" align='left'  width="150" height="100">         |  **1. Temperature changes:** Data set found [here](https://www.kaggle.com/sevgisarac/temperature-change?select=Environment_Temperature_change_E_All_Data_NOFLAG.csv) shows the changes in temperature in each country from 1961 to 2019. The data is also split up into each month, so that you can compare January vs January, and by season. The changes go anywhere from 9&deg;C cooler to 11&deg;C warmer.<br/><br/> **2. CO2 Emissions:** Temperature fluctuations can be caused by many different events, one of which is CO2 emissions. Each country produces different amounts of CO2 dependent on their access to electricity, the total population, the urban population and other factors. We used the data from https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions and you can find the dataset [here](./static/data/CO2_emission.csv). |
+|         <img src="./static/Image/webScrape1.png" alt="TP" align='left'  width="150" height="100">                        |   **3. Country demographics:** Since the CO2 emissions can be influenced by the demographics of the country, the dashboard includes current demographics, as of May 2021, so that as you are reviewing the charts, you can see how the demographics might play a role. The demographics were scraped from three different websites using Beautiful Soup. After scraping the websites, the data was pushed into the sqlite database as an additional table and also saved as a csv file.<br><br>- a. __Flags__ - https://www.worldometers.info/geography/flags-of-the-world/<br>- b. __Population__ - https://www.worldometers.info/world-population/population-by-country/<br>-  c. __Latitude and Longitude coordinates__ - https://developers.google.com/public-data/docs/canonical/countries_csv<br><br>-  *You can find the scrape code [here](./country_scrape.py).*  |
+|         <img src="./static/Image/Geojson.jpg" alt="TP" align='left'  width="150" height="100">                        |   **4. GeoJson:** For the map, we used Leaflet and geoJson files for the boundaries of each country. You can find the full geoJson file here https://opendata.arcgis.com/datasets/2b93b06dc0dc4e809d3c8db5cb96ba69_0.geojson.  |
 
-The original dataset can be found [here](https://www.kaggle.com/sevgisarac/temperature-change?select=Environment_Temperature_change_E_All_Data_NOFLAG.csv) and shows the changes in temperature in each country from 1961 to 2019. The data is also split up into each month, so that you can compare January vs January, and by season. The changes go anywhere from 9&deg;C cooler to 11&deg;C warmer. Data was manually entered into sqlite database.
+<h2 align='center'>ETL</h2>
 
-**2. CO2 Emissions**
-
-Temperature fluctuations can be caused by many different events, one of which is CO2 emissions. Each country produces different amounts of CO2 dependent on their access to electricity, the total population, the urban population and other factors. We used the data from https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions and you can find the dataset [here](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/data/annual-co-emissions-by-region.csv). Data was manually entered into sqlite database.
-
-**3. Country demographics**
-
-Since the CO2 emissions can be influenced by the demographics of the country, the dashboard includes current demographics, as of May 2021, so that as you are reviewing the charts, you can see how the demographics might play a role. The demographics were scraped from three different websites using Beautiful Soup. After scraping the websites, the data was pushed into the sqlite database as an additional table.
-
-  a. Flags - https://www.worldometers.info/geography/flags-of-the-world/
-  
-  b. Population - https://www.worldometers.info/world-population/population-by-country/
-  
-  c. Latitude and Longitude coordinates - https://developers.google.com/public-data/docs/canonical/countries_csv
-  
-*You can find the scrape code [here](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/country_scrape.py).*
-
-**4. GeoJson**
-
-For the map, we used Leaflet and geoJson files for the boundaries of the each country. You can find the full geoJson file here https://opendata.arcgis.com/datasets/2b93b06dc0dc4e809d3c8db5cb96ba69_0.geojson. 
-
-**5. Cleaning Data**
-
-After pulling the data in from the csv files, the temperature change file was reduced to only include the temperature changes and not the standard deviations. The null values were also dropped. Any years prior to 1961 were also dropped on the CO2 Emission data to match the temperature change data. After cleaning the data, it was imported into the sqlite database found [here](https://github.com/divya-gh/Climate-Interactive-Dashboard/edit/main/static/data/climateDB.db).
-
-![world climate pic](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/corters22/Images/Climate%20zones2.png)
+<img src="./static/Image/postgresql-logo.png" alt="TP" align='left'  width="120" height="100"> <br/>
+- Data is queried, cleaned, transformed and loaded to *PostGresDB* using `python pandas`, `SQLAlchemy` . <br/>
+- Find Postgres `Schema` [here](./static/data/climateDB.db.sql).
+----
+<h2 align='center'>Web Framework</h2>
+<img src="./static/Image/flask_api.jpg" alt="TP" align='left'  width="120" height="100"> <br/>
+- python Flask REST API is implemented to manage HTTP requests, render templates and JSON serialized data for manipulating the charts. <br/>
+- Find FlaskAPI code [here](./app.py).
 
 <h2 align='center'>Navigation</h2>
 
-Using Flask, the initial html page shows a dropdown option to choose a country, a table of demographics (default United States) and a geoJson map of the world. Once a country is chosen from the dropdown, it will render new charts that display information specific to that country. The header bar is a special kind of chart that shows the increase and decrease of the temperatures by color. Shades of red for warmer and shades of blue for colder. This chart is not interactive, but it sure does look cool. The demographic table will also update. A country can also be chosen by clicking on the country on the map. While the mouse is hovering over the country, a toolTip shows the country name, the population and average temperature change. Since data is not available for all countries, your selection is limited to the highlighted countries on the map. The countries highlighted in red show an average increase in temperature whereas the countires highlighted in blue show a decrease in temperature. After choosing a country and the charts update, the dropdown box is still available to choose a new country or you can navigate back to the homepage by clicking on the world map button on the top. Below is a demo video of the home page. In order to see more, you'll have to navigate to the page and enjoy.
+Data rendered from python Flask API is then used to visualize data on the web client. User can find the following features:
 
-![demo video](https://user-images.githubusercontent.com/72528267/118071457-6dceab00-b36d-11eb-9dfc-2622e575c764.mp4)
+- __Launch Page :__  
+    - Dropdown option to choose a country, a table of demographics (default World Info), and a geoJson map of the world. 
+    - Built with HTML, Bootstrap , Jquery.js, JavaScript, Leaflet.js
+               
+- __Country Selection:__  
+    - Select a country from the drop-down menu or click on the leaflet.js map.
+    - Jquery.js is used to asynchronously render HTML elements for charts when a country is selected.
+ 
+- __Demographic Table :__ 
+    - When a country on the map is clicked or selected from the dropdown menu, the demographic table will also update with country-specific information.
 
-<h3 align='center'>Charts</h3>
+- __Charts:__  Built with leaflet.js, Plotly.js and D3.js<br/>
+Once a country is chosen from the dropdown or map, it will render new charts that display information specific to that country. 
 
-1. Picture of country with flag(if flag data was found)
+   - __Warming Stripes chart:__ Built with Plotly.js,
+        - Is a special kind of chart that is used as a country header that shows the increase and decrease of the temperatures by color. 
+          Shades of red for warmer and shades of blue for colder. This chart is not interactive, but it sure does look cool.
+   - __Country Map:__ Built with Leaflet.js,
+        - Shows the map of the selected country and its overall temperature change and Co2 emission over time.
+        - Country flag has been used as a legend.
+   - __Line Chart:__ Built with D3.js,        
+        - Shows all the temperature changes for each month of the year for the chosen country.
+        - By clicking on Seasons or Months, you can see all the data for or navigate to a specific season/month over time since 1960. 
+        - Hovering over the markers will show the value of the temperature change.
+   - __Pie Chart:__ Built with D3.js,
+        - Provides overall temperature change from 1960 to 2019. The Pie chart is also interactive with the line chart. Clicking on a particular season or 
+          a month on the pie chart, provides access to the data and trends on the line chart.
+   - __Temp and Co2 correlation chart:__ Built with D3.js,
+        - Identifies the relation between countries Co2 production and avg. temp changes over the years. data is color-coded as green being low emission,
+          yellow and orange being intermediate, and red being high.
+        
+*Note: All the charts are individually color-coded by seasons, months, and Co2 emission rate.*
 
-![mini-map pic](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/Image/screenshot-minimap.PNG)
+- __Nagivation button:__ User can navigate back to the launch page via the navigation button on the top right or selecting *World Info* on the drop-down menu.
 
-2. Line Chart
+<h2 align='center'>Deployment</h2>
+<img src="./static/Image/deploy-to-heroku.png" alt="TP" align='left'  width="120" height="100"> <br/>
+- app
+  
+  
+<h3 align='center'>ScreenShots</h3>
 
-    + Shows all the temperature changes for each month of the years for the chosen country.
-    + By clicking on Seasons or Months, you can see all the data for or navigate to a specific season/month for that country. 
-    + Hovering over the markers will show the value of the temperature change.
+1. Launch Page Navigation: World Map and Demographic Information Table
 
-![line chart](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/Image/screenshot-line-chart.PNG)
+![launch Page](./static/Image/navigate.gif)
 
-3. Pie Chart
+2. Charts
 
-    + With this chart, you can see the data specific to the seasons.
+![Charts](./static/Image/charts.gif)
 
-![pie chart](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/Image/screenshot-piechart.PNG)
-
-4. Scatter Plot
-
-    + Shows a correlation of temperature change and year. The size and color of the markers coordinate with population and CO2 emissions. 
-
-![scatter](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/Image/screenshot-scatter-chart.PNG)
 
 
 <h2 align='center'>Tools and Technology</h2>
@@ -92,21 +103,8 @@ Using Flask, the initial html page shows a dropdown option to choose a country, 
 5. Bootstrap
 6. HTML
 
-<h3 align='center'>Additional ScreenShots</h3>
 
-1. Demo box
-
-![demo](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/Image/screenshot-demo.PNG)
-
-2. Home page
-
-![home page](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/Image/screenshot-large-map.PNG)
-
-3. Warming Stripes header
-
-![warming stripes](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/static/Image/screenshot-warming-stripes.PNG)
-
-<h3 align='center'>Files</h3>
+<h3 align='center'>Source Code</h3>
 
 1. [Climate.py](https://github.com/divya-gh/Climate-Interactive-Dashboard/blob/main/climate.py)
     -contains functions to pull necessary data from database
@@ -131,4 +129,4 @@ Using Flask, the initial html page shows a dropdown option to choose a country, 
 
 
 
-[(1)]: https://theconversation.com/30-years-ago-global-warming-became-front-page-news-and-both-republicans-and-democrats-took-it-seriously-97658#:~:text=June%2023%2C%201988%20marked%20the,change%20became%20a%20national%20issue.
+
