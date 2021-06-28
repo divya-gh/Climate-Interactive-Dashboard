@@ -795,7 +795,7 @@ function generateLine(key, data,color){
         chartGroup.selectAll(".ygr").attr('display','none');
 
         //Print data
-        //console.log("Months Data: ", monthsData);
+        console.log("Months Data: ", monthsData);
         var janData = d3.extent(monthsData.map(obj => obj.January));
         var febData = d3.extent(monthsData.map(obj => obj.February));
         var marData = d3.extent(monthsData.map(obj => obj.March));
@@ -1334,7 +1334,7 @@ function generateLine(key, data,color){
                 // console.log(i)
                 if(i === 12){
                     //create a path
-                    decgroup.transition().duration(1000).attr('display','inline');
+                    decgroup.attr('display','inline');
                     // console.log(i)
                 }
                 else{
